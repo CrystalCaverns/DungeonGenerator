@@ -15,6 +15,6 @@ public class DungeonGenerator extends JavaPlugin{
 	public void onEnable() {
 		logger = super.getLogger();
 		
-		getCommand("HideAndSeek").setExecutor(new CommListener());
+		getCommand("DungeonGenerator").setExecutor(new CommListener());
 	}
 }
