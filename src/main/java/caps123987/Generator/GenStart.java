@@ -1,6 +1,7 @@
 package caps123987.Generator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class GenStart {
 	int size;
 	
 	private List<Room> roomList=new ArrayList<Room>();
+	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
 	
 	public GenStart(Location startPos,int size) {
 		this.size=size;
@@ -37,25 +39,60 @@ public class GenStart {
 		DunUtils.getRelative(startBlock, DunUtils.rotate( new Vector(1,0,0), 180)).setType(Material.DARK_OAK_PLANKS);//west
 		DunUtils.getRelative(startBlock, DunUtils.rotate( new Vector(1,0,0), 270)).setType(Material.MANGROVE_PLANKS);//north*/
 		
-		
 		Room starterRoom = createRoom(DunType.MAIN,startBlock,0,false);
 
-		for(final Map.Entry<Block, newVector> entry : starterRoom.getEntrances().entrySet()) {
+		for(Map.Entry<Block, newVector> entry : starterRoom.getEntrances().entrySet()) {
 			Block b=entry.getKey();
 				
-			Room r = createRoom(DunType.RIGHT,b,entry.getValue().getRot(),true);
+			Room r = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),true);
 				
-			b.setType(Material.ANDESITE);
-				
-				
+			
+			DunType[] types = DunType.values();
+
 			for(Map.Entry<Block, newVector> entry2:r.getEntrances().entrySet()) {
+				
+				
+				int id = DunUtils.getRandomValue(0, types.length-1);
+				
+				DunType type = types[id];
+				while(!types[id].isEnabled()) {
+					id = DunUtils.getRandomValue(0, types.length-1);
 					
-				entry2.getKey().setType(Material.GRANITE);
-				Room r2 = createRoom(DunType.STRAIGHT,entry2.getKey(),entry2.getValue().getRot(),false);
+					type = types[id];
+				}
 					
-				b.setType(Material.ANDESITE);
+				Room r3 = createRoom(type,entry2.getKey(),entry2.getValue().getRot(),false);
+				entrances.putAll(r3.getEntrances());
+				
 			}
 		}
+		DunType[] types = DunType.values();
+		while(!entrances.isEmpty()) {
+			List<Block> tempList = new ArrayList<Block>();
+			Map<Block,newVector> tempMap=new HashMap<Block,newVector>();
+			for(Map.Entry<Block, newVector> entry:entrances.entrySet()) {
+				
+				int id = DunUtils.getRandomValue(0, types.length-1);
+				
+				DunType type = types[id];
+				while(!types[id].isEnabled()) {
+					id = DunUtils.getRandomValue(0, types.length-1);
+					
+					type = types[id];
+				}
+				Room r = createRoom(type,entry.getKey(),entry.getValue().getRot(),false);
+				tempMap.putAll(r.getEntrances());
+				tempList.add(entry.getKey());
+			}
+			entrances.putAll(tempMap);
+			tempMap.clear();
+			tempList.forEach((Block b)->{
+				entrances.remove(b);
+			});
+			tempList.clear();
+		}
+		
+		
 	}
 	
 	public Room createRoom(DunType type,Block entrance, int rot,boolean debug) {

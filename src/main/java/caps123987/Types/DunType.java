@@ -9,23 +9,25 @@ import org.bukkit.util.Vector;
 import caps123987.Utils.newVector;
 
 public enum DunType {
-	END(0,Material.COAL_BLOCK,new Vector(0,0,-4)),
-	STRAIGHT(1,Material.IRON_BLOCK,new Vector(0,0,-4),new newVector(0,0,4,0)),
-	RIGHT(2,Material.REDSTONE_BLOCK,new Vector(0,0,-4),new newVector(4,0,0,90)),
-	LEFT(3,Material.LAPIS_BLOCK,new Vector(0,0,-4),new newVector(-4,0,0,270)),
-	TCORNER(3,Material.BONE_BLOCK,new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(4,0,0,270)),
-	CROSSSECTION(4,Material.WHITE_WOOL,new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,90),new newVector(-4,0,0,270)),
-	MAIN(5,Material.GOLD_BLOCK,new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,90),new newVector(-4,0,0,270),new newVector(0,0,-4,180));
+	END(true,Material.COAL_BLOCK,new Vector(0,0,-4)),
+	END1(true,Material.COAL_BLOCK,new Vector(0,0,-4)),
+	END2(true,Material.COAL_BLOCK,new Vector(0,0,-4)),
+	STRAIGHT(true,Material.IRON_BLOCK,new Vector(0,0,-4),new newVector(0,0,4,0)),
+	RIGHT(true,Material.REDSTONE_BLOCK,new Vector(0,0,-4),new newVector(4,0,0,270)),
+	LEFT(true,Material.LAPIS_BLOCK,new Vector(0,0,-4),new newVector(-4,0,0,90)),
+	TCORNER(true,Material.BONE_BLOCK,new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(4,0,0,270)),
+	CROSSSECTION(true,Material.WHITE_WOOL,new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,270),new newVector(-4,0,0,90)),
+	MAIN(false,Material.GOLD_BLOCK,new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,90),new newVector(-4,0,0,270),new newVector(0,0,-4,180));
 	
-	private int id;
+	private boolean enabled;
 	
 	private List<newVector> entrances = new ArrayList<newVector>();
 	
 	private Material m;
 	private Vector entrance;
 	
-	private DunType(int id,Material m,Vector entrance,newVector... entrances) {
-		this.id = id;
+	private DunType(boolean enabled,Material m,Vector entrance,newVector... entrances) {
+		this.enabled = enabled;
 		this.m = m;
 		this.entrance = entrance;
 		for(newVector entrance2:entrances) {
@@ -43,17 +45,8 @@ public enum DunType {
 		return entrances;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
-	public DunType getType(int id) {
-		for(DunType type:values()) {
-			if(type.getId()==id) {
-				return type;
-			}
-		}
-		return DunType.END;
+	public boolean isEnabled() {
+		return enabled;
 	}
 	
 }

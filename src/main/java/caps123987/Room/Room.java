@@ -68,7 +68,7 @@ public class Room {
 			Vector rotated = DunUtils.rotate(v.getVector(), rot);
 			
 			this.entrances.put(DunUtils.getRelative(block, rotated)
-					,new newVector(v.getVector(),newRot)) ;
+					,new newVector(rotated,newRot)) ;
 			
 			
 			DunUtils.getRelative(block, rotated).setType(Material.SANDSTONE);

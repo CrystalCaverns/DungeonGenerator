@@ -17,12 +17,12 @@ public class DungeonGenerator extends JavaPlugin{
 		
 		/**To eddit Room you need to edit it in DunType enum
 		*firts you need to add your own "section"
-		*first argument is id, CAN'T repeat
+		*first argument is if section is enabled
 		*second is material for dubuging
 		*third is entrance usualy 0 0 -4
 		*
 		*then you put newVector class witch is youst like Vector but fourth parameter is degree
-		* - set only only to 90 180 270, for examle: 4,0,0,90 means 4 block from center to right and the dungeon neeto to rotate 90 degees
+		* - set only only to 90 180 270, for examle: 4,0,0,270 means 4 block from center to right and the dungeon neeto to rotate 90 degees
 		**/
 		logger = super.getLogger();
 		instance = this;
