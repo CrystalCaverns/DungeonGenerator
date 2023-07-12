@@ -15,6 +15,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+server
 server/banned-ips.json
 server/banned-players.json
 server/bukkit.yml
