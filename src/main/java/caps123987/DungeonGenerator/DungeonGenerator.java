@@ -17,7 +17,7 @@ public class DungeonGenerator extends JavaPlugin{
 		
 		/**To eddit Room you need to edit it in DunType enum
 		*firts you need to add your own "section"
-		*first argument is if section is enabled
+		*first argument is if section is enabled 
 		*second is material for dubuging
 		*third is entrance usualy 0 0 -4
 		*
