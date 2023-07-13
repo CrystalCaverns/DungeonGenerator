@@ -1,29 +1,48 @@
 package caps123987.Room;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
+import com.github.shynixn.structureblocklib.api.enumeration.StructureRotation;
+
+import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Types.DunType;
+import caps123987.Utils.BoudingBox;
 import caps123987.Utils.DunUtils;
 import caps123987.Utils.newVector;
 
 public class Room {
-	DunType type;
-	Block block;
-	Map<Block,newVector> entrances = new HashMap<Block,newVector>();
-	int Rot;
+	private DunType type;
+	private	Block block;
+	private Map<Block,newVector> entrances = new HashMap<Block,newVector>();
+	private int Rot;
+	private BoudingBox boudingBox;
+	private Block entrance;
 	
+	public DungeonGenerator instance = DungeonGenerator.getInstance();
+	
+	Path path;
 	
 	
 	public Room(DunType type,Block entrance,int rot,boolean debug) {
-		this.type=type;
+		this.type =type;
 		this.Rot = rot;
 		
+		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
+		this.setBoudingBox(type.getBoudingBox());
+		
+		this.entrance = entrance;
 		//if(debug)Bukkit.broadcastMessage(type.name()+"  "+type.getEntrance().toString()+" "+rot+"  "+DunUtils.rotate(type.getEntrance(),Rot));
 		
 		if(type.equals(DunType.MAIN)) {
@@ -34,26 +53,70 @@ public class Room {
 						,new newVector(
 						DunUtils.rotate(new Vector(v.getX(),v.getY(),v.getZ()), v.getRot())
 							,v.getRot())) ;
+				DunUtils.getRelative(block, v).setType(Material.ANDESITE);
 			}
 			
-			Bukkit.broadcastMessage("was Main");
+			
 			block.setType(type.getMaterial());
 			return;
 		}else {
-			this.block = DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().multiply(-1),Rot));
-			
-			if(debug)Bukkit.broadcastMessage(Rot+" ");
-			
-			type.getEntrance().multiply(-1);
-			
-			
+			saveBlock(entrance);
 		}
+		
 		
 		//this.block = DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().clone().multiply(-1),Rot));
 		//this.block = entrance;
 		
 		block.getRelative(0, 1, 0).setType(Material.BEDROCK);
 		
+		calculateEntrances(rot);
+		
+		
+		block.setType(type.getMaterial());
+		
+		
+		
+		
+	}
+	
+	private void saveBlock(Block entrance) {
+		this.block = DunUtils.getCenter(type, entrance, Rot); 
+		
+		//DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().multiply(-1),Rot));
+		switch(Rot) {
+		case 0:
+			block = block.getRelative(0, 0, 1);
+			
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
+						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.RED,1));
+			}, 5, 5);
+			break;
+		case 90:
+			block = block.getRelative(1, 0, 0);
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
+						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.GREEN,1));
+			}, 5, 5);
+			break;
+		case 180:
+			block = block.getRelative(0, 0, -1);
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
+						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.YELLOW,1));
+			}, 5, 5);
+			break;
+		case 270:
+			block = block.getRelative(-1, 0, 0);
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
+						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.BLACK,1));
+			}, 5, 5);
+			break;
+		}
+	}
+	
+	public void calculateEntrances(int rot) {
 		for(newVector v: type.getEntrances()) {
 			
 			int newRot = rot - v.getRot();
@@ -73,14 +136,36 @@ public class Room {
 			
 			DunUtils.getRelative(block, rotated).setType(Material.SANDSTONE);
 			
-			if(debug)Bukkit.broadcastMessage(newRot+" ");
 			
 		}
+	}
+	
+	public void setType(DunType type) {
+		this.boudingBox=type.getBoudingBox();
+		this.entrances.clear();
+		this.type = type;
+		
+		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		
 		
-		block.setType(type.getMaterial());
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+			block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +5,block.getLocation().getZ()
+					, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.RED,1));
+		}, 5, 5);
 		
+		saveBlock(entrance);
+		calculateEntrances(Rot);
 		
+	}
+	
+	public Block getEntrance() {
+		return entrance;
+	}
+	
+	public void generatePlatfort() {
+		boudingBox.getBlockList(block,Rot).forEach((Block b)->{
+			b.setType(type.getMaterial());
+		});
 	}
 	
 	public Map<Block,newVector> getEntrances(){
@@ -89,5 +174,65 @@ public class Room {
 	
 	public void applyRoom() {
 		
+		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
+		
+		Block newB = getConer(block);
+		StructureBlockLibApi.INSTANCE
+		.loadStructure(instance)
+		.at(new Location(block.getWorld(),newB.getX() , newB.getY(), newB.getZ())).
+		rotation(structureRotationFromInt(Rot))
+		.loadFromPath(path).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
+	}
+	
+	private Block getConer(Block b) {
+		switch(Rot) {
+		case 180:
+			return DunUtils.getRelative(b, type.getBoudingBox().getCorner1());
+		case 0:
+			return DunUtils.getRelative(b, type.getBoudingBox().getCorner2());
+		case 90:
+			return DunUtils.getRelative(b,new Vector(-type.getBoudingBox().getCorner1().getBlockZ(),0,type.getBoudingBox().getCorner1().getBlockX()));
+		case 270:
+			return DunUtils.getRelative(b,new Vector(type.getBoudingBox().getCorner1().getBlockZ(),0,-type.getBoudingBox().getCorner1().getBlockX()));
+		}
+		return b;
+	}
+	
+	
+	private StructureRotation structureRotationFromInt(int d) {
+		switch (d){
+		case 90:
+			return StructureRotation.ROTATION_90;
+		case 180:
+			return StructureRotation.NONE;
+		case 270:
+			return StructureRotation.ROTATION_270;
+		case 0:
+			return StructureRotation.ROTATION_180;
+		}
+		return StructureRotation.NONE;
+		
+	}
+
+	public DunType getType() {
+		return type;
+	}
+	
+	public Block getBlock() {
+		return block;
+	}
+	
+	public int getRot() {
+		return Rot;
+	}
+
+
+
+	public BoudingBox getBoudingBox() {
+		return boudingBox;
+	}
+
+	public void setBoudingBox(BoudingBox boudingBox) {
+		this.boudingBox = boudingBox;
 	}
 }

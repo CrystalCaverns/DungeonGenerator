@@ -5,6 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import caps123987.Types.DunType;
+
 public class DunUtils {
 	public static int getRandomValue(int Min, int Max)
     {
@@ -32,6 +34,16 @@ public class DunUtils {
 			return v;
 		}
 		
-	}					
+	}	
+	public static Block getCenter(DunType type,Block entrance,int rot) {
+		Block b =DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().multiply(-1),rot));
+		
+		type.getEntrance().multiply(-1);
+		return b;
+	}
+	
+	public boolean canGenerate() {
+		return false;
+	}
 	
 }
