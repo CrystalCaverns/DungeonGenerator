@@ -45,6 +45,7 @@ public class Room {
 		this.entrance = entrance;
 		//if(debug)Bukkit.broadcastMessage(type.name()+"  "+type.getEntrance().toString()+" "+rot+"  "+DunUtils.rotate(type.getEntrance(),Rot));
 		
+		
 		if(type.equals(DunType.MAIN)) {
 			this.block = entrance;
 			
@@ -53,11 +54,8 @@ public class Room {
 						,new newVector(
 						DunUtils.rotate(new Vector(v.getX(),v.getY(),v.getZ()), v.getRot())
 							,v.getRot())) ;
-				DunUtils.getRelative(block, v).setType(Material.ANDESITE);
 			}
 			
-			
-			block.setType(type.getMaterial());
 			return;
 		}else {
 			saveBlock(entrance);
@@ -67,15 +65,8 @@ public class Room {
 		//this.block = DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().clone().multiply(-1),Rot));
 		//this.block = entrance;
 		
-		block.getRelative(0, 1, 0).setType(Material.BEDROCK);
 		
 		calculateEntrances(rot);
-		
-		
-		block.setType(type.getMaterial());
-		
-		
-		
 		
 	}
 	
@@ -83,37 +74,8 @@ public class Room {
 		this.block = DunUtils.getCenter(type, entrance, Rot); 
 		
 		//DunUtils.getRelative(entrance, DunUtils.rotate(type.getEntrance().multiply(-1),Rot));
-		switch(Rot) {
-		case 0:
-			block = block.getRelative(0, 0, 1);
-			
-			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
-				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
-						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.RED,1));
-			}, 5, 5);
-			break;
-		case 90:
-			block = block.getRelative(1, 0, 0);
-			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
-				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
-						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.GREEN,1));
-			}, 5, 5);
-			break;
-		case 180:
-			block = block.getRelative(0, 0, -1);
-			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
-				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
-						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.YELLOW,1));
-			}, 5, 5);
-			break;
-		case 270:
-			block = block.getRelative(-1, 0, 0);
-			Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
-				block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +2,block.getLocation().getZ()
-						, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.BLACK,1));
-			}, 5, 5);
-			break;
-		}
+		
+		this.block = DunUtils.getRelativeByRot(block, Rot);
 	}
 	
 	public void calculateEntrances(int rot) {
@@ -132,10 +94,6 @@ public class Room {
 			
 			this.entrances.put(DunUtils.getRelative(block, rotated)
 					,new newVector(rotated,newRot)) ;
-			
-			
-			DunUtils.getRelative(block, rotated).setType(Material.SANDSTONE);
-			
 			
 		}
 	}

@@ -31,6 +31,7 @@ public class CommListener implements CommandExecutor{
 		String subCommand = args[0];
 		
 		if(subCommand.equals("start")) {
+			sender.sendMessage("generationg");
 			new GenStart(p.getLocation(),5);
 			return true;
 		}

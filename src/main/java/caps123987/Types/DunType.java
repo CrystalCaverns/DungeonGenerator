@@ -18,10 +18,10 @@ public enum DunType {
 	STRAIGHTLONG(true,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-6),new Vector(4,0,6)),new Vector(0,0,-6),new newVector(0,0,6,0)),
 	LEFT(true,Material.REDSTONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270)),
 	RIGHT(true,Material.LAPIS_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90)),
-	TCORNER(false,Material.BONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(4,0,0,270)),
+	TCORNER(true,Material.BONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(4,0,0,270)),
 	CROSSSECTION(true,Material.WHITE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,270),new newVector(-4,0,0,90)),
-	STRAIGHTRIGHT(false,Material.RED_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
-	STRAIGHTLEFT(false,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(0,0,4,0)),
+	STRAIGHTRIGHT(true,Material.RED_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(0,0,4,0)),
+	STRAIGHTLEFT(false,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
 	
 	//DO NOT ENABLE
 	EMERGENCYSTOPWALL(false,Material.YELLOW_CONCRETE,new BoudingBox(new Vector(-4,0,0),new Vector(4,0,1)),new Vector(0,0,2)),
