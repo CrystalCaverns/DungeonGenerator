@@ -1,5 +1,7 @@
 package caps123987.Utils;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,6 +12,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
 import caps123987.Types.DunType;
 
@@ -73,6 +76,40 @@ public class DunUtils {
 			}
 		}
 		return null;
+	}
+	public static File getVarFile(String name, int iteration, DungeonGenerator instance) {
+		List<File> listF=new ArrayList<File>();
+		for(int i = 1;i<iteration;i++) {
+			
+			File f =new File(instance.getDataFolder(),name+i+".nbt");
+			
+			
+			if(f.exists()) {
+				listF.add(f);
+			}
+		}
+		
+		
+		return listF.get(getRandomValue(0,listF.size()-1));
+	}
+	public static List<DunType> getRandomDunType() {
+		DunType[] types = DunType.values();
+		DunType typ = DunType.END;
+		
+		List<DunType> typesTo = new ArrayList<DunType>();
+		for(DunType type:types) {
+			if(!type.isEnabled()) {
+				continue;
+			}
+			for(int i = 0;i<type.getRare();i++) {
+				typesTo.add(type);
+			}
+			
+		}
+		int id =getRandomValue(0,typesTo.size()-1);
+		typ = typesTo.get(id);
+		
+		return typesTo;
 	}
 	
 }

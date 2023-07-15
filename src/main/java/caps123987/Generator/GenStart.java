@@ -30,7 +30,7 @@ public class GenStart {
 	
 	private int limitMax = 150;
 	private int limitMin = 100;
-	
+	private int maxY = 30;
 	
 	public GenStart(Location startPos,int size) {
 		this.size=size;
@@ -71,7 +71,7 @@ public class GenStart {
 		for(Map.Entry<Block, newVector> entry : starterRoom.getEntrances().entrySet()) {
 			Block b=entry.getKey();
 				
-			Room r = createRoom(DunType.STRAIGHTLONG,b,entry.getValue().getRot(),false,new ArrayList<>());
+			Room r = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),false,new ArrayList<>());
 				
 			
 			DunType[] types = DunType.values();
@@ -94,32 +94,44 @@ public class GenStart {
 			}
 		}
 		
-		DunType[] types = DunType.values();
 		
+		List<DunType> types = DunUtils.getRandomDunType();
+		//generate entrances until empty
+		int run = 1;
 		while(!entrances.isEmpty()) {
-			
+			Bukkit.broadcastMessage("run: "+run);
 			List<Block> tempList = new ArrayList<Block>();
 			Map<Block,newVector> tempMap=new HashMap<Block,newVector>();
 			
 			for(Map.Entry<Block, newVector> entry:entrances.entrySet()) {
 				
-				int id = DunUtils.getRandomValue(0, types.length-1);
+				int id = DunUtils.getRandomValue(0, types.size()-1);
 				
-				DunType type = types[id];
-				while(!types[id].isEnabled()) {
+				DunType type = types.get(id);
+				/*while(!types[id].isEnabled()) {
 					id = DunUtils.getRandomValue(0, types.length-1);
 					
 					type = types[id];
-				}
+				}*/
+				
 				int distance = (int) entry.getKey().getLocation().distance(startPos);
 				
 				
 				if(type.equals(DunType.END)&&distance<limitMin) {
-					while(!types[id].isEnabled()||type.equals(DunType.END)) {
-						id = DunUtils.getRandomValue(0, types.length-1);
+					while(type.equals(DunType.END)||type.equals(DunType.END1)) {
+						id = DunUtils.getRandomValue(0, types.size()-1);
 						
-						type = types[id];
+						type = types.get(id);
 					}
+				}
+				
+				if(entry.getKey().getY()>startBlock.getY()+maxY&&type.equals(DunType.UP)) {
+					while(type.equals(DunType.UP)) {
+						id = DunUtils.getRandomValue(0, types.size()-1);
+						
+						type = types.get(id);
+					}
+					//Bukkit.broadcastMessage("to high "+type.name()+" "+entry);
 				}
 				
 				if(distance>limitMax) {
@@ -138,21 +150,23 @@ public class GenStart {
 			
 			tempList.clear();
 			
-			
+			run ++;
 		}
 		
 		
 		
 		List<Room> temp = new ArrayList<>();
 		
+		run =1;
+		//fill holes
 		for(Room r:roomList) {
-			
+			Bukkit.broadcastMessage("fill run: "+run);
 			for(Map.Entry<Block, newVector> entry:r.getEntrances().entrySet()) {
 				Block b = entry.getKey();
 				newVector v = entry.getValue();
 				
 				Block newB = DunUtils.getRelativeByRot(b, v.getRot());
-				if(newB.getType().equals(Material.AIR)&&newB.getRelative(0,-1,0).getType().equals(Material.AIR)) {
+				if((newB.getType().equals(Material.AIR)||newB.getType().equals(Material.RED_CONCRETE))&&newB.getRelative(0,-1,0).getType().equals(Material.AIR)) {
 						
 					Room toGen = DunUtils.getRoomByEntrance(roomList, b);
 						
@@ -171,24 +185,28 @@ public class GenStart {
 					
 					temp.add(toGen);
 				}
-					
+				
 				//newB.getRelative(0, 8, 0).setType(Material.COMMAND_BLOCK);
 			}
 			
 			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
 				r.applyRoom();
+				if(r.getType().equals(DunType.UP)) {
+					r.generatePlatfort();
+				}
 			}else {
 				temp.add(r);
 			}
+			run++;
 		}
 		
 		
 		
-		temp.forEach((Room r)->{
+		for(Room r:temp){
 			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
 				r.applyRoom();
 			},10);
-		});
+		}
 		
 	}
 	

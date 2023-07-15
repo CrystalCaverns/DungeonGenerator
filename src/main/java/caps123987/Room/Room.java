@@ -1,7 +1,10 @@
 package caps123987.Room;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -39,7 +42,6 @@ public class Room {
 		this.type =type;
 		this.Rot = rot;
 		
-		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		this.setBoudingBox(type.getBoudingBox());
 		
 		this.entrance = entrance;
@@ -103,8 +105,6 @@ public class Room {
 		this.entrances.clear();
 		this.type = type;
 		
-		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
-		
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
 			block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +5,block.getLocation().getZ()
@@ -122,6 +122,12 @@ public class Room {
 	
 	public void generatePlatfort() {
 		boudingBox.getBlockList(block,Rot).forEach((Block b)->{
+			entrances.forEach((Block b2, newVector v)->{
+				Block b3 = b.getRelative(0, b2.getY()-b.getY()-1, 0);
+				b3.setType(type.getMaterial());
+				
+			});
+			
 			b.setType(type.getMaterial());
 		});
 	}
@@ -134,12 +140,16 @@ public class Room {
 		
 		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		
+		File f =DunUtils.getVarFile(type.name(), 4,instance);
+				
+				
+		
 		Block newB = getConer(block);
 		StructureBlockLibApi.INSTANCE
 		.loadStructure(instance)
 		.at(new Location(block.getWorld(),newB.getX() , newB.getY(), newB.getZ())).
 		rotation(structureRotationFromInt(Rot))
-		.loadFromPath(path).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
+		.loadFromFile(f).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
 	}
 	
 	private Block getConer(Block b) {
