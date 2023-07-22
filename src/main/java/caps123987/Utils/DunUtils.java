@@ -14,6 +14,7 @@ import org.bukkit.util.Vector;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
+import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 
 public class DunUtils {
@@ -77,11 +78,11 @@ public class DunUtils {
 		}
 		return null;
 	}
-	public static File getVarFile(String name, int iteration, DungeonGenerator instance) {
+	public static File getVarFile(String name, int iteration,DunMater m, DungeonGenerator instance) {
 		List<File> listF=new ArrayList<File>();
 		for(int i = 1;i<iteration;i++) {
 			
-			File f =new File(instance.getDataFolder(),name+i+".nbt");
+			File f =new File(instance.getDataFolder(),name+"_"+m.name()+"_"+i+".nbt");
 			
 			
 			if(f.exists()) {

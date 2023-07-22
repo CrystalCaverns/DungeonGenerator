@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import caps123987.Commands.CommListener;
+import caps123987.Commands.TabC;
 
 public class DungeonGenerator extends JavaPlugin{
 	
@@ -34,6 +35,7 @@ public class DungeonGenerator extends JavaPlugin{
 		logger = super.getLogger();
 		instance = this;
 		getCommand("DungeonGenerator").setExecutor(new CommListener());
+		getCommand("DungeonGenerator").setTabCompleter(new TabC());
 	}
 	
 	public static DungeonGenerator getInstance() {

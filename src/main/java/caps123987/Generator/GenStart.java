@@ -158,16 +158,40 @@ public class GenStart {
 		List<Room> temp = new ArrayList<>();
 		
 		run =1;
-		//fill holes
+		//apply room
 		for(Room r:roomList) {
 			Bukkit.broadcastMessage("fill run: "+run);
+			
+			
+			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+				r.applyRoom();
+				if(r.getType().equals(DunType.UP)) {
+					r.generatePlatfort();
+				}
+			}else {
+				temp.add(r);
+			}
+			run++;
+		}
+		
+		//repair run
+		run = 1;
+		for(Room r: roomList) {
+			Bukkit.broadcastMessage("repair run: "+run);
 			for(Map.Entry<Block, newVector> entry:r.getEntrances().entrySet()) {
 				Block b = entry.getKey();
 				newVector v = entry.getValue();
 				
 				Block newB = DunUtils.getRelativeByRot(b, v.getRot());
-				if((newB.getType().equals(Material.AIR)||newB.getType().equals(Material.RED_CONCRETE))&&newB.getRelative(0,-1,0).getType().equals(Material.AIR)) {
+				/*
+				 * newB.getType().equals(Material.AIR)&&newB.getRelative(0,-1,0).getType().equals(Material.AIR)
+						||(!newB.getRelative(0,-1,0).getType().equals(Material.AIR)&&!newB.getType().equals(Material.AIR))
+						||newB.getType().equals(Material.RED_CONCRETE)
+				 */
+				if(newB.getRelative(0,-1,0).getType().equals(Material.AIR)||newB.getType().isSolid()) {
 						
+					Bukkit.broadcastMessage("repair run: "+run+" success");
+					
 					Room toGen = DunUtils.getRoomByEntrance(roomList, b);
 						
 					Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
@@ -185,21 +209,9 @@ public class GenStart {
 					
 					temp.add(toGen);
 				}
-				
-				//newB.getRelative(0, 8, 0).setType(Material.COMMAND_BLOCK);
-			}
-			
-			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
-				r.applyRoom();
-				if(r.getType().equals(DunType.UP)) {
-					r.generatePlatfort();
-				}
-			}else {
-				temp.add(r);
 			}
 			run++;
 		}
-		
 		
 		
 		for(Room r:temp){

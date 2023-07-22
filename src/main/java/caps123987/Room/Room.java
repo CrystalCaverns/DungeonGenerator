@@ -20,6 +20,7 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureRotation;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
+import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import caps123987.Utils.BoudingBox;
 import caps123987.Utils.DunUtils;
@@ -140,7 +141,7 @@ public class Room {
 		
 		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		
-		File f =DunUtils.getVarFile(type.name(), 4,instance);
+		File f =DunUtils.getVarFile(type.name(), 4,DunMater.COBBLESTONE,instance);
 				
 				
 		
