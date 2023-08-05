@@ -11,10 +11,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.GenStart;
@@ -51,6 +58,13 @@ public class CommListener implements CommandExecutor{
 			new GenStart(p.getLocation(),5);
 			return true;
 		}
+		
+		if(subCommand.equals("geninv")) {
+			sender.sendMessage("geninv");
+			createInv(p);
+			return true;
+		}
+		
 		if(subCommand.equals("uploadSch")) {
 			sender.sendMessage("uploadSch");
 			
@@ -94,5 +108,19 @@ public class CommListener implements CommandExecutor{
         
         in.close();
         out.close();        
+	}
+	public void createInv(Player p) {
+		Container ch = (Container) p.getTargetBlockExact(5).getState();
+		Inventory inv = ch.getInventory();
+		
+		FileConfiguration yaml=YamlConfiguration.loadConfiguration(instance.invFile);
+		yaml.set("Items", inv.getContents());
+		
+		try {
+			yaml.save(new File(instance.invFile,1+".yml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

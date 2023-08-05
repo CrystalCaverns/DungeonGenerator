@@ -7,9 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import caps123987.Types.DunMater;
+
 public class BoudingBox {
 	private Vector corner1;
 	private Vector corner2;
+	
+	private DunMater mater;
 	
 	private List<Vector> vectors =new ArrayList<Vector>();
 	
@@ -19,11 +23,9 @@ public class BoudingBox {
 		
 		
 		int x1 = corner1.clone().getBlockX();
-		int y1 = corner1.clone().getBlockX();
 		int z1 = corner1.clone().getBlockZ();
 		
 		int x2 = corner2.clone().getBlockX();
-		int y2 = corner1.clone().getBlockZ();
 		int z2 = corner2.clone().getBlockZ();
 		
 		for(int X = x1; X!=x2+1;X++) {
@@ -32,6 +34,7 @@ public class BoudingBox {
 			}
 		}
 	}
+	
 	
 	public List<Vector> getList(){
 		return vectors;

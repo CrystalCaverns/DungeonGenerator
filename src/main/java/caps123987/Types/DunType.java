@@ -21,7 +21,7 @@ public enum DunType {
 	TCORNER(true,100,Material.BONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(4,0,0,270)),
 	CROSSSECTION(true,100,Material.WHITE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,270),new newVector(-4,0,0,90)),
 	STRAIGHTRIGHT(true,90,Material.RED_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(0,0,4,0)),
-	STRAIGHTLEFT(true,90,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,4,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
+	STRAIGHTLEFT(true,90,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
 	UP(true,30,Material.BLACK_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,8,4,0)),
 	
 	//DO NOT ENABLE

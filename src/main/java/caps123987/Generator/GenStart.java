@@ -1,5 +1,7 @@
 package caps123987.Generator;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,9 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
 import caps123987.Types.DunType;
@@ -28,15 +33,17 @@ public class GenStart {
 	private List<Room> roomList=new ArrayList<Room>();
 	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
 	
-	private int limitMax = 150;
+	private int limitMax = 200;
 	private int limitMin = 100;
-	private int maxY = 30;
+	private int maxY = 50;
 	
 	public GenStart(Location startPos,int size) {
 		this.size=size;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
 		start();
+		
+		setNewSpawns();
 	}
 	
 	public void start() {
@@ -68,28 +75,29 @@ public class GenStart {
 		
 		Room starterRoom = createRoom(DunType.MAIN,startBlock,0,false,new ArrayList<>());
 
+
 		for(Map.Entry<Block, newVector> entry : starterRoom.getEntrances().entrySet()) {
 			Block b=entry.getKey();
 				
-			Room r = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),false,new ArrayList<>());
-				
+			Room r1 = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),false,new ArrayList<>());
 			
 			DunType[] types = DunType.values();
 
-			for(Map.Entry<Block, newVector> entry2:r.getEntrances().entrySet()) {
+			for(Map.Entry<Block, newVector> entry2:r1.getEntrances().entrySet()) {
 				
 				
 				int id = DunUtils.getRandomValue(0, types.length-1);
 				
 				DunType type = types[id];
+				
 				while(!types[id].isEnabled()) {
 					id = DunUtils.getRandomValue(0, types.length-1);
 					
 					type = types[id];
 				}
 					
-				Room r3 = createRoom(type,entry2.getKey(),entry2.getValue().getRot(),false,null);
-				entrances.putAll(r3.getEntrances());
+				Room r2 = createRoom(type,entry2.getKey(),entry2.getValue().getRot(),false,null);
+				entrances.putAll(r2.getEntrances());
 				
 			}
 		}
@@ -266,6 +274,27 @@ public class GenStart {
 		room.generatePlatfort();
 		roomList.add(room);
 		return room;
+	}
+	
+	public void setNewSpawns() {
+		File file = new File(DungeonGenerator.instance.getDataFolder(),"Spawns.yml");
+		FileConfiguration yaml=YamlConfiguration.loadConfiguration(file);
+		
+		List<Location> toSpawn = new ArrayList<Location>();
+		
+		for(Room r:roomList) {
+			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+				toSpawn.add(r.getBlock().getLocation());
+			}
+		}
+		
+		yaml.set("Spawns", toSpawn);
+		try {
+			yaml.save(file);
+		} catch (IOException e) {}
+		
+		DungeonGenerator.instance.loadSpawns();
+		
 	}
 	
 }

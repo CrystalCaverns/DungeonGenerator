@@ -28,6 +28,7 @@ public class TabC implements TabCompleter{
 			List<String> list = new ArrayList<String>();
 			list.add("uploadSch");
 			list.add("start");
+			list.add("geninv");
 			return list;
 		}
 		
