@@ -43,7 +43,7 @@ public class ChestManager {
 	
 	public Inventory openInventory(Block b) {
 		if(!exists(b)) {
-			register(b,getRandomInventory(4));
+			register(b,getRandomInventory(15));
 		}
 		
 		return chests.get(b);

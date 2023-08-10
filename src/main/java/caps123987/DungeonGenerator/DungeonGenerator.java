@@ -20,6 +20,7 @@ import caps123987.Commands.TabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Managers.ChestManager;
+import caps123987.Spawning.Spawn;
 import caps123987.Utils.RegChest;
 
 public class DungeonGenerator extends JavaPlugin{
@@ -74,6 +75,10 @@ public class DungeonGenerator extends JavaPlugin{
 		getCommand("DungeonGenerator").setTabCompleter(new TabC());
 		
 		logger.log(Level.INFO,spawns.size()+"");
+		
+		Bukkit.getScheduler().runTaskTimer(instance, ()->new Spawn(), 100L, 100L);
+		
+		
 	}
 	
 	@SuppressWarnings("unchecked")

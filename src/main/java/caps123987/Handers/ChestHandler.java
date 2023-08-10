@@ -3,7 +3,10 @@ package caps123987.Handers;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -49,6 +52,9 @@ public class ChestHandler implements Listener{
 		p.closeInventory();
 		
 		p.openInventory(chestManager.openInventory(b));
+		
+		
+		
 		/*if(!chestManager.isEnabled(b)) {
 			return;
 		}*/

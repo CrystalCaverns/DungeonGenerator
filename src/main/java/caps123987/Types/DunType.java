@@ -14,6 +14,7 @@ public enum DunType {
 	END(true,100,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	END1(false,1,Material.GREEN_CONCRETE,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	END2(false,0,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
+	BIG(true,1,Material.ACACIA_LOG,new BoudingBox(new Vector(-7,0,-7),new Vector(7,0,7)),new Vector(0,0,-7),new newVector(0,0,7,0),new newVector(7,0,0,270),new newVector(-7,0,0,90)),
 	STRAIGHT(true,100,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0)),
 	STRAIGHTLONG(false,5,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-6),new Vector(4,0,6)),new Vector(0,0,-6),new newVector(0,0,6,0)),
 	LEFT(true,100,Material.REDSTONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270)),
