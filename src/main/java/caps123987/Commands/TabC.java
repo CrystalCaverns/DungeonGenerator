@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -17,9 +16,6 @@ public class TabC implements TabCompleter{
 		if(!(sender instanceof Player)) {
 			return Collections.emptyList();
 		}
-		
-		
-		
 		
 		int lenght = args.length;
 		

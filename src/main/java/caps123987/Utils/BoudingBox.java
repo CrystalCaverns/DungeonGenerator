@@ -3,17 +3,12 @@ package caps123987.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
-
-import caps123987.Types.DunMater;
 
 public class BoudingBox {
 	private Vector corner1;
 	private Vector corner2;
-	
-	private DunMater mater;
 	
 	private List<Vector> vectors =new ArrayList<Vector>();
 	

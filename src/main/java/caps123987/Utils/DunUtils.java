@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
@@ -95,7 +91,7 @@ public class DunUtils {
 	}
 	public static List<DunType> getRandomDunType() {
 		DunType[] types = DunType.values();
-		DunType typ = DunType.END;
+
 		
 		List<DunType> typesTo = new ArrayList<DunType>();
 		for(DunType type:types) {
@@ -107,8 +103,6 @@ public class DunUtils {
 			}
 			
 		}
-		int id =getRandomValue(0,typesTo.size()-1);
-		typ = typesTo.get(id);
 		
 		return typesTo;
 	}

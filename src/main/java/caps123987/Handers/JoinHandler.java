@@ -25,7 +25,6 @@ public class JoinHandler implements Listener{
 		Location finalLoc = null;
 		
 		
-		Bukkit.broadcastMessage(list.size()+"");
 		if(list.size()==1) {
 			finalLoc = list.get(0);
 		}else {

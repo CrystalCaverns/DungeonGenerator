@@ -6,13 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-
-import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +16,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.GenStart;
+import caps123987.Managers.ChestManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import net.md_5.bungee.api.ChatColor;
@@ -66,27 +62,20 @@ public class CommListener implements CommandExecutor{
 		}
 		
 		if(subCommand.equals("uploadSch")) {
-			sender.sendMessage("uploadSch");
+			uploadSch(sender);
 			
-			Path pa = instance.getServer().getWorldContainer().toPath().resolve("world").resolve("generated").resolve("minecraft").resolve("structures");
-			
-			for(DunType type : DunType.values()) {
-				
-				for(DunMater ma: DunMater.values()) {
-					for(int i = 1;i<4;i++) {
-						File f = pa.resolve(type.name()+"_"+ma.name()+"_"+i+".nbt").toFile();
-						if(f.exists()) {
-							try {
-								copyFiles(f,instance.getDataFolder());
-							} catch (IOException e) {
-								sender.sendMessage("error while coping file: "+f.getName()+" with error: "+e.toString());
-							}
-						}
-					}
-				}
-			}
+			return true;
+		}
+		
+		if(subCommand.equals("test")) {
+			File f  =new File(instance.getDataFolder(),"test.nbt");
 			
 			
+			StructureBlockLibApi.INSTANCE
+			.loadStructure(instance)
+			.includeEntities(true)
+			.at(p.getLocation())
+			.loadFromFile(f).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
 			
 			return true;
 		}
@@ -94,7 +83,29 @@ public class CommListener implements CommandExecutor{
 		return true;
 	}
 	
-	public static void copyFiles(File sourceLocation , File targetLocation)
+	public void uploadSch(CommandSender sender) {
+		sender.sendMessage("uploadSch");
+		
+		Path pa = instance.getServer().getWorldContainer().toPath().resolve("world").resolve("generated").resolve("minecraft").resolve("structures");
+		
+		for(DunType type : DunType.values()) {
+			
+			for(DunMater ma: DunMater.values()) {
+				for(int i = 1;i<4;i++) {
+					File f = pa.resolve(type.name()+"_"+ma.name()+"_"+i+".nbt").toFile();
+					if(f.exists()) {
+						try {
+							copyFiles(f,instance.getDataFolder());
+						} catch (IOException e) {
+							sender.sendMessage("error while coping file: "+f.getName()+" with error: "+e.toString());
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void copyFiles(File sourceLocation , File targetLocation)
 	    throws IOException {
 
         if (!targetLocation.exists()) {
@@ -116,8 +127,10 @@ public class CommListener implements CommandExecutor{
 		FileConfiguration yaml=YamlConfiguration.loadConfiguration(instance.invFile);
 		yaml.set("Items", inv.getContents());
 		
+		int size = ChestManager.getInvs(instance.maxInv, instance.invFile).size()+1;
+		
 		try {
-			yaml.save(new File(instance.invFile,1+".yml"));
+			yaml.save(new File(instance.invFile,size+".yml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

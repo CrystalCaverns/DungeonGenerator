@@ -3,10 +3,8 @@ package caps123987.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.inventory.Inventory;
 
 /*
  * WIP

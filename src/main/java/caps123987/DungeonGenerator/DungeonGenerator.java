@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -20,7 +19,6 @@ import caps123987.Commands.TabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Managers.ChestManager;
-import caps123987.Spawning.Spawn;
 import caps123987.Utils.RegChest;
 
 public class DungeonGenerator extends JavaPlugin{
@@ -31,6 +29,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public static DungeonGenerator instance;
 	public ChestManager chestManager;
 	
+	public final int maxInv = 15;
 	public File invFile;
 	
 	public static List<Location> spawns = new ArrayList<Location>();
@@ -76,7 +75,7 @@ public class DungeonGenerator extends JavaPlugin{
 		
 		logger.log(Level.INFO,spawns.size()+"");
 		
-		Bukkit.getScheduler().runTaskTimer(instance, ()->new Spawn(), 100L, 100L);
+		//Bukkit.getScheduler().runTaskTimer(instance, ()->new Spawn(), 100L, 100L);
 		
 		
 	}
