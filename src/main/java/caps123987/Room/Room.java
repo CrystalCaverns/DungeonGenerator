@@ -138,8 +138,11 @@ public class Room {
 		
 		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		
-		File f =DunUtils.getVarFile(type.name(), 4,DunMater.COBBLESTONE,instance);
+		File f =DunUtils.getVarFile(type.name(), 6,DunMater.COBBLESTONE,instance);
 				
+		if(f.getName().equals("STRAIGHT_COBBLESTONE_5")) {
+			Bukkit.broadcastMessage("5"+block.getLocation().toString());
+		}
 				
 		
 		Block newB = getConer(block);

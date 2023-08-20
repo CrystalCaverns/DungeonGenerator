@@ -9,11 +9,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class TabC implements TabCompleter{
 
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
 		if(!(sender instanceof Player)) {
+			return Collections.emptyList();
+		}
+		
+		if(!sender.hasPermission("DungeonGenerator.admin")) {
 			return Collections.emptyList();
 		}
 		

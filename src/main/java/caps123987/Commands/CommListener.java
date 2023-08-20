@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,6 +26,7 @@ import caps123987.Generator.GenStart;
 import caps123987.Managers.ChestManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
+import caps123987.Utils.DunUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class CommListener implements CommandExecutor{
@@ -37,6 +41,8 @@ public class CommListener implements CommandExecutor{
 		
 		Player p = (Player)sender;
 		
+		String subCommand = args[0];
+		
 		if(!sender.hasPermission("DungeonGenerator.admin")) {
 			sender.sendMessage(ChatColor.RED+"You don't have permissions to use this command");
 			return true;
@@ -47,7 +53,11 @@ public class CommListener implements CommandExecutor{
 			return true;
 		}
 		
-		String subCommand = args[0];
+		if(subCommand.equals("respawn")) {
+			sender.sendMessage("Respawning");
+			respawn(p);
+			return true;
+		}
 		
 		if(subCommand.equals("start")) {
 			sender.sendMessage("generationg");
@@ -67,20 +77,21 @@ public class CommListener implements CommandExecutor{
 			return true;
 		}
 		
-		if(subCommand.equals("test")) {
-			File f  =new File(instance.getDataFolder(),"test.nbt");
-			
-			
-			StructureBlockLibApi.INSTANCE
-			.loadStructure(instance)
-			.includeEntities(true)
-			.at(p.getLocation())
-			.loadFromFile(f).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
-			
-			return true;
-		}
-		
 		return true;
+	}
+	public void respawn(Player p) {
+		List<Location> list = DungeonGenerator.instance.spawns;
+		
+		Location finalLoc = null;
+		
+		
+		if(list.size()==1) {
+			finalLoc = list.get(0);
+		}else {
+			finalLoc = list.get(DunUtils.getRandomValue(0, list.size()-1));
+		}
+		finalLoc = finalLoc.add(0, 1, 0);
+		p.teleport(finalLoc);
 	}
 	
 	public void uploadSch(CommandSender sender) {
@@ -91,7 +102,7 @@ public class CommListener implements CommandExecutor{
 		for(DunType type : DunType.values()) {
 			
 			for(DunMater ma: DunMater.values()) {
-				for(int i = 1;i<4;i++) {
+				for(int i = 1;i<6;i++) {
 					File f = pa.resolve(type.name()+"_"+ma.name()+"_"+i+".nbt").toFile();
 					if(f.exists()) {
 						try {
