@@ -104,10 +104,10 @@ public class Room {
 		this.type = type;
 		
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+		/*Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
 			block.getWorld().spawnParticle(Particle.REDSTONE, block.getLocation().getX(),block.getLocation().getY() +5,block.getLocation().getZ()
 					, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.RED,1));
-		}, 5, 5);
+		}, 5, 5);*/
 		
 		saveBlock(entrance);
 		calculateEntrances(Rot);
@@ -139,10 +139,6 @@ public class Room {
 		this.path = instance.getDataFolder().toPath().resolve(type.name()+".nbt");
 		
 		File f =DunUtils.getVarFile(type.name(), 6,DunMater.COBBLESTONE,instance);
-				
-		if(f.getName().equals("STRAIGHT_COBBLESTONE_5")) {
-			Bukkit.broadcastMessage("5"+block.getLocation().toString());
-		}
 				
 		
 		Block newB = getConer(block);

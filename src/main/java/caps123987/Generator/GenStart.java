@@ -202,10 +202,10 @@ public class GenStart {
 					
 					Room toGen = DunUtils.getRoomByEntrance(roomList, b);
 						
-					Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
+					/*Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, ()->{
 						b.getWorld().spawnParticle(Particle.REDSTONE, b.getLocation().getX(),b.getLocation().getY() +10,b.getLocation().getZ()
 								, 5, 0.1 , 0.1 , 0.1 ,new DustOptions(Color.GREEN,1));
-					}, 5, 5);
+					}, 5, 5);*/
 					
 					if(toGen==null) {
 						Room room = new Room(DunType.EMERGENCYSTOPWALL,b,v.getRot(),false);
