@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Utils.DunUtils;
+import caps123987.Utils.LootTable;
 
 public class ChestManager {
 
@@ -56,13 +57,14 @@ public class ChestManager {
 		
 		List<File> files =getInvs(iterator,parent);
 		
-		File finalF = files.get(DunUtils.getRandomValue(0, files.size()-1));
-		FileConfiguration yaml=YamlConfiguration.loadConfiguration(finalF);
+		//File finalF = files.get(DunUtils.getRandomValue(0, files.size()-1));
+		//FileConfiguration yaml=YamlConfiguration.loadConfiguration(finalF);
 		
 		Inventory inv = Bukkit.createInventory(null, 27,title);
 		
-		@SuppressWarnings("unchecked")
-		List<ItemStack> list =(List<ItemStack>) yaml.get("Items");
+		LootTable table = new LootTable();
+		
+		List<ItemStack> list = table.generate();
              
 		
         boolean[] chosen = new boolean[inv.getSize()]; 

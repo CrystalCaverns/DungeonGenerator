@@ -14,8 +14,9 @@ public enum DunType {
 	END(true,100,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	END1(false,1,Material.GREEN_CONCRETE,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	END2(false,0,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
-	BIG(true,1,Material.ACACIA_LOG,new BoudingBox(new Vector(-7,0,-7),new Vector(7,0,7)),new Vector(0,0,-7),new newVector(0,0,7,0),new newVector(7,0,0,270),new newVector(-7,0,0,90)),
-	STRAIGHT(true,100,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0)),
+	BIG(false,1,Material.ACACIA_LOG,new BoudingBox(new Vector(-7,0,-7),new Vector(7,0,7)),new Vector(0,0,-7),new newVector(0,0,7,0),new newVector(7,0,0,270),new newVector(-7,0,0,90)),
+	STRAIGHT(true,60,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0)),
+	DEADSTRAIGHT(true,40,Material.DIAMOND_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0)),
 	STRAIGHTLONG(false,5,Material.IRON_BLOCK,new BoudingBox(new Vector(-4,0,-6),new Vector(4,0,6)),new Vector(0,0,-6),new newVector(0,0,6,0)),
 	LEFT(true,100,Material.REDSTONE_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270)),
 	RIGHT(true,100,Material.LAPIS_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90)),
@@ -23,8 +24,16 @@ public enum DunType {
 	CROSSSECTION(true,100,Material.WHITE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,270),new newVector(-4,0,0,90)),
 	STRAIGHTRIGHT(true,90,Material.RED_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(0,0,4,0)),
 	STRAIGHTLEFT(true,90,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
-	UP(true,30,Material.BLACK_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(0,11,-4,180)),
+	UP(true,30,Material.BLACK_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(0,20,-4,180)),
 	NETHER(true,40,Material.STONE_BRICKS,new BoudingBox(new Vector(-6,0,-6),new Vector(6,0,6)),new Vector(0,0,-6),new newVector(-6,0,0,90)),
+	
+	BASEMENT(false,40,Material.REDSTONE_ORE,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,2,-4)),
+	PLAY__ER1(false,30,Material.REDSTONE_BLOCK, new BoudingBox(new Vector(-8,0,-10),new Vector(8,0,10)),new Vector(0,1,-10), new newVector(-8,1,-2,90)),
+	//ENABLE
+	RUINED(true,30,Material.GOLD_BLOCK,new BoudingBox(new Vector(-8,0,-7),new Vector(8,0,7)),new Vector(0,0,-7)),
+	BRIDGE(true,30,Material.DIAMOND_BLOCK, new BoudingBox(new Vector(-6,0,-8), new Vector(6,0,8)), new Vector(-3,5,-8),new newVector(-3,5,8,0)),
+	
+	
 	
 	//DO NOT ENABLE
 	EMERGENCYSTOPWALL(false,0,Material.YELLOW_CONCRETE,new BoudingBox(new Vector(-4,0,0),new Vector(4,0,1)),new Vector(0,0,1)),

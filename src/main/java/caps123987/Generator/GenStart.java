@@ -196,6 +196,9 @@ public class GenStart {
 						||(!newB.getRelative(0,-1,0).getType().equals(Material.AIR)&&!newB.getType().equals(Material.AIR))
 						||newB.getType().equals(Material.RED_CONCRETE)
 				 */
+				
+				
+				
 				if(newB.getRelative(0,-1,0).getType().equals(Material.AIR)||newB.getType().isSolid()) {
 						
 					Bukkit.broadcastMessage("repair run: "+run+" success");
@@ -237,7 +240,8 @@ public class GenStart {
 		boolean needToRegen = false;
 		for(Block b :room.getBoudingBox().getBlockList(room.getBlock(), room.getRot())) {
 			
-			if(!b.getType().equals(Material.AIR)) {
+			if(!(b.getType().equals(Material.AIR)||
+					b.getType().equals(Material.SPRUCE_TRAPDOOR))) { //Bridge room
 				needToRegen = true;
 			}
 			

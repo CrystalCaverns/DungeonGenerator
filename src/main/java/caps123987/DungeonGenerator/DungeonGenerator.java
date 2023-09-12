@@ -19,6 +19,7 @@ import caps123987.Commands.TabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Managers.ChestManager;
+import caps123987.Types.ItemWRarity;
 import caps123987.Utils.RegChest;
 
 public class DungeonGenerator extends JavaPlugin{
@@ -29,10 +30,13 @@ public class DungeonGenerator extends JavaPlugin{
 	public static DungeonGenerator instance;
 	public ChestManager chestManager;
 	
-	public final int maxInv = 15;
+	public final int maxInv = 20;
 	public File invFile;
+	public File items;
 	
 	public static List<Location> spawns = new ArrayList<Location>();
+	public static List<ItemWRarity> itemsList = new ArrayList<ItemWRarity>();
+	
 	
 	@Override
 	public void onEnable() {
@@ -54,6 +58,9 @@ public class DungeonGenerator extends JavaPlugin{
 		logger = super.getLogger();
 		instance = this;
 		
+		
+		
+		ConfigurationSerialization.registerClass(ItemWRarity.class);
 		ConfigurationSerialization.registerClass(RegChest.class);
 		
 		invFile = new File(instance.getDataFolder(),"inv");
@@ -61,8 +68,21 @@ public class DungeonGenerator extends JavaPlugin{
 		if(!invFile.exists()) {
 			invFile.mkdir();
 		}
-
 		
+		itemsList = new ArrayList<ItemWRarity>();
+		
+		items = new File(invFile,"items.yml");
+		
+		if(!items.exists()) {
+			try {
+				items.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		loadItems();
 		loadSpawns();
 		
 		chestManager = new ChestManager(instance);
@@ -73,10 +93,24 @@ public class DungeonGenerator extends JavaPlugin{
 		getCommand("DungeonGenerator").setExecutor(new CommListener());
 		getCommand("DungeonGenerator").setTabCompleter(new TabC());
 		
-		logger.log(Level.INFO,spawns.size()+"");
+		logger.log(Level.INFO,"Loaded: "+spawns.size()+" rooms");
 		
 		//Bukkit.getScheduler().runTaskTimer(instance, ()->new Spawn(), 100L, 100L);
 		
+		
+	}
+	
+	public void loadItems() {
+		FileConfiguration yaml=YamlConfiguration.loadConfiguration(items);
+		
+		if(yaml.contains("items")) {
+			itemsList = (List<ItemWRarity>) yaml.getList("items");
+		}else {
+			itemsList = new ArrayList<ItemWRarity>();
+			yaml.set("items", itemsList);
+			
+					
+		}
 		
 	}
 	

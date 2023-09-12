@@ -44,7 +44,6 @@ public class ChestHandler implements Listener{
 		Player p = e.getPlayer();
 		Block b = e.getClickedBlock();
 		
-		p.sendMessage(e.getClickedBlock().getType().name()+" opened");
 		
 		p.closeInventory();
 		

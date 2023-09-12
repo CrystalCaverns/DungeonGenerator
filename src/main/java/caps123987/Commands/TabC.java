@@ -30,8 +30,16 @@ public class TabC implements TabCompleter{
 			List<String> list = new ArrayList<String>();
 			list.add("uploadSch");
 			list.add("start");
-			list.add("geninv");
+			list.add("addItemToLoot");
 			return list;
+		}
+		
+		if(lenght==2) {
+			List<String> list = new ArrayList<String>();
+			if(args[1].equals("addItemToLoot")) {
+				list.add("Number As Rarity");
+				return list;
+			}
 		}
 		
 		

@@ -19,6 +19,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
@@ -26,6 +28,7 @@ import caps123987.Generator.GenStart;
 import caps123987.Managers.ChestManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
+import caps123987.Types.ItemWRarity;
 import caps123987.Utils.DunUtils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -65,9 +68,9 @@ public class CommListener implements CommandExecutor{
 			return true;
 		}
 		
-		if(subCommand.equals("geninv")) {
-			sender.sendMessage("geninv");
-			createInv(p);
+		if(subCommand.equals("addItemToLoot")) {
+			sender.sendMessage("addItemToLoot");
+			createInv(p,args[1]);
 			return true;
 		}
 		
@@ -131,20 +134,44 @@ public class CommListener implements CommandExecutor{
         in.close();
         out.close();        
 	}
-	public void createInv(Player p) {
-		Container ch = (Container) p.getTargetBlockExact(5).getState();
-		Inventory inv = ch.getInventory();
+	@SuppressWarnings("unused")
+	public void createInv(Player p, String args) {
 		
-		FileConfiguration yaml=YamlConfiguration.loadConfiguration(instance.invFile);
-		yaml.set("Items", inv.getContents());
+		ItemStack item = p.getItemInHand();
 		
-		int size = ChestManager.getInvs(instance.maxInv, instance.invFile).size()+1;
+		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(instance.items);
+		
+		List<ItemWRarity> list = DungeonGenerator.itemsList;
+		
+		list.add(new ItemWRarity(item,Integer.parseInt(args)));
+		
+		yaml1.set("items", list);
+		
+		DungeonGenerator.itemsList = list;
 		
 		try {
-			yaml.save(new File(instance.invFile,size+".yml"));
-		} catch (IOException e) {
+			yaml1.save(instance.items);
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		}
+		
+		
+		if(false) {
+			Container ch = (Container) p.getTargetBlockExact(5).getState();
+			Inventory inv = ch.getInventory();
+			
+			FileConfiguration yaml2=YamlConfiguration.loadConfiguration(instance.invFile);
+			yaml2.set("Items", inv.getContents());
+			
+			int size = ChestManager.getInvs(instance.maxInv, instance.invFile).size()+1;
+			
+			try {
+				yaml2.save(new File(instance.invFile,size+".yml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
