@@ -18,14 +18,18 @@ public class BoudingBox {
 		
 		
 		int x1 = corner1.clone().getBlockX();
+		int y1 = corner1.clone().getBlockY();
 		int z1 = corner1.clone().getBlockZ();
 		
 		int x2 = corner2.clone().getBlockX();
+		int y2 = corner2.clone().getBlockY();
 		int z2 = corner2.clone().getBlockZ();
 		
 		for(int X = x1; X!=x2+1;X++) {
-			for(int Z = z1; Z!=z2+1;Z++) {
-				vectors.add(new Vector(X,-1,Z));
+			for(int Y = y1;Y!= y2+1;Y++) {
+				for(int Z = z1; Z!=z2+1;Z++) {
+					vectors.add(new Vector(X,Y,Z));
+				}
 			}
 		}
 	}

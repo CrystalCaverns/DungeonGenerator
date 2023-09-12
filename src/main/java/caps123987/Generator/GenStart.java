@@ -16,6 +16,8 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
@@ -32,6 +34,7 @@ public class GenStart {
 	
 	private List<Room> roomList=new ArrayList<Room>();
 	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
+	//private List<Block> notSpace = new ArrayList<Block>();
 	
 	private int limitMax = 200;
 	private int limitMin = 100;
@@ -41,6 +44,7 @@ public class GenStart {
 		this.size=size;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
+		//notSpace = new ArrayList<Block>();
 		start();
 		
 		setNewSpawns();
@@ -103,6 +107,10 @@ public class GenStart {
 		}
 		
 		
+		
+		
+		
+		
 		List<DunType> types = DunUtils.getRandomDunType();
 		//generate entrances until empty
 		int run = 1;
@@ -147,8 +155,11 @@ public class GenStart {
 				}
 				
 				Room r = createRoom(type,entry.getKey(),entry.getValue().getRot(),false,tempList);
+				
+				
 				tempMap.putAll(r.getEntrances());
 				tempList.add(entry.getKey());
+				
 			}
 			entrances.putAll(tempMap);
 			tempMap.clear();
@@ -159,7 +170,9 @@ public class GenStart {
 			tempList.clear();
 			
 			run ++;
+			
 		}
+		
 		
 		
 		
@@ -173,24 +186,48 @@ public class GenStart {
 			
 			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
 				r.applyRoom();
-				if(r.getType().equals(DunType.UP)) {
+				/*if(r.getType().equals(DunType.UP)) {
 					r.generatePlatfort();
-				}
+				}*/
 			}else {
 				temp.add(r);
 			}
 			run++;
 		}
 		
+		/*
+		 * it may work
+		 */
+		
 		//repair run
-		run = 1;
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+			repair(temp);
+			for(Room r:temp){
+				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+					r.generatePlatfort();
+					r.applyRoom();
+				},20);
+			}
+		},10);
+		
+		
+	}
+	
+	public void repair(List<Room> temp) {
+		int run = 1;
 		for(Room r: roomList) {
 			Bukkit.broadcastMessage("repair run: "+run);
+			
 			for(Map.Entry<Block, newVector> entry:r.getEntrances().entrySet()) {
 				Block b = entry.getKey();
+				
+				
 				newVector v = entry.getValue();
 				
 				Block newB = DunUtils.getRelativeByRot(b, v.getRot());
+				
+
 				/*
 				 * newB.getType().equals(Material.AIR)&&newB.getRelative(0,-1,0).getType().equals(Material.AIR)
 						||(!newB.getRelative(0,-1,0).getType().equals(Material.AIR)&&!newB.getType().equals(Material.AIR))
@@ -199,8 +236,10 @@ public class GenStart {
 				
 				
 				
-				if(newB.getRelative(0,-1,0).getType().equals(Material.AIR)||newB.getType().isSolid()) {
+				if(newB.getRelative(0,0,0).getType().equals(Material.AIR)/*||newB.getType().isSolid()*/) {
 						
+					
+					
 					Bukkit.broadcastMessage("repair run: "+run+" success");
 					
 					Room toGen = DunUtils.getRoomByEntrance(roomList, b);
@@ -213,35 +252,27 @@ public class GenStart {
 					if(toGen==null) {
 						Room room = new Room(DunType.EMERGENCYSTOPWALL,b,v.getRot(),false);
 						temp.add(room);
-						continue;
+						
+					}else {
+						toGen.setType(DunType.EMERGENCYSTOPWALL);
+						temp.add(toGen);
 					}
-					
-					toGen.setType(DunType.EMERGENCYSTOPWALL);
-					
-					temp.add(toGen);
 				}
 			}
 			run++;
 		}
-		
-		
-		for(Room r:temp){
-			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-				r.applyRoom();
-			},10);
-		}
-		
 	}
 	
 	public Room createRoom(DunType type,Block entrance, int rot,boolean debug,List<Block> tempList) {
+		
 		Room room = new Room(type,entrance,rot,debug);
 		
-		
 		boolean needToRegen = false;
+		
 		for(Block b :room.getBoudingBox().getBlockList(room.getBlock(), room.getRot())) {
+
 			
-			if(!(b.getType().equals(Material.AIR)||
-					b.getType().equals(Material.SPRUCE_TRAPDOOR))) { //Bridge room
+			if(!b.getType().equals(Material.AIR)) { //Bridge room
 				needToRegen = true;
 			}
 			
@@ -276,6 +307,7 @@ public class GenStart {
 		}
 		
 		room.generatePlatfort();
+		//room.applyRoom();
 		roomList.add(room);
 		return room;
 	}
@@ -287,7 +319,8 @@ public class GenStart {
 		List<Location> toSpawn = new ArrayList<Location>();
 		
 		for(Room r:roomList) {
-			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+			DunType type = r.getType();
+			if(!(type.equals(DunType.EMERGENCYSTOPWALL)||type.equals(DunType.BRIDGE))) {
 				toSpawn.add(r.getBlock().getLocation());
 			}
 		}

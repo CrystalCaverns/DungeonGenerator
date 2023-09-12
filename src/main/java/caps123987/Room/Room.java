@@ -154,7 +154,7 @@ public class Room {
 		case 180:
 			return DunUtils.getRelative(b, type.getBoudingBox().getCorner1());
 		case 0:
-			return DunUtils.getRelative(b, type.getBoudingBox().getCorner2());
+			return DunUtils.getRelative(b, type.getBoudingBox().getCorner2().clone().setY(type.getBoudingBox().getCorner1().getBlockY()));
 		case 90:
 			return DunUtils.getRelative(b,new Vector(-type.getBoudingBox().getCorner1().getBlockZ(),0,type.getBoudingBox().getCorner1().getBlockX()));
 		case 270:
