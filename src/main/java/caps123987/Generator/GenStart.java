@@ -36,16 +36,21 @@ public class GenStart {
 	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
 	//private List<Block> notSpace = new ArrayList<Block>();
 	
-	private int limitMax = 200;
+	private int limitMax = 300;
 	private int limitMin = 100;
-	private int maxY = 50;
+	private int maxY = 80;
 	
-	public GenStart(Location startPos,int size) {
+	private boolean done;
+	
+	public GenStart(Location startPos,int size, boolean repeatUntilDone) {
 		this.size=size;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
+		this.done = repeatUntilDone;
 		//notSpace = new ArrayList<Block>();
+		
 		start();
+		
 		
 		setNewSpawns();
 	}
@@ -141,8 +146,8 @@ public class GenStart {
 					}
 				}
 				
-				if(entry.getKey().getY()>startBlock.getY()+maxY&&type.equals(DunType.UP)) {
-					while(type.equals(DunType.UP)) {
+				if(entry.getKey().getY()>startBlock.getY()+maxY&&(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER))) {
+					while(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER)) {
 						id = DunUtils.getRandomValue(0, types.size()-1);
 						
 						type = types.get(id);
@@ -173,7 +178,15 @@ public class GenStart {
 			
 		}
 		
-		
+		if(done) {
+			if(roomList.size()<1500) {
+				for(Room r:roomList) {
+					r.generatePlatform(Material.AIR);
+				}
+				Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+")");
+				return;
+			}
+		}
 		
 		
 		List<Room> temp = new ArrayList<>();
@@ -236,7 +249,7 @@ public class GenStart {
 				
 				
 				
-				if(newB.getRelative(0,0,0).getType().equals(Material.AIR)/*||newB.getType().isSolid()*/) {
+				if(newB.getRelative(0,0,0).getType().equals(Material.AIR)||newB.getRelative(0,0,0).getType().equals(Material.YELLOW_CONCRETE)/*||newB.getType().isSolid()*/) {
 						
 					
 					
@@ -272,32 +285,12 @@ public class GenStart {
 		for(Block b :room.getBoudingBox().getBlockList(room.getBlock(), room.getRot())) {
 
 			
-			if(!b.getType().equals(Material.AIR)) { //Bridge room
+			if(!b.getType().equals(Material.AIR)) { 
 				needToRegen = true;
 			}
 			
-			/*for(Room r:roomList) {
-				Block roomCenter =r.getBlock();
-				if(origoCenter.getLocation().distance(roomCenter.getLocation())<=20) {
-					List<Block> list2 = r.getBoudingBox().getBlockList(r.getEntrance(), r.getRot());
-					if(list2.contains(b)) {
-						needToRegen = true;
-					}
-				}
-			}*/
 		}
 		
-		
-		/*for(Map.Entry<Block, newVector> entry:room.getEntrances().entrySet()) {
-			Block b = entry.getKey();
-			for(Room r:roomList) {
-				List<Block> list2 =  r.getType().getBoudingBox().getBlockList(r.getBlock(), r.getRot());
-				if(list2.contains(b.getRelative(0, -1, 0))||list2.contains(b.getRelative(0, -1, 0))||list2.contains(b.getRelative(0, -1, 0))) {
-					needToRegen = true;
-					Bukkit.broadcastMessage("needToRegen");
-				}
-			}
-		}*/
 		if(needToRegen) {
 			room.getEntrances().forEach((Block b,newVector v)->{
 				tempList.add(b);

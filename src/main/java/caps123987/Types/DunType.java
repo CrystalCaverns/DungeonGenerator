@@ -11,7 +11,7 @@ import caps123987.Utils.newVector;
 
 public enum DunType {
 	
-	END(true,100,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,5,4)),new Vector(0,0,-4)),
+	END(true,80,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,5,4)),new Vector(0,0,-4)),
 	END1(false,1,Material.GREEN_CONCRETE,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	END2(false,0,Material.COAL_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4)),
 	BIG(false,1,Material.ACACIA_LOG,new BoudingBox(new Vector(-7,0,-7),new Vector(7,0,7)),new Vector(0,0,-7),new newVector(0,0,7,0),new newVector(7,0,0,270),new newVector(-7,0,0,90)),
@@ -24,15 +24,18 @@ public enum DunType {
 	CROSSSECTION(true,100,Material.WHITE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,4,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,270),new newVector(-4,0,0,90)),
 	STRAIGHTRIGHT(true,90,Material.RED_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,4,4)),new Vector(0,0,-4),new newVector(-4,0,0,90),new newVector(0,0,4,0)),
 	STRAIGHTLEFT(true,90,Material.BLUE_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,4,4)),new Vector(0,0,-4),new newVector(4,0,0,270),new newVector(0,0,4,0)),
-	UP(true,30,Material.BLACK_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,24,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(0,20,-4,180)),
+	UP(false,30,Material.BLACK_WOOL,new BoudingBox(new Vector(-4,0,-4),new Vector(4,24,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(0,19,-4,180)),
 	NETHER(true,40,Material.STONE_BRICKS,new BoudingBox(new Vector(-6,0,-6),new Vector(6,7,6)),new Vector(0,0,-6),new newVector(-6,0,0,90)),
 	
-	BASEMENT(false,40,Material.REDSTONE_ORE,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,2,-4)),
+	
+	
+	//Suggested
 	PLAY__ER1(true,30,Material.REDSTONE_BLOCK, new BoudingBox(new Vector(-8,0,-10),new Vector(8,9,10)),new Vector(0,1,-10), new newVector(-8,1,-2,90)),
-	//ENABLE
+	PLAY__ER2(true,40, Material.STONE_BRICKS, new BoudingBox(new Vector(-8,0,-6),new Vector(8,7,6)), new Vector(0,0,-6), new newVector(0,0,6,0)),
 	RUINED(true,30,Material.GOLD_BLOCK,new BoudingBox(new Vector(-8,0,-7),new Vector(8,12,7)),new Vector(0,0,-7)),
 	BRIDGE(true,30,Material.DIAMOND_BLOCK, new BoudingBox(new Vector(-6,0,-8), new Vector(6,12,8)), new Vector(-3,5,-8),new newVector(-3,5,8,0)),
-	
+	DOOR(true,50,Material.STONE_BRICKS, new BoudingBox(new Vector(-3,0,-2),new Vector(3,5,2)),new Vector(0,0,-2), new newVector(0,0,2,0)),
+	LIBRARYTOWER(true,40,Material.BLACK_WOOL,new BoudingBox(new Vector(-10,0,-9),new Vector(10,25,9)),new Vector(-2,0,-9),new newVector(-2,0,9,0),new newVector(-10,20,0,90),new newVector(10,20,0,270)),
 	
 	
 	//DO NOT ENABLE

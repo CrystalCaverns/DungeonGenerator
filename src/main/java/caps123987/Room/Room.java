@@ -8,6 +8,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
@@ -119,14 +120,18 @@ public class Room {
 	}
 	
 	public void generatePlatfort() {
+		generatePlatform(type.getMaterial());
+	}
+	
+	public void generatePlatform(Material m) {
 		boudingBox.getBlockList(block,Rot).forEach((Block b)->{
 			entrances.forEach((Block b2, newVector v)->{
 				Block b3 = b.getRelative(0, b2.getY()-b.getY()-1, 0);
-				b3.setType(type.getMaterial());
+				b3.setType(m);
 				
 			});
 			
-			b.setType(type.getMaterial());
+			b.setType(m);
 		});
 	}
 	
