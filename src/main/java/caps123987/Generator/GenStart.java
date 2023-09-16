@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
+import org.bukkit.generator.structure.Structure;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;

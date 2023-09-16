@@ -57,7 +57,6 @@ public class CommListener implements CommandExecutor{
 		}
 		
 		if(subCommand.equals("respawn")) {
-			sender.sendMessage("Respawning");
 			respawn(p);
 			return true;
 		}
