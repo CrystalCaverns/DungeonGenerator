@@ -38,7 +38,7 @@ public class GenStart {
 	
 	private int limitMax = 300;
 	private int limitMin = 100;
-	private int maxY = 80;
+	private int maxY = 120;
 	
 	private boolean done;
 	
@@ -146,8 +146,8 @@ public class GenStart {
 					}
 				}
 				
-				if(entry.getKey().getY()>startBlock.getY()+maxY&&(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER))) {
-					while(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER)) {
+				if(entry.getKey().getY()>startBlock.getY()+maxY&&(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER)||type.equals(DunType.PLAY__ER5))) {
+					while(type.equals(DunType.UP)||type.equals(DunType.LIBRARYTOWER)||type.equals(DunType.PLAY__ER5)) {
 						id = DunUtils.getRandomValue(0, types.size()-1);
 						
 						type = types.get(id);
