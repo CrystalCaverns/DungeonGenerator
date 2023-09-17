@@ -11,15 +11,21 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
@@ -84,8 +90,30 @@ public class CommListener implements CommandExecutor{
 			return true;
 		}
 		
+		if(subCommand.equals("creatorTools")) {
+			creatorTools(p);
+			return true;
+		}
+		
 		return true;
 	}
+	public void creatorTools(Player p) {
+		ItemStack entranceItem = new ItemStack(Material.ARMOR_STAND,1);
+		ItemMeta entranceItemMeta = entranceItem.getItemMeta();
+		entranceItemMeta.setDisplayName("§rEntrance"); 
+		entranceItemMeta.setCustomModelData(1);
+		entranceItem.setItemMeta(entranceItemMeta);
+		
+		ItemStack exitItem = new ItemStack(Material.ARMOR_STAND,1);
+		ItemMeta exitItemMeta = exitItem.getItemMeta();
+		exitItemMeta.setDisplayName("§rExit"); 
+		exitItemMeta.setCustomModelData(1);
+		exitItem.setItemMeta(exitItemMeta);
+		
+		p.getInventory().addItem(entranceItem,exitItem);
+		
+	}
+	
 	public void respawn(Player p) {
 		List<Location> list = DungeonGenerator.instance.spawns;
 		

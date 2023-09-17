@@ -18,7 +18,9 @@ import caps123987.Commands.CommListener;
 import caps123987.Commands.TabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
+import caps123987.Handers.EasyRoomAddListener;
 import caps123987.Managers.ChestManager;
+import caps123987.Managers.EasyRoomHandler;
 import caps123987.Types.ItemWRarity;
 import caps123987.Utils.RegChest;
 
@@ -29,6 +31,7 @@ public class DungeonGenerator extends JavaPlugin{
 	
 	public static DungeonGenerator instance;
 	public ChestManager chestManager;
+	public EasyRoomHandler easyRoomHandler;
 	
 	public final int maxInv = 20;
 	public File invFile;
@@ -86,9 +89,11 @@ public class DungeonGenerator extends JavaPlugin{
 		loadSpawns();
 		
 		chestManager = new ChestManager(instance);
+		easyRoomHandler = new EasyRoomHandler();
 		
 		this.getServer().getPluginManager().registerEvents(new JoinHandler(),this);
 		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
+		this.getServer().getPluginManager().registerEvents(new EasyRoomAddListener(easyRoomHandler), this);
 
 		getCommand("DungeonGenerator").setExecutor(new CommListener());
 		getCommand("DungeonGenerator").setTabCompleter(new TabC());

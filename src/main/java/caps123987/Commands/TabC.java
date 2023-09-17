@@ -31,15 +31,25 @@ public class TabC implements TabCompleter{
 			list.add("uploadSch");
 			list.add("start");
 			list.add("addItemToLoot");
+			list.add("creatorTools");
+			list.add("respawn");
 			return list;
 		}
 		
 		if(lenght==2) {
+			String subCommand = args[1];
 			List<String> list = new ArrayList<String>();
-			if(args[1].equals("addItemToLoot")) {
+			
+			if(subCommand.equals("addItemToLoot")) {
 				list.add("Number As Rarity");
 				return list;
 			}
+			
+			if(subCommand.equals("start")) {
+				list.add("can_generate_small_dungeon");
+				return list;
+			}
+			
 		}
 		
 		
