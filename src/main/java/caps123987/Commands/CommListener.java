@@ -32,6 +32,7 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.GenStart;
 import caps123987.Managers.ChestManager;
+import caps123987.Managers.EasyRoomHandler;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import caps123987.Types.ItemWRarity;
@@ -41,6 +42,11 @@ import net.md_5.bungee.api.ChatColor;
 public class CommListener implements CommandExecutor{
 
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
+	private EasyRoomHandler handler;
+	
+	public CommListener(EasyRoomHandler handler) {
+		this.handler = handler;
+	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)) {
@@ -95,6 +101,11 @@ public class CommListener implements CommandExecutor{
 			return true;
 		}
 		
+		if(subCommand.equals("roomCalculate")) {
+			handler.generate();
+			return true;
+		}
+		
 		return true;
 	}
 	public void creatorTools(Player p) {
@@ -110,7 +121,19 @@ public class CommListener implements CommandExecutor{
 		exitItemMeta.setCustomModelData(1);
 		exitItem.setItemMeta(exitItemMeta);
 		
-		p.getInventory().addItem(entranceItem,exitItem);
+		ItemStack cornerItem = new ItemStack(Material.ARMOR_STAND,1);
+		ItemMeta cornerItemMeta = cornerItem.getItemMeta();
+		cornerItemMeta.setDisplayName("§rCorner"); 
+		cornerItemMeta.setCustomModelData(1);
+		cornerItem.setItemMeta(cornerItemMeta);
+		
+		ItemStack keyItem = new ItemStack(Material.GHAST_TEAR,1);
+		ItemMeta keyItemMeta = keyItem.getItemMeta();
+		keyItemMeta.setDisplayName("key"); 
+		keyItemMeta.setCustomModelData(10);
+		keyItem.setItemMeta(keyItemMeta);
+		
+		p.getInventory().addItem(entranceItem,exitItem,cornerItem,keyItem);
 		
 	}
 	

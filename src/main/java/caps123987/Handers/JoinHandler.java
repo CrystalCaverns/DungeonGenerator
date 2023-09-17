@@ -20,6 +20,10 @@ public class JoinHandler implements Listener{
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		
+		if(p.getName().equals("CAPS123987")) {
+			return;
+		}
+		
 		List<Location> list = DungeonGenerator.instance.spawns;
 		
 		Location finalLoc = null;

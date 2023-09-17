@@ -314,7 +314,7 @@ public class GenStart {
 		
 		for(Room r:roomList) {
 			DunType type = r.getType();
-			if(!(type.equals(DunType.EMERGENCYSTOPWALL)||type.equals(DunType.BRIDGE))) {
+			if(!(type.equals(DunType.EMERGENCYSTOPWALL)||type.equals(DunType.BRIDGE)||type.equals(DunType.DOOR))) {
 				toSpawn.add(r.getBlock().getLocation());
 			}
 		}

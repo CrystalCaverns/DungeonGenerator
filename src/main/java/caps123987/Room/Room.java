@@ -149,8 +149,9 @@ public class Room {
 		Block newB = getConer(block);
 		StructureBlockLibApi.INSTANCE
 		.loadStructure(instance)
-		.at(new Location(block.getWorld(),newB.getX() , newB.getY(), newB.getZ())).
-		rotation(structureRotationFromInt(Rot))
+		.at(new Location(block.getWorld(),newB.getX() , newB.getY(), newB.getZ()))
+		.rotation(structureRotationFromInt(Rot))
+		.includeEntities(true)
 		.loadFromFile(f).onException((Throwable t)->{Bukkit.broadcastMessage("Error While generation "+t);});
 	}
 	

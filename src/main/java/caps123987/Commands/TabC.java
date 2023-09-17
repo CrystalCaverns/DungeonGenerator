@@ -33,6 +33,7 @@ public class TabC implements TabCompleter{
 			list.add("addItemToLoot");
 			list.add("creatorTools");
 			list.add("respawn");
+			list.add("roomCalculate");
 			return list;
 		}
 		
