@@ -38,7 +38,7 @@ public class TabC implements TabCompleter{
 		}
 		
 		if(lenght==2) {
-			String subCommand = args[1];
+			String subCommand = args[0];
 			List<String> list = new ArrayList<String>();
 			
 			if(subCommand.equals("addItemToLoot")) {
@@ -47,12 +47,33 @@ public class TabC implements TabCompleter{
 			}
 			
 			if(subCommand.equals("start")) {
-				list.add("can_generate_small_dungeon");
+				list.add("max height");
 				return list;
 			}
 			
 		}
 		
+		if(lenght==3) {
+			String subCommand = args[0];
+			List<String> list = new ArrayList<String>();
+			
+			if(subCommand.equals("start")) {
+				list.add("max distance");
+				return list;
+			}
+			
+		}
+		
+		if(lenght==4) {
+			String subCommand = args[0];
+			List<String> list = new ArrayList<String>();
+			
+			if(subCommand.equals("start")) {
+				list.add("min Rooms");
+				return list;
+			}
+			
+		}
 		
 		return Collections.emptyList();
 	}

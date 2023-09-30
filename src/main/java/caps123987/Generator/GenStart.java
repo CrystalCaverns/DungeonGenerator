@@ -29,7 +29,6 @@ import caps123987.Utils.newVector;
 public class GenStart {
 	Location startPos;
 	Block startBlock;
-	int size;
 	
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
 	
@@ -40,18 +39,46 @@ public class GenStart {
 	private int limitMax = 400;
 	private int limitMin = 100;
 	private int maxY = 220;
+	private int minRooms = 5000;
 	
-	private boolean done;
-	
-	public GenStart(Location startPos,int size, boolean repeatUntilDone) {
-		this.size=size;
+	public GenStart(Location startPos) {
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
-		this.done = repeatUntilDone;
 		//notSpace = new ArrayList<Block>();
 		
-		start();
+	}
+	
+	public GenStart(Location startPos, int maxY) {
+		this.maxY = maxY;
+		this.startPos = startPos;
+		this.startBlock = startPos.getBlock();
+		//notSpace = new ArrayList<Block>();
 		
+	}
+	
+	public GenStart(Location startPos, int maxY, int maxRange) {
+		this.limitMax = maxRange;
+		this.maxY = maxY;
+		this.startPos = startPos;
+		this.startBlock = startPos.getBlock();
+		//notSpace = new ArrayList<Block>();
+		
+		
+	}
+	
+	public GenStart(Location startPos, int maxY, int maxRange, int minRooms) {
+		this.limitMax = maxRange;
+		this.maxY = maxY;
+		this.startPos = startPos;
+		this.startBlock = startPos.getBlock();
+		this.minRooms  = minRooms;
+		//notSpace = new ArrayList<Block>();
+		
+		
+	}
+	
+	public void superStart() {
+		start();
 		
 		setNewSpawns();
 	}
@@ -87,19 +114,17 @@ public class GenStart {
 			
 		}
 		
-		if(done) {
-			if(roomList.size()<5000) {
-				Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
-				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-					for(Room r:roomList) {
-						r.generatePlatform(Material.AIR);
-					}
-					Bukkit.broadcastMessage("Cleaned");
-				},1L);
-				
-				return;
-			}
+		if(roomList.size()<minRooms) {
+			Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
+			
+			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+				for(Room r:roomList) {
+					r.generatePlatform(Material.AIR);
+				}
+				Bukkit.broadcastMessage("Cleaned");
+			},1L);
+			
+			return;
 		}
 		
 		Bukkit.broadcastMessage("size: "+roomList.size());
@@ -145,9 +170,6 @@ public class GenStart {
 		
 		Bukkit.broadcastMessage(""+wait);
 		
-		if(true) {
-			return;
-		}
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
 			repair(temp);
