@@ -89,7 +89,7 @@ public class DunUtils {
 		
 		return listF.get(getRandomValue(0,listF.size()-1));
 	}
-	public static List<DunType> getRandomDunType() {
+	public static List<DunType> getRandomDunTypeList() {
 		DunType[] types = DunType.values();
 
 		

@@ -55,7 +55,7 @@ public class InteractListener implements Listener{
 			return;
 		}
 		
-		if(meta.getCustomModelData()==10) {
+		if(meta.getCustomModelData()==8) {
 			List<Entity> entities = p.getNearbyEntities(3, 2, 3);
 			for(Entity entity:entities) {
 				if(entity.getScoreboardTags().contains("Door")) {

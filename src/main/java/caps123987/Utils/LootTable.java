@@ -16,6 +16,7 @@ public class LootTable {
 	
 	public LootTable() {
 		list = DungeonGenerator.itemsList;
+		
 		maxItems = 10;
 		
 		int maxPercent = 0;
@@ -23,6 +24,8 @@ public class LootTable {
 			maxPercent += i.getRarity();
 		}
 		this.maxPercent = maxPercent;
+
+		
 	}
 	public LootTable(int maxItems) {
 		list = DungeonGenerator.itemsList;
@@ -34,6 +37,7 @@ public class LootTable {
 		}
 		this.maxPercent = maxPercent;
 	}
+	
 	public List<ItemStack> generate(){
 		
 		List<ItemStack> items = new ArrayList<ItemStack>();
@@ -49,7 +53,8 @@ public class LootTable {
 					items.add(item.getItem());
 					break;
 				}
-				current=+item.getRarity();
+				current+=item.getRarity();
+				
 			}
 			
 		}

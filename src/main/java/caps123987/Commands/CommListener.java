@@ -127,10 +127,10 @@ public class CommListener implements CommandExecutor{
 		cornerItemMeta.setCustomModelData(1);
 		cornerItem.setItemMeta(cornerItemMeta);
 		
-		ItemStack keyItem = new ItemStack(Material.GHAST_TEAR,1);
+		ItemStack keyItem = new ItemStack(Material.KNOWLEDGE_BOOK,1);
 		ItemMeta keyItemMeta = keyItem.getItemMeta();
-		keyItemMeta.setDisplayName("key"); 
-		keyItemMeta.setCustomModelData(10);
+		keyItemMeta.setDisplayName(ChatColor.DARK_PURPLE+"Key"); 
+		keyItemMeta.setCustomModelData(8);
 		keyItem.setItemMeta(keyItemMeta);
 		
 		p.getInventory().addItem(entranceItem,exitItem,cornerItem,keyItem);

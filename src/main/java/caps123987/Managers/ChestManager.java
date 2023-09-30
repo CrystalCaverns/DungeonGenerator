@@ -21,7 +21,7 @@ public class ChestManager {
 
 	private DungeonGenerator plugin;
 	
-	private int time = 1;
+	private int time = 10;
 	final Random random = new Random(); 
 	
 	public Map<Block,Inventory> chests=new HashMap<Block,Inventory>();
@@ -51,11 +51,11 @@ public class ChestManager {
 	}
 	
 	public Inventory getRandomInventory(int iterator,String title) {
-		File parent =  plugin.invFile;
+		//File parent =  plugin.invFile;
 		
 		
 		
-		List<File> files =getInvs(iterator,parent);
+		//List<File> files =getInvs(iterator,parent);
 		
 		//File finalF = files.get(DunUtils.getRandomValue(0, files.size()-1));
 		//FileConfiguration yaml=YamlConfiguration.loadConfiguration(finalF);
@@ -80,6 +80,8 @@ public class ChestManager {
             chosen[slot] = true;
             inv.setItem(slot, list.get(i));
         }
+
+		
 		
 		return inv;
 		
