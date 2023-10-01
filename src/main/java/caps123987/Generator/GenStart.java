@@ -116,7 +116,7 @@ public class GenStart {
 					r.generatePlatform(Material.AIR);
 				}
 				Bukkit.broadcastMessage("Cleaned");
-			},10L);
+			},20L);
 			
 			return;
 		}
@@ -138,13 +138,14 @@ public class GenStart {
 			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
 				
 				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->
-					r.applyRoom()
-				, 
-					(int) (Math.floor(countRoom/1000.0)*2)+1
+				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+					Bukkit.broadcastMessage("run");
+					r.applyRoom();
+				}, 
+					(int) (Math.floor(countRoom/100.0)*10)+1
 				);
 				
-				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/1000.0)*2)+1);
+				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*20)+1);
 				
 				countRoom++;
 				
@@ -160,7 +161,7 @@ public class GenStart {
 		
 		//repair run
 		
-		int wait = (int) Math.floor(countRoom/1000.0)*2 + 10;
+		int wait = (int) Math.floor(countRoom/100.0)*20 + 60;
 		
 		Bukkit.broadcastMessage(""+wait);
 		

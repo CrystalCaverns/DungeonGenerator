@@ -39,7 +39,8 @@ public class InteractListener implements Listener{
 	private void key(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		
-		if(!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+		if(!(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+				||e.getAction().equals(Action.RIGHT_CLICK_AIR))) {
 			return;
 		}
 		
@@ -78,6 +79,7 @@ public class InteractListener implements Listener{
 					return;	
 				}
 			}
+			e.setCancelled(true);
 		}
 	}
 	

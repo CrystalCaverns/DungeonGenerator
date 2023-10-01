@@ -19,6 +19,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import caps123987.DungeonGenerator.DungeonGenerator;
@@ -127,6 +128,7 @@ public class CommListener implements CommandExecutor{
 		ItemMeta keyItemMeta = keyItem.getItemMeta();
 		keyItemMeta.setDisplayName(ChatColor.DARK_PURPLE+"Key"); 
 		keyItemMeta.setCustomModelData(8);
+		keyItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS,ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_POTION_EFFECTS,ItemFlag.HIDE_DYE);
 		keyItem.setItemMeta(keyItemMeta);
 		
 		p.getInventory().addItem(entranceItem,exitItem,cornerItem,keyItem);
