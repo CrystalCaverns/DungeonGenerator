@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
+import org.bukkit.generator.structure.Structure;
+
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
 import caps123987.Types.DunType;
@@ -97,9 +105,9 @@ public class GenStart {
 			
 			entrances.putAll(tempMap);
 			tempMap.clear();
-			tempList.forEach((Block b)->{
-				entrances.remove(b);
-			});
+			tempList.forEach((Block b)->
+				entrances.remove(b)
+			);
 			
 			tempList.clear();
 			
@@ -137,13 +145,13 @@ public class GenStart {
 			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
 				
 				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-					r.applyRoom();
-				}, 
-					(int) (Math.floor((double)countRoom/1000.0)*2)+1
+				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->
+					r.applyRoom()
+				, 
+					(int) (Math.floor(countRoom/1000.0)*2)+1
 				);
 				
-				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor((double)countRoom/1000.0)*2)+1);
+				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/1000.0)*2)+1);
 				
 				countRoom++;
 				
@@ -159,7 +167,7 @@ public class GenStart {
 		
 		//repair run
 		
-		int wait = (int) Math.floor((double)countRoom/1000.0)*2 + 10;
+		int wait = (int) Math.floor(countRoom/1000.0)*2 + 10;
 		
 		Bukkit.broadcastMessage(""+wait);
 		
@@ -241,9 +249,9 @@ public class GenStart {
 		}
 		
 		if(needToRegen) {
-			room.getEntrances().forEach((Block b,newVector v)->{
-				tempList.add(b);
-			});
+			room.getEntrances().forEach((Block b,newVector v)->
+				tempList.add(b)
+			);
 			
 			room.setType(DunType.EMERGENCYSTOPWALL);
 		}
@@ -270,7 +278,9 @@ public class GenStart {
 		yaml.set("Spawns", toSpawn);
 		try {
 			yaml.save(file);
-		} catch (IOException e) {}
+		} catch (IOException e) {
+			DungeonGenerator.instance.getLogger().log(Level.SEVERE, "Can't save Spawns");
+		}
 		
 		DungeonGenerator.instance.loadSpawns();
 		
