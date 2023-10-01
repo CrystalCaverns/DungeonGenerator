@@ -84,6 +84,11 @@ public class InteractListener implements Listener{
 	private void tools(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		
+		
+		if(!p.hasPermission("DungeonGenerator.admin")) {
+			
+			return;
+		}
 		if(!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			return;
 		}

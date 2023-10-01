@@ -9,18 +9,11 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
-import org.bukkit.generator.structure.Structure;
-
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Room.Room;
 import caps123987.Types.DunType;
@@ -123,7 +116,7 @@ public class GenStart {
 					r.generatePlatform(Material.AIR);
 				}
 				Bukkit.broadcastMessage("Cleaned");
-			},1L);
+			},10L);
 			
 			return;
 		}
@@ -270,7 +263,7 @@ public class GenStart {
 		
 		for(Room r:roomList) {
 			DunType type = r.getType();
-			if(!(type.equals(DunType.EMERGENCYSTOPWALL)||type.equals(DunType.BRIDGE)||type.equals(DunType.DOOR)||type.equals(DunType.PLAY__ER5))) {
+			if(!(type.equals(DunType.EMERGENCYSTOPWALL)||type.equals(DunType.BRIDGE)||type.equals(DunType.DOOR)||type.equals(DunType.PLAY__ER5)||type.equals(DunType.LAVA_ROOM))) {
 				toSpawn.add(r.getBlock().getLocation());
 			}
 		}
