@@ -9,26 +9,18 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
-
-import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
-
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.GenStart;
 import caps123987.Managers.ChestManager;
@@ -115,19 +107,19 @@ public class CommListener implements CommandExecutor{
 	public void creatorTools(Player p) {
 		ItemStack entranceItem = new ItemStack(Material.ARMOR_STAND,1);
 		ItemMeta entranceItemMeta = entranceItem.getItemMeta();
-		entranceItemMeta.setDisplayName("§rEntrance"); 
+		entranceItemMeta.setDisplayName("ï¿½rEntrance"); 
 		entranceItemMeta.setCustomModelData(1);
 		entranceItem.setItemMeta(entranceItemMeta);
 		
 		ItemStack exitItem = new ItemStack(Material.ARMOR_STAND,1);
 		ItemMeta exitItemMeta = exitItem.getItemMeta();
-		exitItemMeta.setDisplayName("§rExit"); 
+		exitItemMeta.setDisplayName("ï¿½rExit"); 
 		exitItemMeta.setCustomModelData(1);
 		exitItem.setItemMeta(exitItemMeta);
 		
 		ItemStack cornerItem = new ItemStack(Material.ARMOR_STAND,1);
 		ItemMeta cornerItemMeta = cornerItem.getItemMeta();
-		cornerItemMeta.setDisplayName("§rCorner"); 
+		cornerItemMeta.setDisplayName("ï¿½rCorner"); 
 		cornerItemMeta.setCustomModelData(1);
 		cornerItem.setItemMeta(cornerItemMeta);
 		
@@ -196,7 +188,7 @@ public class CommListener implements CommandExecutor{
 	@SuppressWarnings("unused")
 	public void createInv(Player p, String args) {
 		
-		ItemStack item = p.getItemInHand();
+		ItemStack item = p.getInventory().getItemInMainHand();
 		
 		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(instance.items);
 		

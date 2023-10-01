@@ -1,15 +1,11 @@
 package caps123987.Managers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-
-import caps123987.Utils.BoudingBox;
 
 public class EasyRoomHandler {
 	private Block entrance;

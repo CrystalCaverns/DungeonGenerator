@@ -9,12 +9,9 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import caps123987.DungeonGenerator.DungeonGenerator;
-import caps123987.Utils.DunUtils;
 import caps123987.Utils.LootTable;
 
 public class ChestManager {

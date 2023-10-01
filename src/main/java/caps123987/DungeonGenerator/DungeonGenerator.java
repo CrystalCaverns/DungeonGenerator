@@ -37,7 +37,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public File invFile;
 	public File items;
 	
-	public static List<Location> spawns = new ArrayList<Location>();
+	public List<Location> spawns = new ArrayList<Location>();
 	public static List<ItemWRarity> itemsList = new ArrayList<ItemWRarity>();
 	
 	
@@ -106,6 +106,7 @@ public class DungeonGenerator extends JavaPlugin{
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void loadItems() {
 		FileConfiguration yaml=YamlConfiguration.loadConfiguration(items);
 		

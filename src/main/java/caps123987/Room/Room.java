@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 

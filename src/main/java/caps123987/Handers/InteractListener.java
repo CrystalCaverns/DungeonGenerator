@@ -105,9 +105,9 @@ public class InteractListener implements Listener{
 		
 		Block clicked = e.getClickedBlock();
 		
-		if(name.equals("§rEntrance")) {
+		if(name.equals("ï¿½rEntrance")) {
 			
-			ArmorStand armor = spawnArmor(p,clicked,"Entrance",Material.MAGENTA_GLAZED_TERRACOTTA);
+			spawnArmor(p,clicked,"Entrance",Material.MAGENTA_GLAZED_TERRACOTTA);
 			
 			handler.setEntrance(clicked);
 			
@@ -115,7 +115,7 @@ public class InteractListener implements Listener{
 			
 		}
 		
-		if(name.equals("§rExit")){
+		if(name.equals("ï¿½rExit")){
 			
 			ArmorStand armor = spawnArmor(p,clicked,"Exit",Material.MAGENTA_GLAZED_TERRACOTTA);
 
@@ -125,11 +125,11 @@ public class InteractListener implements Listener{
 			
 		}
 		
-		if(name.equals("§rCorner")){
+		if(name.equals("ï¿½rCorner")){
 			
 			if(handler.getCorner1()==null) {
 				
-				ArmorStand armor = spawnArmor(p,clicked,"Corner1",Material.GREEN_CONCRETE);
+				spawnArmor(p,clicked,"Corner1",Material.GREEN_CONCRETE);
 
 				p.sendMessage("1 Corner: " + clicked.getLocation());
 				
@@ -138,7 +138,7 @@ public class InteractListener implements Listener{
 				handler.setCorner2(null);
 			}else if(handler.getCorner2()==null){
 				
-				ArmorStand armor = spawnArmor(p,clicked,"Corner2",Material.RED_CONCRETE);
+				spawnArmor(p,clicked,"Corner2",Material.RED_CONCRETE);
 				
 				p.sendMessage("2 Corner: " + clicked.getLocation());
 				
