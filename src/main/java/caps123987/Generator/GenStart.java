@@ -145,7 +145,7 @@ public class GenStart {
 					(int) (Math.floor(countRoom/100.0)*10)+1
 				);
 				
-				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*20)+1);
+				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
 				
 				countRoom++;
 				
@@ -161,7 +161,7 @@ public class GenStart {
 		
 		//repair run
 		
-		int wait = (int) Math.floor(countRoom/100.0)*20 + 60;
+		int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
 		
 		Bukkit.broadcastMessage(""+wait);
 		
