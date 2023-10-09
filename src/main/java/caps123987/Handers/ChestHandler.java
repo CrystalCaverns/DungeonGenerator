@@ -7,7 +7,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Managers.ChestManager;
 
@@ -39,6 +43,28 @@ public class ChestHandler implements Listener{
 		
 	}
 	
+	@EventHandler
+	public void playerBreakEvent(BlockBreakEvent e) {
+		Block b = e.getBlock();
+		
+		if(!(b.getType().equals(Material.CHEST)||b.getType().equals(Material.BARREL))) {
+			return;
+		}
+		
+		
+		Inventory inv = chestManager.getInventory(b);
+		
+		inv.forEach((ItemStack item)->{
+			if(item!=null) {
+				b.getWorld().dropItemNaturally(b.getLocation(), item);
+			}
+		});
+		
+		
+		inv.clear();
+		
+	}
+	
 	public void open(PlayerInteractEvent e) {
 		
 		Player p = e.getPlayer();
@@ -47,7 +73,7 @@ public class ChestHandler implements Listener{
 		
 		p.closeInventory();
 		
-		p.openInventory(chestManager.openInventory(b));
+		p.openInventory(chestManager.getInventory(b));
 		
 		
 		

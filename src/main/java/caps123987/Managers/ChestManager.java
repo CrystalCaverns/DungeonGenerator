@@ -39,7 +39,7 @@ public class ChestManager {
 		}
 	}
 	
-	public Inventory openInventory(Block b) {
+	public Inventory getInventory(Block b) {
 		if(!exists(b)) {
 			register(b,getRandomInventory(plugin.maxInv,b.getType().name()));
 		}
