@@ -3,8 +3,6 @@ package caps123987.Managers;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
-import caps123987.Types.SimpleChunk;
-
 public class SimpleBlockManager {
 	
 	//SimpleChunk[][] blocks;
@@ -23,31 +21,12 @@ public class SimpleBlockManager {
 	
 	public boolean getBlock(int x,int y, int z) {
 		
-		return blocks[x-xOffset()][y][z-zOffset()];
-		
-		
-		/*SimpleChunk chunk = blocks[(x-xOffset())/16+8][(z-zOffset())/16+8];
-		
-		if(chunk==null) {
-			chunk = new SimpleChunk();
-			blocks[(x-xOffset())/16][(z-zOffset())/16] = chunk;
-		}
-		
-		return chunk.getBlock((x-xOffset())%16, y, (z-zOffset())%16);*/
+		return blocks[x-xOffset()][y-64][z-zOffset()];
 	}
 	
 	public void setBlock(int x,int y, int z, boolean bool) {
 		
-		/*SimpleChunk chunk = blocks[(x-xOffset())/16][(z-zOffset())/16];
-		
-		if(chunk==null) {
-			chunk = new SimpleChunk();
-			blocks[(x-xOffset())/16][(z-zOffset())/16] = chunk;
-		}
-		
-		chunk.setBlock((x-xOffset())%16, y, (z-zOffset())%16, bool);*/
-		
-		blocks[x-xOffset()][y][z-zOffset()] = bool;
+		blocks[x-xOffset()][y-64][z-zOffset()] = bool;
 	}
 	
 	public boolean getBlock(Block b) {

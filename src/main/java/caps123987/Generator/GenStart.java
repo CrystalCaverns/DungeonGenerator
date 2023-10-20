@@ -151,7 +151,7 @@ public class GenStart {
 								r.applyRoom();
 								Bukkit.broadcastMessage("spawn");
 							}, 
-								(int) (Math.floor(countRoom/100.0)*10)+1
+								(int) (Math.floor(countRoom/100.0)*6)+1
 							);
 							
 							//Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
@@ -169,7 +169,7 @@ public class GenStart {
 					
 					//repair run
 					
-					int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
+					int wait = (int) Math.floor(countRoom/100.0)*6 + 60;
 					
 					Bukkit.broadcastMessage(""+wait);
 					
@@ -324,10 +324,8 @@ public class GenStart {
 	}
 	private void revolutionRun(List<Block> tempList, Map<Block,newVector> tempMap, List<DunType> types, Map<Block,newVector> entrances, List<Room> roomList) {
 		
-		int entrance = 0 ;
 		for(Map.Entry<Block, newVector> entry:entrances.entrySet()) {
 			
-			Bukkit.broadcastMessage(""+entrance);
 			
 			int id = DunUtils.getRandomValue(0, types.size()-1);
 			
@@ -368,7 +366,6 @@ public class GenStart {
 			tempMap.putAll(r.getEntrances());
 			tempList.add(entry.getKey());
 			
-			entrance++;
 		}
 	}
 	
