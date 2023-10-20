@@ -32,6 +32,7 @@ public class TabC implements TabCompleter{
 			list.add("creatorTools");
 			list.add("respawn");
 			list.add("roomCalculate");
+			list.add("stopRun");
 			return list;
 		}
 		

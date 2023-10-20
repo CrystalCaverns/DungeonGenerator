@@ -28,8 +28,7 @@ public class GenStart {
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
 	public SimpleBlockManager blockManager;
 	
-	private List<Room> roomList=new ArrayList<Room>();
-	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
+	
 	//private List<Block> notSpace = new ArrayList<Block>();
 	
 	private int limitMax = 400;
@@ -80,14 +79,18 @@ public class GenStart {
 	public void superStart() {
 		start();
 		
-		setNewSpawns();
+		
 	}
 	
 	public void start() {
 		
 		
-			Bukkit.getScheduler().runTaskAsynchronously(instance, ()->{
-				generateMain();
+			instance.asyncGenID = Bukkit.getScheduler().runTaskAsynchronously(instance, ()->{
+				
+				List<Room> roomList=new ArrayList<Room>();
+				Map<Block,newVector> entrances=new HashMap<Block,newVector>();
+				
+				generateMain(entrances,roomList);
 				
 				
 				List<DunType> types = DunUtils.getRandomDunTypeList();
@@ -96,10 +99,10 @@ public class GenStart {
 				while(!entrances.isEmpty()) {
 					Bukkit.broadcastMessage("run: "+run);
 					List<Block> tempList = new ArrayList<Block>();
+					
 					Map<Block,newVector> tempMap = new HashMap<Block,newVector>();
 					
-					
-					revolutionRun(tempList,tempMap,types);
+					revolutionRun(tempList,tempMap,types,entrances,roomList);
 					
 					
 					entrances.putAll(tempMap);
@@ -121,66 +124,73 @@ public class GenStart {
 					
 					return;
 				}
-			});
 			
-			Bukkit.broadcastMessage("size: "+roomList.size());
-			
-			List<Room> temp = new ArrayList<>();
-			
-			//apply room
-			
-			int countRoom = 1;
-	
-			
-			for(Room r:roomList) {
+				
+				Bukkit.broadcastMessage("size: "+roomList.size());
+				
+				List<Room> temp = new ArrayList<>();
+				
+				//apply room
 				
 				
+		
 				
-				if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+					int countRoom = 1;
+					
+					for(Room r:roomList) {
+						
+						
+						
+						if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+							
+							
+							Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+								Bukkit.broadcastMessage("run");
+								r.generatePlatfort();
+								r.applyRoom();
+								Bukkit.broadcastMessage("spawn");
+							}, 
+								(int) (Math.floor(countRoom/100.0)*10)+1
+							);
+							
+							//Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
+							
+							countRoom++;
+							
+						}else {
+							temp.add(r);
+						}
+					}
+					
+					/*
+					 * it may work
+					 */
+					
+					//repair run
+					
+					int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
+					
+					Bukkit.broadcastMessage(""+wait);
 					
 					
 					Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-						Bukkit.broadcastMessage("run");
-						r.generatePlatfort();
-						r.applyRoom();
-						Bukkit.broadcastMessage("spawn");
-					}, 
-						(int) (Math.floor(countRoom/100.0)*10)+1
-					);
+						repair(temp,roomList);
+						for(Room r:temp){
+							r.generatePlatfort();
+							r.applyRoom();
+						}
+						
+					},wait);
 					
-					//Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
-					
-					countRoom++;
-					
-				}else {
-					temp.add(r);
-				}
-			}
+					setNewSpawns(roomList);
+				});
 			
-			/*
-			 * it may work
-			 */
-			
-			//repair run
-			
-			int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
-			
-			Bukkit.broadcastMessage(""+wait);
-			
-			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-				repair(temp);
-				for(Room r:temp){
-					r.generatePlatfort();
-					r.applyRoom();
-				}
-				
-			},wait);
-			
+			});
 		
 	}
 	
-	public void repair(List<Room> temp) {
+	public void repair(List<Room> temp, List<Room> roomList) {
 		int run = 1;
 		for(Room r: roomList) {
 			Bukkit.broadcastMessage("repair run: "+run);
@@ -229,7 +239,7 @@ public class GenStart {
 		}
 	}
 	
-	public Room createRoom(DunType type,Block entrance, int rot,boolean debug,List<Block> tempList) {
+	public Room createRoom(DunType type,Block entrance, int rot,boolean debug,List<Block> tempList, List<Room> roomList) {
 		
 		Room room = new Room(type,entrance,rot,debug);
 		
@@ -258,7 +268,7 @@ public class GenStart {
 		return room;
 	}
 	
-	public void setNewSpawns() {
+	public void setNewSpawns(List<Room> roomList) {
 		File file = new File(DungeonGenerator.instance.getDataFolder(),"Spawns.yml");
 		FileConfiguration yaml=YamlConfiguration.loadConfiguration(file);
 		
@@ -282,14 +292,14 @@ public class GenStart {
 		
 	}
 	
-	private void generateMain() {
-		Room starterRoom = createRoom(DunType.MAIN,startBlock,0,false,new ArrayList<>());
+	private void generateMain(Map<Block,newVector> entrances, List<Room> roomList) {
+		Room starterRoom = createRoom(DunType.MAIN,startBlock,0,false,new ArrayList<>(),roomList);
 
 
 		for(Map.Entry<Block, newVector> entry : starterRoom.getEntrances().entrySet()) {
 			Block b=entry.getKey();
 				
-			Room r1 = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),false,new ArrayList<>());
+			Room r1 = createRoom(DunType.STRAIGHT,b,entry.getValue().getRot(),false,new ArrayList<>(),roomList);
 			
 			DunType[] types = DunType.values();
 
@@ -306,14 +316,18 @@ public class GenStart {
 					type = types[id];
 				}
 					
-				Room r2 = createRoom(type,entry2.getKey(),entry2.getValue().getRot(),false,null);
+				Room r2 = createRoom(type,entry2.getKey(),entry2.getValue().getRot(),false,null,roomList);
 				entrances.putAll(r2.getEntrances());
 				
 			}
 		}
 	}
-	private void revolutionRun(List<Block> tempList, Map<Block,newVector> tempMap, List<DunType> types) {
+	private void revolutionRun(List<Block> tempList, Map<Block,newVector> tempMap, List<DunType> types, Map<Block,newVector> entrances, List<Room> roomList) {
+		
+		int entrance = 0 ;
 		for(Map.Entry<Block, newVector> entry:entrances.entrySet()) {
+			
+			Bukkit.broadcastMessage(""+entrance);
 			
 			int id = DunUtils.getRandomValue(0, types.size()-1);
 			
@@ -348,12 +362,13 @@ public class GenStart {
 				type = DunType.END;
 			}
 			
-			Room r = createRoom(type,entry.getKey(),entry.getValue().getRot(),false,tempList);
+			Room r = createRoom(type,entry.getKey(),entry.getValue().getRot(),false,tempList,roomList);
 			
 			
 			tempMap.putAll(r.getEntrances());
 			tempList.add(entry.getKey());
 			
+			entrance++;
 		}
 	}
 	

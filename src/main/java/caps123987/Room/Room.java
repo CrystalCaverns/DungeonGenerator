@@ -141,8 +141,11 @@ public class Room {
 				}
 				
 			});
-			
-			b.setType(m);
+			if(bool) {
+				b.setType(m);
+			}else {
+				mana.setBlock(b, true);
+			}
 		});
 	}
 	

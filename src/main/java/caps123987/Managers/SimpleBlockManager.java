@@ -1,45 +1,53 @@
 package caps123987.Managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import caps123987.Types.SimpleChunk;
 
 public class SimpleBlockManager {
 	
-	SimpleChunk[][] blocks;
+	//SimpleChunk[][] blocks;
+	boolean[][][] blocks;
 	
 	Block center;
 	
 	int distance;
 	
 	public SimpleBlockManager(int distance, Block center) {
-		blocks = new SimpleChunk[(distance/16*2)+16][(distance/16*2)+16];
+		//blocks = new SimpleChunk[(distance/16*2)+16][(distance/16*2)+16];
+		blocks = new boolean[distance*2+600][400][distance*2+600];
 		this.center = center;
 		this.distance = distance;
 	}
 	
 	public boolean getBlock(int x,int y, int z) {
 		
-		SimpleChunk chunk = blocks[(x-xOffset())/16][(y-yOffset())/16];
+		return blocks[x-xOffset()][y][z-zOffset()];
+		
+		
+		/*SimpleChunk chunk = blocks[(x-xOffset())/16+8][(z-zOffset())/16+8];
 		
 		if(chunk==null) {
 			chunk = new SimpleChunk();
-			blocks[(x-xOffset())/16][(y-yOffset())/16] = chunk;
+			blocks[(x-xOffset())/16][(z-zOffset())/16] = chunk;
 		}
 		
-		return chunk.getBlock((x-xOffset())%16, (y-yOffset())%16, z);
+		return chunk.getBlock((x-xOffset())%16, y, (z-zOffset())%16);*/
 	}
 	
 	public void setBlock(int x,int y, int z, boolean bool) {
 		
-		SimpleChunk chunk = blocks[(x-xOffset())/16][(y-yOffset())/16];
+		/*SimpleChunk chunk = blocks[(x-xOffset())/16][(z-zOffset())/16];
 		
 		if(chunk==null) {
 			chunk = new SimpleChunk();
-			blocks[(x-xOffset())/16][(y-yOffset())/16] = chunk;
+			blocks[(x-xOffset())/16][(z-zOffset())/16] = chunk;
 		}
 		
-		chunk.setBlock((x-xOffset())%16, (y-yOffset())%16, z, bool);
+		chunk.setBlock((x-xOffset())%16, y, (z-zOffset())%16, bool);*/
+		
+		blocks[x-xOffset()][y][z-zOffset()] = bool;
 	}
 	
 	public boolean getBlock(Block b) {
@@ -51,11 +59,15 @@ public class SimpleBlockManager {
 	}
 	
 	private int xOffset() {
-		return center.getX() - distance;
+		return center.getX() - distance-300;
+		
+		//return center.getX() - distance-64;
 	}
 	
-	private int yOffset() {
-		return center.getY() - distance;
+	private int zOffset() {
+		return center.getZ() - distance-300;
+		
+		//return center.getZ() - distance-64;
 	}
 
 }
