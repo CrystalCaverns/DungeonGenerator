@@ -137,7 +137,7 @@ public class Room {
 				if(bool) {
 					b3.setType(m);
 				}else {
-					
+					mana.setBlock(b3, true);
 				}
 				
 			});

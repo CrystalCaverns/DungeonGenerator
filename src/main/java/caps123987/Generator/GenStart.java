@@ -40,6 +40,7 @@ public class GenStart {
 	public GenStart(Location startPos) {
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
+		blockManager = new SimpleBlockManager(limitMax, startPos.getBlock());
 		//notSpace = new ArrayList<Block>();
 		
 	}
@@ -48,6 +49,7 @@ public class GenStart {
 		this.maxY = maxY;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
+		blockManager = new SimpleBlockManager(limitMax, startPos.getBlock());
 		//notSpace = new ArrayList<Block>();
 		
 	}
@@ -57,6 +59,7 @@ public class GenStart {
 		this.maxY = maxY;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
+		blockManager = new SimpleBlockManager(maxRange, startPos.getBlock());
 		//notSpace = new ArrayList<Block>();
 		
 		
@@ -68,6 +71,7 @@ public class GenStart {
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
 		this.minRooms  = minRooms;
+		blockManager = new SimpleBlockManager(maxRange, startPos.getBlock());
 		//notSpace = new ArrayList<Block>();
 		
 		
@@ -82,54 +86,47 @@ public class GenStart {
 	public void start() {
 		
 		
-			
-			generateMain();
-			
-			
-			List<DunType> types = DunUtils.getRandomDunTypeList();
-			//generate entrances until empty
-			int run = 1;
-			while(!entrances.isEmpty()) {
-				Bukkit.broadcastMessage("run: "+run);
-				List<Block> tempList = new ArrayList<Block>();
-				Map<Block,newVector> tempMap = new HashMap<Block,newVector>();
+			Bukkit.getScheduler().runTaskAsynchronously(instance, ()->{
+				generateMain();
 				
 				
-				revolutionRun(tempList,tempMap,types);
+				List<DunType> types = DunUtils.getRandomDunTypeList();
+				//generate entrances until empty
+				int run = 1;
+				while(!entrances.isEmpty()) {
+					Bukkit.broadcastMessage("run: "+run);
+					List<Block> tempList = new ArrayList<Block>();
+					Map<Block,newVector> tempMap = new HashMap<Block,newVector>();
+					
+					
+					revolutionRun(tempList,tempMap,types);
+					
+					
+					entrances.putAll(tempMap);
+					tempMap.clear();
+					tempList.forEach((Block b)->
+						entrances.remove(b)
+					);
+					
+					tempList.clear();
+					
+					run ++;
+					
+				}
 				
 				
-				entrances.putAll(tempMap);
-				tempMap.clear();
-				tempList.forEach((Block b)->
-					entrances.remove(b)
-				);
 				
-				tempList.clear();
-				
-				run ++;
-				
-			}
-			
-			
-			
-			if(roomList.size()<minRooms) {
-				Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
-				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-					for(Room r:roomList) {
-						r.generatePlatform(Material.AIR);
-					}
-					Bukkit.broadcastMessage("Cleaned");
-				},20L);
-				
-				return;
-			}
+				if(roomList.size()<minRooms) {
+					Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
+					
+					return;
+				}
+			});
 			
 			Bukkit.broadcastMessage("size: "+roomList.size());
 			
 			List<Room> temp = new ArrayList<>();
 			
-			run =1;
 			//apply room
 			
 			int countRoom = 1;
@@ -144,19 +141,20 @@ public class GenStart {
 					
 					Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
 						Bukkit.broadcastMessage("run");
+						r.generatePlatfort();
 						r.applyRoom();
+						Bukkit.broadcastMessage("spawn");
 					}, 
 						(int) (Math.floor(countRoom/100.0)*10)+1
 					);
 					
-					Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
+					//Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
 					
 					countRoom++;
 					
 				}else {
 					temp.add(r);
 				}
-				run++;
 			}
 			
 			/*
@@ -204,7 +202,7 @@ public class GenStart {
 				
 				
 				
-				if(newB.getRelative(0,0,0).getType().equals(Material.AIR)||newB.getRelative(0,0,0).getType().equals(Material.YELLOW_CONCRETE)/*||newB.getType().isSolid()*/) {
+				if(!blockManager.getBlock(newB.getRelative(0,0,0))) {
 						
 					
 					
@@ -240,7 +238,7 @@ public class GenStart {
 		for(Block b :room.getBoudingBox().getBlockList(room.getBlock(), room.getRot())) {
 
 			
-			if(!b.getType().equals(Material.AIR)) { 
+			if(blockManager.getBlock(b)) { 
 				needToRegen = true;
 			}
 			
@@ -254,7 +252,7 @@ public class GenStart {
 			room.setType(DunType.EMERGENCYSTOPWALL);
 		}
 		
-		room.generatePlatfort();
+		room.generateSimplePlatfort(blockManager);
 		//room.applyRoom();
 		roomList.add(room);
 		return room;
