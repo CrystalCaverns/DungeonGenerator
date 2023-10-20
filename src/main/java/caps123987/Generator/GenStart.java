@@ -26,7 +26,7 @@ public class GenStart {
 	Block startBlock;
 	
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
-	//public SimpleBlockManager blockManager;
+	public SimpleBlockManager blockManager;
 	
 	private List<Room> roomList=new ArrayList<Room>();
 	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
