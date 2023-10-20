@@ -15,6 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import caps123987.DungeonGenerator.DungeonGenerator;
+import caps123987.Managers.SimpleBlockManager;
 import caps123987.Room.Room;
 import caps123987.Types.DunType;
 import caps123987.Utils.DunUtils;
@@ -25,6 +26,7 @@ public class GenStart {
 	Block startBlock;
 	
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
+	//public SimpleBlockManager blockManager;
 	
 	private List<Room> roomList=new ArrayList<Room>();
 	private Map<Block,newVector> entrances=new HashMap<Block,newVector>();
@@ -80,101 +82,103 @@ public class GenStart {
 	public void start() {
 		
 		
-		generateMain();
-		
-		
-		
-		List<DunType> types = DunUtils.getRandomDunTypeList();
-		//generate entrances until empty
-		int run = 1;
-		while(!entrances.isEmpty()) {
-			Bukkit.broadcastMessage("run: "+run);
-			List<Block> tempList = new ArrayList<Block>();
-			Map<Block,newVector> tempMap = new HashMap<Block,newVector>();
+			
+			generateMain();
 			
 			
-			revolutionRun(tempList,tempMap,types);
-			
-			
-			entrances.putAll(tempMap);
-			tempMap.clear();
-			tempList.forEach((Block b)->
-				entrances.remove(b)
-			);
-			
-			tempList.clear();
-			
-			run ++;
-			
-		}
-		
-		if(roomList.size()<minRooms) {
-			Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
-			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-				for(Room r:roomList) {
-					r.generatePlatform(Material.AIR);
-				}
-				Bukkit.broadcastMessage("Cleaned");
-			},20L);
-			
-			return;
-		}
-		
-		Bukkit.broadcastMessage("size: "+roomList.size());
-		
-		List<Room> temp = new ArrayList<>();
-		
-		run =1;
-		//apply room
-		
-		int countRoom = 1;
-
-		
-		for(Room r:roomList) {
-			
-			
-			
-			if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+			List<DunType> types = DunUtils.getRandomDunTypeList();
+			//generate entrances until empty
+			int run = 1;
+			while(!entrances.isEmpty()) {
+				Bukkit.broadcastMessage("run: "+run);
+				List<Block> tempList = new ArrayList<Block>();
+				Map<Block,newVector> tempMap = new HashMap<Block,newVector>();
 				
 				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-					Bukkit.broadcastMessage("run");
-					r.applyRoom();
-				}, 
-					(int) (Math.floor(countRoom/100.0)*10)+1
+				revolutionRun(tempList,tempMap,types);
+				
+				
+				entrances.putAll(tempMap);
+				tempMap.clear();
+				tempList.forEach((Block b)->
+					entrances.remove(b)
 				);
 				
-				Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
+				tempList.clear();
 				
-				countRoom++;
+				run ++;
 				
-			}else {
-				temp.add(r);
-			}
-			run++;
-		}
-		
-		/*
-		 * it may work
-		 */
-		
-		//repair run
-		
-		int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
-		
-		Bukkit.broadcastMessage(""+wait);
-		
-		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
-			repair(temp);
-			for(Room r:temp){
-				r.generatePlatfort();
-				r.applyRoom();
 			}
 			
-		},wait);
-		
+			
+			
+			if(roomList.size()<minRooms) {
+				Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
+				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+					for(Room r:roomList) {
+						r.generatePlatform(Material.AIR);
+					}
+					Bukkit.broadcastMessage("Cleaned");
+				},20L);
+				
+				return;
+			}
+			
+			Bukkit.broadcastMessage("size: "+roomList.size());
+			
+			List<Room> temp = new ArrayList<>();
+			
+			run =1;
+			//apply room
+			
+			int countRoom = 1;
+	
+			
+			for(Room r:roomList) {
+				
+				
+				
+				if(!r.getType().equals(DunType.EMERGENCYSTOPWALL)) {
+					
+					
+					Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+						Bukkit.broadcastMessage("run");
+						r.applyRoom();
+					}, 
+						(int) (Math.floor(countRoom/100.0)*10)+1
+					);
+					
+					Bukkit.broadcastMessage("fill run: "+(int) (Math.floor(countRoom/100.0)*10)+1);
+					
+					countRoom++;
+					
+				}else {
+					temp.add(r);
+				}
+				run++;
+			}
+			
+			/*
+			 * it may work
+			 */
+			
+			//repair run
+			
+			int wait = (int) Math.floor(countRoom/100.0)*10 + 60;
+			
+			Bukkit.broadcastMessage(""+wait);
+			
+			
+			Bukkit.getScheduler().scheduleSyncDelayedTask(instance, ()->{
+				repair(temp);
+				for(Room r:temp){
+					r.generatePlatfort();
+					r.applyRoom();
+				}
+				
+			},wait);
+			
 		
 	}
 	

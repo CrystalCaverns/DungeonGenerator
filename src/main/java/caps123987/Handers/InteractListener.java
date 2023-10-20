@@ -76,6 +76,10 @@ public class InteractListener implements Listener{
 					
 					entity.remove();
 					
+					item.setAmount(0);
+					
+					item.setType(Material.AIR);
+					
 					return;	
 				}
 			}

@@ -47,7 +47,7 @@ public class ChestHandler implements Listener{
 	public void playerBreakEvent(BlockBreakEvent e) {
 		Block b = e.getBlock();
 		
-		if(!(b.getType().equals(Material.CHEST)||b.getType().equals(Material.BARREL))) {
+		if(!(b.getType().equals(Material.CHEST)||b.getType().equals(Material.BARREL)||b.getType().equals(Material.DECORATED_POT))) {
 			return;
 		}
 		

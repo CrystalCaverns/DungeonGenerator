@@ -21,6 +21,7 @@ import caps123987.Handers.JoinHandler;
 import caps123987.Handers.InteractListener;
 import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
+import caps123987.Managers.SimpleBlockManager;
 import caps123987.Types.ItemWRarity;
 import caps123987.Utils.RegChest;
 
