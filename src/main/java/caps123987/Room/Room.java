@@ -15,6 +15,7 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureRotation;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
+import caps123987.Managers.SimpleBlockManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import caps123987.Utils.BoudingBox;
@@ -116,19 +117,35 @@ public class Room {
 		return entrance;
 	}
 	
+	public void generateSimplePlatfort(SimpleBlockManager mana) {
+		generatePlatform(type.getMaterial(), false, mana);
+	}
+	
 	public void generatePlatfort() {
-		generatePlatform(type.getMaterial());
+		generatePlatform(type.getMaterial(), true, null);
 	}
 	
 	public void generatePlatform(Material m) {
+		generatePlatform(m, true, null);
+	}
+	
+	public void generatePlatform(Material m, boolean bool, SimpleBlockManager mana) {
+		
 		boudingBox.getBlockList(block,Rot).forEach((Block b)->{
 			entrances.forEach((Block b2, newVector v)->{
 				Block b3 = b.getRelative(0, b2.getY()-b.getY()-1, 0);
-				b3.setType(m);
+				if(bool) {
+					b3.setType(m);
+				}else {
+					mana.setBlock(b3, true);
+				}
 				
 			});
-			
-			b.setType(m);
+			if(bool) {
+				b.setType(m);
+			}else {
+				mana.setBlock(b, true);
+			}
 		});
 	}
 	

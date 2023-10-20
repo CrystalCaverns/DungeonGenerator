@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
@@ -84,6 +85,15 @@ public class CommListener implements CommandExecutor{
 		if(subCommand.equals("addItemToLoot")) {
 			sender.sendMessage("addItemToLoot");
 			createInv(p,args[1]);
+			return true;
+		}
+		
+		if(subCommand.equals("stopRun")) {
+			sender.sendMessage("stopRun");
+			
+			instance.asyncGenID.cancel();
+			Bukkit.getScheduler().cancelTask(instance.asyncGenID.getTaskId());
+			
 			return true;
 		}
 		

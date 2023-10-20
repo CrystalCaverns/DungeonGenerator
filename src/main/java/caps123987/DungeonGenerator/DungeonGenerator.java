@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import caps123987.Commands.CommListener;
 import caps123987.Commands.TabC;
@@ -40,6 +41,8 @@ public class DungeonGenerator extends JavaPlugin{
 	
 	public List<Location> spawns = new ArrayList<Location>();
 	public static List<ItemWRarity> itemsList = new ArrayList<ItemWRarity>();
+	
+	public BukkitTask asyncGenID;
 	
 	
 	@Override
