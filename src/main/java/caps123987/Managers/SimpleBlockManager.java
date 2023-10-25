@@ -21,12 +21,12 @@ public class SimpleBlockManager {
 	
 	public boolean getBlock(int x,int y, int z) {
 		
-		return blocks[x-xOffset()][y-64][z-zOffset()];
+		return blocks[x-xOffset()][y+64][z-zOffset()];
 	}
 	
 	public void setBlock(int x,int y, int z, boolean bool) {
 		
-		blocks[x-xOffset()][y-64][z-zOffset()] = bool;
+		blocks[x-xOffset()][y+64][z-zOffset()] = bool;
 	}
 	
 	public boolean getBlock(Block b) {
