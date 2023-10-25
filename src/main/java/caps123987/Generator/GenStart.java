@@ -120,7 +120,7 @@ public class GenStart {
 				
 				
 				if(roomList.size()<minRooms) {
-					Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+") Cleaning please wait");
+					Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+")");
 					
 					return;
 				}
