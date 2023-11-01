@@ -117,8 +117,8 @@ public class Room {
 		return entrance;
 	}
 	
-	public void generateSimplePlatfort(SimpleBlockManager mana) {
-		generatePlatform(type.getMaterial(), false, mana);
+	public void generateSimplePlatfort(SimpleBlockManager manager) {
+		generatePlatform(type.getMaterial(), false, manager);
 	}
 	
 	public void generatePlatfort() {
@@ -129,7 +129,7 @@ public class Room {
 		generatePlatform(m, true, null);
 	}
 	
-	public void generatePlatform(Material m, boolean bool, SimpleBlockManager mana) {
+	public void generatePlatform(Material m, boolean bool, SimpleBlockManager manager) {
 		
 		boudingBox.getBlockList(block,Rot).forEach((Block b)->{
 			entrances.forEach((Block b2, newVector v)->{
@@ -137,14 +137,14 @@ public class Room {
 				if(bool) {
 					b3.setType(m);
 				}else {
-					mana.setBlock(b3, true);
+					manager.setBlock(b3, true);
 				}
 				
 			});
 			if(bool) {
 				b.setType(m);
 			}else {
-				mana.setBlock(b, true);
+				manager.setBlock(b, true);
 			}
 		});
 	}
