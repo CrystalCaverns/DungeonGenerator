@@ -22,10 +22,30 @@ public class PartyManager {
 		return true;
 	}
 	
-	public void removeParty(Player admin){
-		if(!partyMap.containsKey(admin))return;
+	public boolean removeParty(Player admin){
+		if(!partyMap.containsKey(admin))return false;
 		
 		partyMap.remove(admin);
+		return true;
+	}
+	
+	public Map<Player, List<Player>> getMap(){
+		return partyMap;
+	}
+	
+	public boolean isPartyAdmin(Player admin) {
+		return partyMap.containsKey(admin);
+	}
+	
+	public boolean isInParty(Player player) {
+		for(Map.Entry<Player,List<Player>> entry : partyMap.entrySet()) {
+			for(Player listPlayer : entry.getValue()) {
+				if(listPlayer.getName().equals(player.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void addPlayerToParty(Player admin, Player player) {
@@ -44,6 +64,26 @@ public class PartyManager {
 		players.remove(player);
 		
 		partyMap.replace(admin, players);
+	}
+	
+	public Player removeMe(Player player) {
+		if(partyMap.containsKey(player)) {
+			return null;
+		}
+		
+		for(Map.Entry<Player,List<Player>> entry : partyMap.entrySet()) {
+			for(Player listPlayer : entry.getValue()) {
+				if(listPlayer.getName().equals(player.getName())) {
+					removePlayer(entry.getKey(),listPlayer);
+					return entry.getKey();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public boolean partyContainsPlayer(Player admin, Player player) {
+		return getPlayerList(admin).contains(player);
 	}
 	
 	public List<Player> getPlayerList(Player admin){
@@ -67,4 +107,13 @@ public class PartyManager {
 	public void completeRequest(Player player) {
 		requestBuffer.remove(player);
 	}
+	
+	public boolean hasPartyRequest(Player player) {
+		return requestBuffer.containsKey(player);
+	}
+	
+	public Player getRequestAdmin(Player player) {
+		return requestBuffer.get(player);
+	}
+	
 }
