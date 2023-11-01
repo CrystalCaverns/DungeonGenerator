@@ -23,3 +23,6 @@ commands:
   DungeonGenerator:
      description: controls DungeonGenerator plugin
      usage: /<command>
+  party:
+     description: controls Dungeon party
+     usage: /<command>

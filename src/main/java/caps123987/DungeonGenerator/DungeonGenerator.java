@@ -15,13 +15,15 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import caps123987.Commands.CommListener;
+import caps123987.Commands.AdminCommands;
+import caps123987.Commands.PartyCommands;
 import caps123987.Commands.TabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Handers.InteractListener;
 import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
+import caps123987.Managers.PartyManager;
 import caps123987.Managers.SimpleBlockManager;
 import caps123987.Types.ItemWRarity;
 import caps123987.Utils.RegChest;
@@ -34,6 +36,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public static DungeonGenerator instance;
 	public ChestManager chestManager;
 	public EasyRoomHandler easyRoomHandler;
+	public PartyManager partyManager;
 	
 	public final int maxInv = 20;
 	public File invFile;
@@ -92,6 +95,7 @@ public class DungeonGenerator extends JavaPlugin{
 		loadItems();
 		loadSpawns();
 		
+		partyManager = new PartyManager();
 		chestManager = new ChestManager(instance);
 		easyRoomHandler = new EasyRoomHandler();
 		
@@ -99,7 +103,8 @@ public class DungeonGenerator extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
 		this.getServer().getPluginManager().registerEvents(new InteractListener(easyRoomHandler), this);
 
-		getCommand("DungeonGenerator").setExecutor(new CommListener(easyRoomHandler));
+		getCommand("DungeonGenerator").setExecutor(new AdminCommands(easyRoomHandler));
+		getCommand("party").setExecutor(new PartyCommands(this));
 		
 		getCommand("DungeonGenerator").setTabCompleter(new TabC());
 		

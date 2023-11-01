@@ -33,12 +33,12 @@ import caps123987.Types.ItemWRarity;
 import caps123987.Utils.DunUtils;
 import net.md_5.bungee.api.ChatColor;
 
-public class CommListener implements CommandExecutor{
+public class AdminCommands implements CommandExecutor{
 
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
 	private EasyRoomHandler handler;
 	
-	public CommListener(EasyRoomHandler handler) {
+	public AdminCommands(EasyRoomHandler handler) {
 		this.handler = handler;
 	}
 	
