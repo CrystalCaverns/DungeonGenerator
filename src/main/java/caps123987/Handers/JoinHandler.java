@@ -15,6 +15,8 @@ public class JoinHandler implements Listener{
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
+		if(true)return;
+		
 		Player p = e.getPlayer();
 		
 		if(p.getName().equals("CAPS123987")) {

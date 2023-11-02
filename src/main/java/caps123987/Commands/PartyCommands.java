@@ -14,8 +14,8 @@ import caps123987.Managers.PartyManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class PartyCommands implements CommandExecutor{
-	public DungeonGenerator instance;
-	public PartyManager partyManager;
+	private DungeonGenerator instance;
+	private PartyManager partyManager;
 	
 	public PartyCommands(DungeonGenerator instance) {
 		this.instance = instance;
