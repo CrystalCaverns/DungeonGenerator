@@ -27,6 +27,7 @@ import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.GenStart;
 import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
+import caps123987.Managers.PartyManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import caps123987.Types.ItemWRarity;
@@ -35,11 +36,14 @@ import net.md_5.bungee.api.ChatColor;
 
 public class AdminCommands implements CommandExecutor{
 
-	public DungeonGenerator instance = DungeonGenerator.getInstance();
+	public DungeonGenerator instance;
 	private EasyRoomHandler handler;
+	private PartyManager partyManager;
 	
-	public AdminCommands(EasyRoomHandler handler) {
-		this.handler = handler;
+	public AdminCommands(DungeonGenerator instance) {
+		this.instance = instance;
+		handler = instance.easyRoomHandler;
+		partyManager = instance.partyManager;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -146,10 +150,14 @@ public class AdminCommands implements CommandExecutor{
 	}
 	
 	public void respawn(Player p) {
+		
+		boolean isAdmin = partyManager.isPartyAdmin(p);
+		
+		if(!(isAdmin||(!isAdmin&&!partyManager.isInParty(p))))return;
+		
 		List<Location> list = DungeonGenerator.instance.spawns;
 		
 		Location finalLoc = null;
-		
 		
 		if(list.size()==1) {
 			finalLoc = list.get(0);

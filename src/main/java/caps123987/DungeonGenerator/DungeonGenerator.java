@@ -105,7 +105,7 @@ public class DungeonGenerator extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new InteractListener(easyRoomHandler), this);
 		this.getServer().getPluginManager().registerEvents(new LeaveListener(this), this);
 
-		getCommand("DungeonGenerator").setExecutor(new AdminCommands(easyRoomHandler));
+		getCommand("DungeonGenerator").setExecutor(new AdminCommands(this));
 		getCommand("party").setExecutor(new PartyCommands(this));
 		
 		getCommand("DungeonGenerator").setTabCompleter(new TabC());
