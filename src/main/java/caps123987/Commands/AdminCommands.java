@@ -153,7 +153,10 @@ public class AdminCommands implements CommandExecutor{
 		
 		boolean isAdmin = partyManager.isPartyAdmin(p);
 		
-		if(!(isAdmin||(!isAdmin&&!partyManager.isInParty(p))))return;
+		if(!(isAdmin||(!isAdmin&&!partyManager.isInParty(p)))) {
+			p.sendMessage("Sorry but you coudln't be teleported");
+			return;
+		}
 		
 		List<Location> list = DungeonGenerator.instance.spawns;
 		
@@ -165,7 +168,11 @@ public class AdminCommands implements CommandExecutor{
 			finalLoc = list.get(DunUtils.getRandomValue(0, list.size()-1));
 		}
 		finalLoc = finalLoc.add(0, 1, 0);
-		p.teleport(finalLoc);
+		
+		
+		for(Player player:partyManager.getPlayerList(p)) {
+			player.teleport(finalLoc);
+		}
 	}
 	
 	public void uploadSch(CommandSender sender) {
