@@ -154,7 +154,7 @@ public class AdminCommands implements CommandExecutor{
 		boolean isAdmin = partyManager.isPartyAdmin(p);
 		
 		if(!(isAdmin||(!isAdmin&&!partyManager.isInParty(p)))) {
-			p.sendMessage("Sorry but you coudln't be teleported");
+			p.sendMessage("Sorry but you can't be teleported");
 			return;
 		}
 		

@@ -69,6 +69,11 @@ public class PartyCommands implements CommandExecutor{
 				return true;
 			}
 			
+			if(partyManager.isPartyAdmin(p)) {
+				p.sendMessage("You don't have active party");
+				return true;
+			}
+			
 			if(partyManager.isInParty(player)) {
 				p.sendMessage("Player is another party");
 				return true;
@@ -95,6 +100,11 @@ public class PartyCommands implements CommandExecutor{
 			Player player = Bukkit.getPlayer(playerInput);
 			if(player == null) {
 				p.sendMessage("We coudln't find this player");
+				return true;
+			}
+			
+			if(partyManager.isPartyAdmin(p)) {
+				p.sendMessage("You don't have active party");
 				return true;
 			}
 			

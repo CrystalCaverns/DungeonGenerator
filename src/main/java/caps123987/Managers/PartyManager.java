@@ -58,7 +58,7 @@ public class PartyManager {
 	}
 	
 	public void removePlayer(Player admin, Player player) {
-		if(!partyMap.containsKey(admin))return;
+		if(partyMap.containsKey(player))return;
 		
 		List<Player> players = partyMap.get(admin);
 		players.remove(player);
@@ -84,9 +84,11 @@ public class PartyManager {
 	
 	public void removeMeForce(Player player) {
 		if(partyMap.containsKey(player)) {
-			for(Player listPlayer : partyMap.get(player)) {
-				removePlayer(player, listPlayer);
+			List<Player> tempList = new ArrayList<Player>();
+			tempList.addAll(partyMap.get(player));
+			for(Player listPlayer : tempList) {
 				listPlayer.sendMessage("You left the party because admin left");
+				removePlayer(player, listPlayer);
 			}
 			partyMap.remove(player);
 		}
