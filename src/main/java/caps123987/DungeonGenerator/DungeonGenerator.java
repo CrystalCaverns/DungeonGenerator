@@ -15,6 +15,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import caps123987.BossRoom.BossRoomManager;
 import caps123987.Commands.AdminCommands;
 import caps123987.Commands.PartyCommands;
 import caps123987.Commands.TabC;
@@ -38,6 +39,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public ChestManager chestManager;
 	public EasyRoomHandler easyRoomHandler;
 	public PartyManager partyManager;
+	public BossRoomManager bossRoomManager;
 	
 	public final int maxInv = 20;
 	public File invFile;
@@ -99,6 +101,7 @@ public class DungeonGenerator extends JavaPlugin{
 		partyManager = new PartyManager();
 		chestManager = new ChestManager(instance);
 		easyRoomHandler = new EasyRoomHandler();
+		bossRoomManager = new BossRoomManager();
 		
 		this.getServer().getPluginManager().registerEvents(new JoinHandler(),this);
 		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
