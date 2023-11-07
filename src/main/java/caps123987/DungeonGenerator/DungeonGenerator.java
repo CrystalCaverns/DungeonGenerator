@@ -18,7 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 import caps123987.BossRoom.BossRoomManager;
 import caps123987.Commands.AdminCommands;
 import caps123987.Commands.PartyCommands;
-import caps123987.Commands.TabC;
+import caps123987.Commands.AdminTabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Handers.LeaveListener;
@@ -26,7 +26,6 @@ import caps123987.Handers.InteractListener;
 import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
 import caps123987.Managers.PartyManager;
-import caps123987.Managers.SimpleBlockManager;
 import caps123987.Types.ItemWRarity;
 import caps123987.Utils.RegChest;
 
@@ -111,7 +110,7 @@ public class DungeonGenerator extends JavaPlugin{
 		getCommand("DungeonGenerator").setExecutor(new AdminCommands(this));
 		getCommand("party").setExecutor(new PartyCommands(this));
 		
-		getCommand("DungeonGenerator").setTabCompleter(new TabC());
+		getCommand("DungeonGenerator").setTabCompleter(new AdminTabC());
 		
 		logger.log(Level.INFO,"Loaded: "+spawns.size()+" rooms");
 		
