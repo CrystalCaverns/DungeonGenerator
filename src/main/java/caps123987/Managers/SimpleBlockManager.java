@@ -19,7 +19,6 @@ public class SimpleBlockManager {
 	}
 	
 	public boolean getBlock(int x,int y, int z) {
-		
 		return blocks[x-xOffset()][y+64][z-zOffset()];
 	}
 	

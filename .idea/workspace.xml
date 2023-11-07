@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/TabC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Generator/GenStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Generator/GenStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/JoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/JoinHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,16 +27,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hnili/Desktop/kill get money/DungeonGenerator&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/hnili/Desktop/kill get money/DungeonGenerator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -51,11 +53,15 @@
       <workItem from="1699387942121" duration="37000" />
       <workItem from="1699387985306" duration="29000" />
       <workItem from="1699388042204" duration="32000" />
-      <workItem from="1699388080457" duration="162000" />
+      <workItem from="1699388080457" duration="1539000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
