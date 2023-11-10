@@ -40,6 +40,8 @@ public class AdminCommands implements CommandExecutor{
 	private EasyRoomHandler handler;
 	private PartyManager partyManager;
 	
+	public int test = 0;
+	
 	public AdminCommands(DungeonGenerator instance) {
 		this.instance = instance;
 		handler = instance.easyRoomHandler;

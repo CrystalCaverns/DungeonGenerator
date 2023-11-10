@@ -1,6 +1,7 @@
 package caps123987.Types;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -41,16 +42,16 @@ public enum DunType {
 	EMERGENCYSTOPWALL(false,0,Material.YELLOW_CONCRETE,new BoudingBox(new Vector(-4,0,0),new Vector(4,0,1)),new Vector(0,0,1)),
 	MAIN(false,0,Material.GOLD_BLOCK,new BoudingBox(new Vector(-4,0,-4),new Vector(4,0,4)),new Vector(0,0,-4),new newVector(0,0,4,0),new newVector(4,0,0,90),new newVector(-4,0,0,270),new newVector(0,0,-4,180));
 	
-	private boolean enabled;
+	private final boolean enabled;
 	
-	private int rare;
+	private final int rare;
 	
-	private List<newVector> entrances = new ArrayList<newVector>();
+	private final List<newVector> entrances = new ArrayList<newVector>();
 	
-	private Material m;
-	private Vector entrance;
+	private final Material m;
+	private final Vector entrance;
 	
-	private BoudingBox boudingBox;
+	private final BoudingBox boudingBox;
 	
 	
 	
@@ -60,9 +61,7 @@ public enum DunType {
 		this.m = m;
 		this.entrance = entrance;
 		this.boudingBox = bouding;
-		for(newVector entrance2:entrances) {
-			this.entrances.add(entrance2);
-		}
+		this.entrances.addAll(Arrays.asList(entrances));
 	}
 	public int getRare() {
 		return rare;

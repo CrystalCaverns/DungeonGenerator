@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Room/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Room/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Types/DunType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Types/DunType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Utils/BoudingBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Utils/BoudingBox.java" afterDir="false" />
     </list>
+    <list id="a763afc6-096c-4901-adac-3d53da784041" name="Changes by jirik" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,10 +47,81 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hnili\Desktop\kill get money\DungeonGenerator" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.DungeonGenerator">
+    <configuration name="runServer" type="BatchConfigurationType" factoryName="Batch" temporary="true">
+      <module name="DungeonGenerator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="runServer.bat" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="start" type="BatchConfigurationType" factoryName="Batch" temporary="true">
+      <module name="DungeonGenerator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="start.bat" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DungeonGenerator" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Batch.start" />
+      <item itemvalue="Batch.runServer" />
+      <item itemvalue="Maven.DungeonGenerator" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Batch.start" />
+        <item itemvalue="Batch.runServer" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -53,7 +133,11 @@
       <workItem from="1699387942121" duration="37000" />
       <workItem from="1699387985306" duration="29000" />
       <workItem from="1699388042204" duration="32000" />
-      <workItem from="1699388080457" duration="1539000" />
+      <workItem from="1699388080457" duration="4243000" />
+      <workItem from="1699394252105" duration="113000" />
+      <workItem from="1699451194525" duration="33000" />
+      <workItem from="1699558128655" duration="540000" />
+      <workItem from="1699631262090" duration="930000" />
     </task>
     <servers />
   </component>

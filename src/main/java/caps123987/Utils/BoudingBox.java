@@ -10,7 +10,7 @@ public class BoudingBox {
 	private Vector corner1;
 	private Vector corner2;
 	
-	private List<Vector> vectors =new ArrayList<Vector>();
+	private final List<Vector> vectors =new ArrayList<Vector>();
 	
 	public BoudingBox(Vector corner1,Vector corner2) {
 		setCorner1(corner1);

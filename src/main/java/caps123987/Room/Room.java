@@ -25,10 +25,10 @@ import caps123987.Utils.newVector;
 public class Room {
 	private DunType type;
 	private	Block block;
-	private Map<Block,newVector> entrances = new HashMap<Block,newVector>();
-	private int Rot;
+	private final Map<Block,newVector> entrances = new HashMap<Block,newVector>();
+	private final int Rot;
 	private BoudingBox boudingBox;
-	private Block entrance;
+	private final Block entrance;
 	
 	public DungeonGenerator instance = DungeonGenerator.getInstance();
 	

@@ -52,18 +52,9 @@ public class DungeonGenerator extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-		
-		/**To eddit Room you need to edit it in DunType enum
-		*firts you need to add your own "section"
-		*first argument is if section is enabled 
-		*second is material for dubuging
-		*third is bounding box-area of section-must be 1 block smalle on side where entrance is
-		*fourth is entrance usualy 0 0 -4
-		*
-		*fifth are exits from section
-		*then you put newVector class witch is youst like Vector but fourth parameter is degree
-		* - set only only to 90 180 270, for examle: 4,0,0,270 means 4 block from center to right and the dungeon neeto to rotate 90 degees
-		**/
+
+
+
 		if(!this.getDataFolder().exists()) {
 			this.getDataFolder().mkdir();
 		}
@@ -142,7 +133,7 @@ public class DungeonGenerator extends JavaPlugin{
 			spawns.add(Bukkit.getWorld("world").getSpawnLocation());
 			try {
 				file.createNewFile();
-			} catch (IOException e) {}
+			} catch (IOException ignored) {}
 			return;
 		}
 		
