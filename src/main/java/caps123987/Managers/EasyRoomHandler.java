@@ -86,21 +86,29 @@ public class EasyRoomHandler {
 	}
 	
 	public void generate() {
-		Bukkit.broadcastMessage("new BoudingBox(new Vector(-"+((sizeX-1)/2)+",0,-"+((sizeZ-1)/2)+"), new Vector("+((sizeX-1)/2)+","+(sizeY-1)+","+((sizeZ-1)/2)+"))");
-		
+
+		StringBuilder output = new StringBuilder();
+
+		output.append("new BoudingBox(new Vector(-").append((sizeX - 1) / 2).append(",0,-").append((sizeZ - 1) / 2).append("), new Vector(").append((sizeX - 1) / 2).append(",").append(sizeY - 1).append(",").append((sizeZ - 1) / 2).append(")), ");
+
 		if(entrance==null) {
 			Bukkit.broadcastMessage("Entrance is null");
+			return;
 		}
-		
-		Bukkit.broadcastMessage("new Vector("+(center.getX()-entrance.getX())+","+(entrance.getY()-center.getY())+","+(center.getZ()-entrance.getZ())+")");
-		
+
+		output.append("new Vector(").append(center.getX() - entrance.getX()).append(",").append(entrance.getY() - center.getY()).append(",").append(center.getZ() - entrance.getZ()).append(")");
+
 		for(Map.Entry<Block, Integer> entry :exits.entrySet()) {
 			Block exit = entry.getKey();
 			
 			int rot = entry.getValue();
-			
-			Bukkit.broadcastMessage("new newVector("+(center.getX()-exit.getX())+","+(exit.getY()-center.getY())+","+(center.getZ()-exit.getZ())+","+getRot(rot)+")");
+
+
+			output.append(" ,new newVector(").append(center.getX() - exit.getX()).append(",").append(exit.getY() - center.getY()).append(",").append(center.getZ() - exit.getZ()).append(",").append(getRot(rot)).append(")");
+
 		}
+
+		Bukkit.broadcastMessage(output.toString());
 		
 	}
 	

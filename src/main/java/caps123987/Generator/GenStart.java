@@ -77,13 +77,12 @@ public class GenStart {
 	
 	public void superStart() {
 		start();
-		
+
 		
 	}
 	
 	public void start() {
-		
-		
+
 			instance.asyncGenID = Bukkit.getScheduler().runTaskAsynchronously(instance, ()->{
 				
 				List<Room> roomList=new ArrayList<Room>();
@@ -120,7 +119,9 @@ public class GenStart {
 				
 				if(roomList.size()<minRooms) {
 					Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+")");
-					
+
+					blockManager = null;
+					roomList.clear();
 					return;
 				}
 			
@@ -148,7 +149,6 @@ public class GenStart {
 								Bukkit.broadcastMessage("run");
 								r.generatePlatfort();
 								r.applyRoom();
-								Bukkit.broadcastMessage("spawn");
 							}, 
 								(int) (Math.floor(countRoom/100.0)*6)+1
 							);
@@ -179,10 +179,12 @@ public class GenStart {
 							r.generatePlatfort();
 							r.applyRoom();
 						}
-						
+						blockManager = null;
+						roomList.clear();
 					},wait);
 					
 					setNewSpawns(roomList);
+
 				});
 			
 			});
@@ -286,7 +288,12 @@ public class GenStart {
 		} catch (IOException e) {
 			DungeonGenerator.instance.getLogger().log(Level.SEVERE, "Can't save Spawns");
 		}
-		
+
+		FileConfiguration config = DungeonGenerator.instance.getConfig();
+
+		config.set("origin",startPos);
+		DungeonGenerator.instance.saveConfig();
+		DungeonGenerator.instance.setNewOrigin();
 		DungeonGenerator.instance.loadSpawns();
 		
 	}

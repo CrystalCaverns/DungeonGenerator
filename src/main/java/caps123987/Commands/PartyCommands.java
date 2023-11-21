@@ -26,13 +26,15 @@ public class PartyCommands implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			sender.sendMessage("You must be player to use this command");
 		}
-		Player p = (Player) sender;
-		
-		String subCommand = args[0];
+		Player p = Bukkit.getPlayer(args[0]);
+
+
+
+		String subCommand = args[1];
 		
 		String playerInput = null;
 		try {
-			playerInput = args[1];
+			playerInput = args[2];
 		}catch(Exception e) {}
 		
 		
@@ -151,7 +153,7 @@ public class PartyCommands implements CommandExecutor{
 			Player admin = partyManager.getRequestAdmin(p);
 			
 			partyManager.completeRequest(p);
-			admin.sendMessage("Player "+ChatColor.RED+p.getName()+ChatColor.RESET+" declined your party request");
+			admin.sendMessage("Player "+ ChatColor.RED +p.getName()+ChatColor.RESET+" declined your party request");
 			p.sendMessage("You declined party request");
 		}
 		

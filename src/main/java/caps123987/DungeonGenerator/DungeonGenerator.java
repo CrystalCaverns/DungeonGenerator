@@ -64,9 +64,14 @@ public class DungeonGenerator extends JavaPlugin{
 		*then you put newVector class witch is youst like Vector but fourth parameter is degree
 		* - set only only to 90 180 270, for examle: 4,0,0,270 means 4 block from center to right and the dungeon neeto to rotate 90 degees
 		**/
+		this.saveDefaultConfig();
 		if(!this.getDataFolder().exists()) {
 			this.getDataFolder().mkdir();
 		}
+
+
+	    FileConfiguration config = this.getConfig();
+
 		logger = super.getLogger();
 		instance = this;
 		
@@ -100,7 +105,7 @@ public class DungeonGenerator extends JavaPlugin{
 		partyManager = new PartyManager();
 		chestManager = new ChestManager(instance);
 		easyRoomHandler = new EasyRoomHandler();
-		bossRoomManager = new BossRoomManager();
+		bossRoomManager = new BossRoomManager(config.getInt("bossRoomSize"),config.getLocation("origin"));
 		
 		this.getServer().getPluginManager().registerEvents(new JoinHandler(),this);
 		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
@@ -109,6 +114,7 @@ public class DungeonGenerator extends JavaPlugin{
 
 		getCommand("DungeonGenerator").setExecutor(new AdminCommands(this));
 		getCommand("party").setExecutor(new PartyCommands(this));
+		getCommand("boss").setExecutor(bossRoomManager);
 		
 		getCommand("DungeonGenerator").setTabCompleter(new AdminTabC());
 		
@@ -159,6 +165,9 @@ public class DungeonGenerator extends JavaPlugin{
 		try {
 			yaml.save(file);
 		} catch (IOException e) {}
+	}
+	public void setNewOrigin(){
+		bossRoomManager.setNewOrigin(this.getConfig().getLocation("origin"));
 	}
 	
 	public static DungeonGenerator getInstance() {

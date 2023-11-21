@@ -26,3 +26,6 @@ commands:
   party:
      description: controls Dungeon party
      usage: /<command>
+  boss:
+    description: temp for boss room
+    usage: /<command>
