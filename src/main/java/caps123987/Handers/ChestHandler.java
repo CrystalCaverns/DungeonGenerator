@@ -35,7 +35,9 @@ public class ChestHandler implements Listener{
 			return;
 		}
 		
-		if(!(e.getClickedBlock().getType().equals(Material.CHEST)||e.getClickedBlock().getType().equals(Material.BARREL))) {
+		if(!(e.getClickedBlock().getType().equals(Material.CHEST)
+				||e.getClickedBlock().getType().equals(Material.BARREL)
+				||e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST))){
 			return;
 		}
 		
@@ -47,12 +49,12 @@ public class ChestHandler implements Listener{
 	public void playerBreakEvent(BlockBreakEvent e) {
 		Block b = e.getBlock();
 		
-		if(!(b.getType().equals(Material.CHEST)||b.getType().equals(Material.BARREL)||b.getType().equals(Material.DECORATED_POT))) {
+		if(!(b.getType().equals(Material.DECORATED_POT))) {
 			return;
 		}
 		
 		
-		Inventory inv = chestManager.getInventory(b);
+		Inventory inv = chestManager.getInventory(b,e.getBlock().getType());
 		
 		inv.forEach((ItemStack item)->{
 			if(item!=null) {
@@ -73,18 +75,7 @@ public class ChestHandler implements Listener{
 		
 		p.closeInventory();
 		
-		p.openInventory(chestManager.getInventory(b));
-		
-		
-		
-		/*if(!chestManager.isEnabled(b)) {
-			return;
-		}*/
-		
-		
-		
-		/*Inventory i = Bukkit.createInventory(p, 9,"test");
-		
-		p.openInventory(i);	*/
+		p.openInventory(chestManager.getInventory(b,b.getType()));
+
 	}
 }

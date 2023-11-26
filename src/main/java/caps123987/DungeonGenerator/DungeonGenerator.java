@@ -45,7 +45,10 @@ public class DungeonGenerator extends JavaPlugin{
 	public File items;
 	
 	public List<Location> spawns = new ArrayList<Location>();
-	public static List<ItemWRarity> itemsList = new ArrayList<ItemWRarity>();
+	public static List<ItemWRarity> chestItemsList = new ArrayList<ItemWRarity>();
+	public static List<ItemWRarity> trappedChestItemsList = new ArrayList<ItemWRarity>();
+	public static List<ItemWRarity> barrelItemsList = new ArrayList<ItemWRarity>();
+	public static List<ItemWRarity> potItemsList = new ArrayList<ItemWRarity>();
 	
 	public BukkitTask asyncGenID;
 	
@@ -86,7 +89,7 @@ public class DungeonGenerator extends JavaPlugin{
 			invFile.mkdir();
 		}
 		
-		itemsList = new ArrayList<ItemWRarity>();
+		chestItemsList = new ArrayList<ItemWRarity>();
 		
 		items = new File(invFile,"items.yml");
 		
@@ -129,15 +132,39 @@ public class DungeonGenerator extends JavaPlugin{
 	public void loadItems() {
 		FileConfiguration yaml=YamlConfiguration.loadConfiguration(items);
 		
-		if(yaml.contains("items")) {
-			itemsList = (List<ItemWRarity>) yaml.getList("items");
+		if(yaml.contains("chestItems")) {
+			chestItemsList = (List<ItemWRarity>) yaml.getList("chestItems");
 		}else {
-			itemsList = new ArrayList<ItemWRarity>();
-			yaml.set("items", itemsList);
-			
-					
+			chestItemsList = new ArrayList<ItemWRarity>();
+			yaml.set("chestItems", chestItemsList);
 		}
-		
+
+		if(yaml.contains("trappedChestItems")) {
+			trappedChestItemsList = (List<ItemWRarity>) yaml.getList("trappedChestItems");
+		}else {
+			trappedChestItemsList = new ArrayList<ItemWRarity>();
+			yaml.set("trappedChestItems", trappedChestItemsList);
+		}
+
+		if(yaml.contains("barrelItems")) {
+			barrelItemsList = (List<ItemWRarity>) yaml.getList("barrelItems");
+		}else {
+			barrelItemsList = new ArrayList<ItemWRarity>();
+			yaml.set("barrelItems", barrelItemsList);
+		}
+
+		if(yaml.contains("potItems")) {
+			potItemsList = (List<ItemWRarity>) yaml.getList("potItems");
+		}else {
+			potItemsList = new ArrayList<ItemWRarity>();
+			yaml.set("potItems", potItemsList);
+		}
+		try {
+			yaml.save(items);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	@SuppressWarnings("unchecked")

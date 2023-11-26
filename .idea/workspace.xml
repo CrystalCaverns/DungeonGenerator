@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Generator/GenStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Generator/GenStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/EasyRoomHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/EasyRoomHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Types/DunType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Types/DunType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +20,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CAPS123987&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="bb215fdd-a3e3-4122-886c-17a46d5ed999" />
+        <option name="url" value="https://github.com/CrystalCaverns/DungeonGenerator.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -74,11 +85,37 @@
       <workItem from="1700414926087" duration="277000" />
       <workItem from="1700417130369" duration="3452000" />
       <workItem from="1700596709081" duration="3706000" />
+      <workItem from="1700600435569" duration="117000" />
+      <workItem from="1701024224710" duration="4227000" />
     </task>
+    <task id="LOCAL-00001" summary="bossroom">
+      <option name="closed" value="true" />
+      <created>1700600478309</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700600478309</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="bossroom" />
+    <option name="LAST_COMMIT_MESSAGE" value="bossroom" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

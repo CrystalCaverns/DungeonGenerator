@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -39,15 +40,16 @@ public class ChestManager {
 		}
 	}
 	
-	public Inventory getInventory(Block b) {
+	public Inventory getInventory(Block b, Material m) {
 		if(!exists(b)) {
-			register(b,getRandomInventory(plugin.maxInv,b.getType().name()));
+
+			register(b,getRandomInventory(getMaxItems(m),b.getType().name(), m));
 		}
 		
 		return chests.get(b);
 	}
 	
-	public Inventory getRandomInventory(int iterator,String title) {
+	public Inventory getRandomInventory(int maxItems,String title, Material m) {
 		//File parent =  plugin.invFile;
 		
 		
@@ -59,7 +61,7 @@ public class ChestManager {
 		
 		Inventory inv = Bukkit.createInventory(null, 27,title);
 		
-		LootTable table = new LootTable();
+		LootTable table = new LootTable(m, maxItems);
 		
 		List<ItemStack> list = table.generate();
              
@@ -96,5 +98,9 @@ public class ChestManager {
 		}
 		
 		return files;
+	}
+	public int getMaxItems(Material m){
+		if(m.equals(Material.DECORATED_POT))return 1;
+		return plugin.maxInv;
 	}
 }

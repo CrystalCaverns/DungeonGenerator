@@ -41,7 +41,10 @@ public class AdminTabC implements TabCompleter{
 			List<String> list = new ArrayList<String>();
 			
 			if(subCommand.equals("addItemToLoot")) {
-				list.add("Number As Rarity");
+				list.add("chest");
+				list.add("trappedchest");
+				list.add("barrel");
+				list.add("pot");
 				return list;
 			}
 			
@@ -55,7 +58,12 @@ public class AdminTabC implements TabCompleter{
 		if(lenght==3) {
 			String subCommand = args[0];
 			List<String> list = new ArrayList<String>();
-			
+
+			if(subCommand.equals("addItemToLoot")) {
+				list.add("Number As Rarity");
+				return list;
+			}
+
 			if(subCommand.equals("start")) {
 				list.add("max distance");
 				return list;

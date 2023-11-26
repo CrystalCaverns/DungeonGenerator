@@ -88,7 +88,7 @@ public class AdminCommands implements CommandExecutor{
 		
 		if(subCommand.equals("addItemToLoot")) {
 			sender.sendMessage("addItemToLoot");
-			createInv(p,args[1]);
+			createInv(args[1],p,args[2]);
 			return true;
 		}
 		
@@ -213,20 +213,53 @@ public class AdminCommands implements CommandExecutor{
         out.close();        
 	}
 	@SuppressWarnings("unused")
-	public void createInv(Player p, String args) {
+	public void createInv(String material, Player p, String args) {
 		
 		ItemStack item = p.getInventory().getItemInMainHand();
 		
 		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(instance.items);
 		
-		List<ItemWRarity> list = DungeonGenerator.itemsList;
+		List<ItemWRarity> list = null;
+
+        switch (material) {
+            case "trappedchest":
+                list = DungeonGenerator.trappedChestItemsList;
+                break;
+            case "barrel":
+                list = DungeonGenerator.barrelItemsList;
+                break;
+            case "pot":
+                list = DungeonGenerator.potItemsList;
+                break;
+            default:
+                list = DungeonGenerator.chestItemsList;
+                break;
+        }
 		
 		list.add(new ItemWRarity(item,Integer.parseInt(args)));
 		
-		yaml1.set("items", list);
-		
-		DungeonGenerator.itemsList = list;
-		
+
+
+		switch (material) {
+			case "trappedchest":
+				yaml1.set("trappedChestItems", list);
+				DungeonGenerator.trappedChestItemsList = list;
+				break;
+			case "barrel":
+				yaml1.set("barrelItems", list);
+				DungeonGenerator.barrelItemsList = list;
+				break;
+			case "pot":
+				yaml1.set("potItems", list);
+				DungeonGenerator.potItemsList = list;
+				break;
+			default:
+				yaml1.set("chestItems", list);
+				DungeonGenerator.chestItemsList = list;
+				break;
+		}
+
+
 		try {
 			yaml1.save(instance.items);
 		} catch (IOException e1) {
