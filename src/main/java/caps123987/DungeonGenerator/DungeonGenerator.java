@@ -44,7 +44,9 @@ public class DungeonGenerator extends JavaPlugin{
 	public int respawnLoot;
 	public File invFile;
 	public File items;
-	
+
+	public File bossFile;
+	public File boss;
 	public List<Location> spawns = new ArrayList<Location>();
 	public static List<ItemWRarity> chestItemsList = new ArrayList<ItemWRarity>();
 	public static List<ItemWRarity> trappedChestItemsList = new ArrayList<ItemWRarity>();
@@ -90,14 +92,31 @@ public class DungeonGenerator extends JavaPlugin{
 		if(!invFile.exists()) {
 			invFile.mkdir();
 		}
+
+		bossFile = new File(instance.getDataFolder(),"boss");
+
+		if(!bossFile.exists()) {
+			bossFile.mkdir();
+		}
 		
 		chestItemsList = new ArrayList<ItemWRarity>();
 		
 		items = new File(invFile,"items.yml");
+
+		boss = new File(invFile,"bossroom.nbt");
 		
 		if(!items.exists()) {
 			try {
 				items.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		if(!boss.exists()) {
+			try {
+				boss.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -110,7 +129,7 @@ public class DungeonGenerator extends JavaPlugin{
 		partyManager = new PartyManager();
 		chestManager = new ChestManager(instance);
 		easyRoomHandler = new EasyRoomHandler();
-		bossRoomManager = new BossRoomManager(config.getInt("bossRoomSize"),config.getLocation("origin"));
+		bossRoomManager = new BossRoomManager(config.getInt("bossRoomSize"),config.getLocation("origin"),this);
 		
 		this.getServer().getPluginManager().registerEvents(new JoinHandler(),this);
 		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
@@ -195,11 +214,15 @@ public class DungeonGenerator extends JavaPlugin{
 			yaml.save(file);
 		} catch (IOException e) {}
 	}
-	public void setNewOrigin(){
-		bossRoomManager.setNewOrigin(this.getConfig().getLocation("origin"));
-	}
 	
 	public static DungeonGenerator getInstance() {
 		return instance;
+	}
+
+	public void setNewOrigin(Location origin){
+		bossRoomManager.setorigin(origin);
+		FileConfiguration config = this.getConfig();
+		config.set("origin",origin);
+		this.saveConfig();
 	}
 }

@@ -20,7 +20,7 @@ import caps123987.Types.DunType;
 import caps123987.Utils.DunUtils;
 import caps123987.Utils.newVector;
 
-public class GenStart {
+public class Generator {
 	Location startPos;
 	Block startBlock;
 	
@@ -35,7 +35,7 @@ public class GenStart {
 	private int maxY = 220;
 	private int minRooms = 5000;
 	
-	public GenStart(Location startPos) {
+	public Generator(Location startPos) {
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
 		blockManager = new SimpleBlockManager(limitMax, startPos.getBlock());
@@ -43,7 +43,7 @@ public class GenStart {
 		
 	}
 	
-	public GenStart(Location startPos, int maxY) {
+	public Generator(Location startPos, int maxY) {
 		this.maxY = maxY;
 		this.startPos = startPos;
 		this.startBlock = startPos.getBlock();
@@ -52,7 +52,7 @@ public class GenStart {
 		
 	}
 	
-	public GenStart(Location startPos, int maxY, int maxRange) {
+	public Generator(Location startPos, int maxY, int maxRange) {
 		this.limitMax = maxRange;
 		this.maxY = maxY;
 		this.startPos = startPos;
@@ -63,7 +63,7 @@ public class GenStart {
 		
 	}
 	
-	public GenStart(Location startPos, int maxY, int maxRange, int minRooms) {
+	public Generator(Location startPos, int maxY, int maxRange, int minRooms) {
 		this.limitMax = maxRange;
 		this.maxY = maxY;
 		this.startPos = startPos;
@@ -125,7 +125,8 @@ public class GenStart {
 					return;
 				}
 			
-				
+				instance.setNewOrigin(startPos);
+
 				Bukkit.broadcastMessage("size: "+roomList.size());
 				
 				List<Room> temp = new ArrayList<>();
@@ -293,7 +294,6 @@ public class GenStart {
 
 		config.set("origin",startPos);
 		DungeonGenerator.instance.saveConfig();
-		DungeonGenerator.instance.setNewOrigin();
 		DungeonGenerator.instance.loadSpawns();
 		
 	}

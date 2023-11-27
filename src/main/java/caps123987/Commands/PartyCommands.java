@@ -23,9 +23,7 @@ public class PartyCommands implements CommandExecutor{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be player to use this command");
-		}
+
 		Player p = Bukkit.getPlayer(args[0]);
 
 
