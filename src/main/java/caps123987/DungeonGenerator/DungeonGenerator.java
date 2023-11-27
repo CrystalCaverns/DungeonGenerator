@@ -41,6 +41,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public BossRoomManager bossRoomManager;
 	
 	public final int maxInv = 20;
+	public int respawnLoot;
 	public File invFile;
 	public File items;
 	
@@ -74,6 +75,7 @@ public class DungeonGenerator extends JavaPlugin{
 
 
 	    FileConfiguration config = this.getConfig();
+		respawnLoot = config.getInt("respawnTime");
 
 		logger = super.getLogger();
 		instance = this;
