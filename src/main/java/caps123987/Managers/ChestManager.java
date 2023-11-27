@@ -19,7 +19,7 @@ public class ChestManager {
 
 	private DungeonGenerator plugin;
 	
-	private int time = 10;
+	private final int time;
 	final Random random = new Random(); 
 	
 	public Map<Block,Inventory> chests=new HashMap<Block,Inventory>();
@@ -27,6 +27,7 @@ public class ChestManager {
 
 	public ChestManager(DungeonGenerator p) {
 		plugin = p;
+		time = DungeonGenerator.instance.respawnLoot;
 	}
 	
 	public boolean exists(Block chest) {
