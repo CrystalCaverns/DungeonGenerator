@@ -103,7 +103,7 @@ public class DungeonGenerator extends JavaPlugin{
 		
 		items = new File(invFile,"items.yml");
 
-		boss = new File(invFile,"bossroom.nbt");
+		boss = new File(bossFile,"bossroom.nbt");
 		
 		if(!items.exists()) {
 			try {

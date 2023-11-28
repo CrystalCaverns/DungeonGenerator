@@ -124,5 +124,7 @@ public class BossRoomManager implements CommandExecutor {
 		}
 	}
 
-
+	public void reset(){
+		roomList = new ArrayList<Boolean>();
+	}
 }

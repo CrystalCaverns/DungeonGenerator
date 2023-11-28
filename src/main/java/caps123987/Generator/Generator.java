@@ -126,6 +126,7 @@ public class Generator {
 				}
 			
 				instance.setNewOrigin(startPos);
+				instance.bossRoomManager.reset();
 
 				Bukkit.broadcastMessage("size: "+roomList.size());
 				
