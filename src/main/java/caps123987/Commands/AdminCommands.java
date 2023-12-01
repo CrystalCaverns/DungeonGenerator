@@ -47,30 +47,35 @@ public class AdminCommands implements CommandExecutor{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED+"You must be a Player to use this command");
-			return true;
-		}
+
 		
-		Player p = (Player)sender;
+
 		
 		String subCommand = args[0];
-		
+
 		if(!sender.hasPermission("DungeonGenerator.admin")) {
 			sender.sendMessage(ChatColor.RED+"You don't have permissions to use this command");
 			return true;
 		}
-		
+
+		if(subCommand.equals("respawn")) {
+			Player subPlayer = Bukkit.getPlayer(args[1]);
+			respawn(subPlayer);
+			return true;
+		}
+
+		if(!(sender instanceof Player)) {
+			sender.sendMessage(ChatColor.RED+"You must be a Player to use this command");
+			return true;
+		}
+		Player p = (Player)sender;
+
 		if(args.length <1) {
 			sender.sendMessage(ChatColor.RED+"Not enough args");
 			return true;
 		}
 		
-		if(subCommand.equals("respawn")) {
-			respawn(p);
-			return true;
-		}
-		
+
 		if(subCommand.equals("start")) {
 			sender.sendMessage("gen");
 			if(args.length == 1) {
@@ -225,9 +230,6 @@ public class AdminCommands implements CommandExecutor{
             case "trappedchest":
                 list = DungeonGenerator.trappedChestItemsList;
                 break;
-            case "barrel":
-                list = DungeonGenerator.barrelItemsList;
-                break;
             case "pot":
                 list = DungeonGenerator.potItemsList;
                 break;
@@ -244,10 +246,6 @@ public class AdminCommands implements CommandExecutor{
 			case "trappedchest":
 				yaml1.set("trappedChestItems", list);
 				DungeonGenerator.trappedChestItemsList = list;
-				break;
-			case "barrel":
-				yaml1.set("barrelItems", list);
-				DungeonGenerator.barrelItemsList = list;
 				break;
 			case "pot":
 				yaml1.set("potItems", list);

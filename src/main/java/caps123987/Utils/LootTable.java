@@ -34,8 +34,6 @@ public class LootTable {
 
 		if(m.equals(Material.TRAPPED_CHEST)){
 			itemsList = DungeonGenerator.trappedChestItemsList;
-		}else if(m.equals(Material.BARREL)){
-			itemsList = DungeonGenerator.barrelItemsList;
 		}else if(m.equals(Material.DECORATED_POT)){
 			itemsList = DungeonGenerator.potItemsList;;
 		}else {

@@ -167,12 +167,6 @@ public class DungeonGenerator extends JavaPlugin{
 			yaml.set("trappedChestItems", trappedChestItemsList);
 		}
 
-		if(yaml.contains("barrelItems")) {
-			barrelItemsList = (List<ItemWRarity>) yaml.getList("barrelItems");
-		}else {
-			barrelItemsList = new ArrayList<ItemWRarity>();
-			yaml.set("barrelItems", barrelItemsList);
-		}
 
 		if(yaml.contains("potItems")) {
 			potItemsList = (List<ItemWRarity>) yaml.getList("potItems");

@@ -43,7 +43,6 @@ public class AdminTabC implements TabCompleter{
 			if(subCommand.equals("addItemToLoot")) {
 				list.add("chest");
 				list.add("trappedchest");
-				list.add("barrel");
 				list.add("pot");
 				return list;
 			}
