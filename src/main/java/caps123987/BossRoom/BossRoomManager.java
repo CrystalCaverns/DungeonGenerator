@@ -1,6 +1,7 @@
 package caps123987.BossRoom;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
+import caps123987.Managers.PartyManager;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -25,10 +26,12 @@ public class BossRoomManager implements CommandExecutor {
 	public Location origin;
 	public List<Boolean> roomList = new ArrayList<>();
 	DungeonGenerator instance;
+	public PartyManager partyManager;
 	public BossRoomManager(int size, Location origin, DungeonGenerator instance) {
 		this.size = size;
 		this.origin = origin;
 		this.instance = instance;
+		partyManager = instance.partyManager;
 	}
 
 	public void setorigin(Location origin){
@@ -47,9 +50,18 @@ public class BossRoomManager implements CommandExecutor {
 
 		Player p = Bukkit.getPlayer(player);
 		if(arg.equals("tptoroom")){
+
+			if(!partyManager.isPartyAdmin(p)){
+				sender.sendMessage("You are not party admin");
+				return true;
+			}
+
 			int roomId = findEmpty();
 			Location loc = setUpRoom(roomId);
-			p.teleport(loc);
+
+			for(Player partyPlayer:partyManager.getPlayerList(p)) {
+				partyPlayer.teleport(loc);
+			}
 		}
 
 		if(arg.equals("list")){

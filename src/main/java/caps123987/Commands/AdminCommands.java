@@ -266,7 +266,7 @@ public class AdminCommands implements CommandExecutor{
 		}
 		
 		
-		if(false) {
+		/*
 			Container ch = (Container) p.getTargetBlockExact(5).getState();
 			Inventory inv = ch.getInventory();
 			
@@ -278,9 +278,9 @@ public class AdminCommands implements CommandExecutor{
 			try {
 				yaml2.save(new File(instance.invFile,size+".yml"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		*/
 	}
 }

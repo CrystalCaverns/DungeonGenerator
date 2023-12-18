@@ -50,7 +50,6 @@ public class DungeonGenerator extends JavaPlugin{
 	public List<Location> spawns = new ArrayList<Location>();
 	public static List<ItemWRarity> chestItemsList = new ArrayList<ItemWRarity>();
 	public static List<ItemWRarity> trappedChestItemsList = new ArrayList<ItemWRarity>();
-	public static List<ItemWRarity> barrelItemsList = new ArrayList<ItemWRarity>();
 	public static List<ItemWRarity> potItemsList = new ArrayList<ItemWRarity>();
 	
 	public BukkitTask asyncGenID;
