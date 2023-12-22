@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +107,9 @@
       <workItem from="1702328029080" duration="49000" />
       <workItem from="1702328087288" duration="38000" />
       <workItem from="1702328134867" duration="81000" />
+      <workItem from="1703103951447" duration="288000" />
+      <workItem from="1703104315369" duration="73000" />
+      <workItem from="1703283359901" duration="53000" />
     </task>
     <task id="LOCAL-00001" summary="bossroom">
       <option name="closed" value="true" />
