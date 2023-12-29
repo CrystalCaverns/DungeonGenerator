@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
-      <change afterPath="$PROJECT_DIR$/src/main/java/caps123987/ChunkGeneration/VoidChunkGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/SimpleBlockManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +120,8 @@
       <workItem from="1703283359901" duration="53000" />
       <workItem from="1703683531341" duration="82000" />
       <workItem from="1703793532758" duration="6412000" />
-      <workItem from="1703846261910" duration="1761000" />
+      <workItem from="1703846261910" duration="4046000" />
+      <workItem from="1703859272858" duration="30000" />
     </task>
     <task id="LOCAL-00001" summary="bossroom">
       <option name="closed" value="true" />
