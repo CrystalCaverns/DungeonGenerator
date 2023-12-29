@@ -78,11 +78,14 @@ public class Generator {
 	public void superStart() {
 		start();
 
-		
 	}
 	
 	public void start() {
 
+
+			/*
+			 * creates a new thread to pre-generate the dungeon
+			 */
 			instance.asyncGenID = Bukkit.getScheduler().runTaskAsynchronously(instance, ()->{
 				
 				List<Room> roomList=new ArrayList<Room>();
@@ -93,6 +96,8 @@ public class Generator {
 				
 				List<DunType> types = DunUtils.getRandomDunTypeList();
 				//generate entrances until empty
+
+
 				int run = 1;
 				while(!entrances.isEmpty()) {
 					Bukkit.broadcastMessage("run: "+run);
@@ -120,12 +125,12 @@ public class Generator {
 				if(roomList.size()<minRooms) {
 					Bukkit.broadcastMessage("too small, try again (size: "+roomList.size()+")");
 
+					blockManager.reset();
 					blockManager = null;
 					roomList.clear();
 					return;
 				}
-			
-				instance.setNewOrigin(startPos);
+
 				instance.bossRoomManager.reset();
 
 				Bukkit.broadcastMessage("size: "+roomList.size());
@@ -164,10 +169,6 @@ public class Generator {
 						}
 					}
 					
-					/*
-					 * it may work
-					 */
-					
 					//repair run
 					
 					int wait = (int) Math.floor(countRoom/100.0)*6 + 60;
@@ -181,6 +182,7 @@ public class Generator {
 							r.generatePlatfort();
 							r.applyRoom();
 						}
+						blockManager.reset();
 						blockManager = null;
 						roomList.clear();
 					},wait);
@@ -272,7 +274,10 @@ public class Generator {
 	}
 	
 	public void setNewSpawns(List<Room> roomList) {
-		File file = new File(DungeonGenerator.instance.getDataFolder(),"Spawns.yml");
+
+		String world = startPos.getWorld().getName();
+
+		File file = new File(DungeonGenerator.instance.getDataFolder(),world + ".yml");
 		FileConfiguration yaml=YamlConfiguration.loadConfiguration(file);
 		
 		List<Location> toSpawn = new ArrayList<Location>();
@@ -291,14 +296,14 @@ public class Generator {
 			DungeonGenerator.instance.getLogger().log(Level.SEVERE, "Can't save Spawns");
 		}
 
-		FileConfiguration config = DungeonGenerator.instance.getConfig();
-
-		config.set("origin",startPos);
 		DungeonGenerator.instance.saveConfig();
 		DungeonGenerator.instance.loadSpawns();
 		
 	}
-	
+
+	/**
+	* generates main room with 2 more rooms
+	**/
 	private void generateMain(Map<Block,newVector> entrances, List<Room> roomList) {
 		Room starterRoom = createRoom(DunType.MAIN,startBlock,0,false,new ArrayList<>(),roomList);
 

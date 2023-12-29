@@ -47,4 +47,8 @@ public class SimpleBlockManager {
 		//return center.getZ() - distance-64;
 	}
 
+	public void reset() {
+		blocks = null;
+	}
+
 }

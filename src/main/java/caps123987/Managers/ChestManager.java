@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -44,13 +45,13 @@ public class ChestManager {
 	public Inventory getInventory(Block b, Material m) {
 		if(!exists(b)) {
 
-			register(b,getRandomInventory(getMaxItems(m),b.getType().name(), m));
+			register(b,getRandomInventory(getMaxItems(m),b.getType().name(), m, b.getWorld()));
 		}
 		
 		return chests.get(b);
 	}
 	
-	public Inventory getRandomInventory(int maxItems,String title, Material m) {
+	public Inventory getRandomInventory(int maxItems, String title, Material m, World world) {
 		//File parent =  plugin.invFile;
 		
 		
@@ -62,7 +63,7 @@ public class ChestManager {
 		
 		Inventory inv = Bukkit.createInventory(null, 27,title);
 		
-		LootTable table = new LootTable(m, maxItems);
+		LootTable table = new LootTable(m, maxItems, world);
 		
 		List<ItemStack> list = table.generate();
              

@@ -158,12 +158,12 @@ public class AdminCommands implements CommandExecutor{
 		
 		boolean isAdmin = partyManager.isPartyAdmin(p);
 		
-		if(!(isAdmin||(!isAdmin&&!partyManager.isInParty(p)))) {
+		if(!(isAdmin||!partyManager.isInParty(p))) {
 			p.sendMessage("Sorry but you can't be teleported");
 			return;
 		}
 		
-		List<Location> list = DungeonGenerator.instance.spawns;
+		List<Location> list = DungeonGenerator.instance.floor1Spawns;
 		
 		Location finalLoc = null;
 		
@@ -221,20 +221,22 @@ public class AdminCommands implements CommandExecutor{
 	public void createInv(String material, Player p, String args) {
 		
 		ItemStack item = p.getInventory().getItemInMainHand();
-		
-		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(instance.items);
+
+		File itemsF = new File(DungeonGenerator.getInstance().getDataFolder(),"items/"+p.getLocation().getWorld().getName()+".yml");
+
+		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(itemsF);
 		
 		List<ItemWRarity> list = null;
 
         switch (material) {
             case "trappedchest":
-                list = DungeonGenerator.trappedChestItemsList;
+                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("TRAPPED_CHEST");
                 break;
             case "pot":
-                list = DungeonGenerator.potItemsList;
+                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT");
                 break;
             default:
-                list = DungeonGenerator.chestItemsList;
+                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("CHEST");
                 break;
         }
 		
@@ -245,21 +247,21 @@ public class AdminCommands implements CommandExecutor{
 		switch (material) {
 			case "trappedchest":
 				yaml1.set("trappedChestItems", list);
-				DungeonGenerator.trappedChestItemsList = list;
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("TRAPPED_CHEST", list);
 				break;
 			case "pot":
 				yaml1.set("potItems", list);
-				DungeonGenerator.potItemsList = list;
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("DECORATED_POT", list);
 				break;
 			default:
 				yaml1.set("chestItems", list);
-				DungeonGenerator.chestItemsList = list;
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("CHEST", list);
 				break;
 		}
 
 
 		try {
-			yaml1.save(instance.items);
+			yaml1.save(itemsF);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

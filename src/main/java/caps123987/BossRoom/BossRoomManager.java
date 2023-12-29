@@ -6,12 +6,14 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,6 @@ public class BossRoomManager implements CommandExecutor {
 		partyManager = instance.partyManager;
 	}
 
-	public void setorigin(Location origin){
-		this.origin = origin;
-	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!sender.hasPermission("DungeonGenerator.admin")) {
@@ -51,16 +50,26 @@ public class BossRoomManager implements CommandExecutor {
 		Player p = Bukkit.getPlayer(player);
 		if(arg.equals("tptoroom")){
 
-			if(!partyManager.isPartyAdmin(p)){
+			boolean isAdmin = partyManager.isPartyAdmin(p);
+
+			if(!(isAdmin || !partyManager.isInParty(p))) {
 				sender.sendMessage("You are not party admin");
 				return true;
 			}
 
 			int roomId = findEmpty();
-			Location loc = setUpRoom(roomId);
+			Location corner = setUpRoom(roomId);
+
+			File roomFile = getRoomFile(roomId);
+			FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
+			yaml.set("origin",corner);
+			yaml.set("state",true);
+			yaml.set("idx",roomId);
+
+			saveFile(roomFile,yaml);
 
 			for(Player partyPlayer:partyManager.getPlayerList(p)) {
-				partyPlayer.teleport(loc);
+				partyPlayer.teleport(corner.clone().add(size/2.0,size/2.0,size/2.0));
 			}
 		}
 
@@ -77,7 +86,13 @@ public class BossRoomManager implements CommandExecutor {
 			String arg2 = args[2];
 			String arg3 = args[3];
 			int idx = Integer.parseInt(arg2);
-			roomList.set(idx,Boolean.getBoolean(arg3));
+			roomList.set(idx,Boolean.parseBoolean(arg3));
+
+			File roomFile = getRoomFile(idx);
+			FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
+			yaml.set("state",Boolean.parseBoolean(arg3));
+
+			saveFile(roomFile,yaml);
 		}
 
 		return true;
@@ -138,5 +153,17 @@ public class BossRoomManager implements CommandExecutor {
 
 	public void reset(){
 		roomList = new ArrayList<Boolean>();
+	}
+
+	private File getRoomFile(int roomId){
+		return new File(instance.getDataFolder()+"/rooms/room_"+roomId+".yml");
+	}
+	private void saveFile(File file,FileConfiguration yaml) {
+		try {
+			yaml.save(file);
+		} catch (Exception e) {
+			instance.getLogger().severe("Can't save file "+file.getName());
+			instance.getLogger().severe(e.getMessage());
+		}
 	}
 }

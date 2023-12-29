@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
 import caps123987.DungeonGenerator.DungeonGenerator;
@@ -16,7 +17,7 @@ public class LootTable {
 	final Material material;
 	
 	public LootTable() {
-		itemsList = DungeonGenerator.chestItemsList;
+		itemsList = DungeonGenerator.invMap.get("floor_1").get("CHEST");
 		
 		maxItems = 10;
 
@@ -30,15 +31,16 @@ public class LootTable {
 
 		
 	}
-	public LootTable(Material m, int maxItems){
+	public LootTable(Material m, int maxItems, World world){
 
-		if(m.equals(Material.TRAPPED_CHEST)){
-			itemsList = DungeonGenerator.trappedChestItemsList;
-		}else if(m.equals(Material.DECORATED_POT)){
-			itemsList = DungeonGenerator.potItemsList;;
-		}else {
-			itemsList = DungeonGenerator.chestItemsList;
+		String materialName = "";
+		if (m.name().equals("BARREL")){
+			materialName = "CHEST";
+		}else{
+			materialName = m.name();
 		}
+
+		itemsList = DungeonGenerator.invMap.get(world.getName()).get(materialName);
 
 		if(maxItems>4) {
 			this.maxItems = DunUtils.getRandomValue(maxItems - 3, maxItems);
@@ -54,19 +56,6 @@ public class LootTable {
 		this.maxPercent = maxPercent;
 	}
 
-	public LootTable(int maxItems) {
-		itemsList = DungeonGenerator.chestItemsList;
-
-		this.maxItems = maxItems;
-
-		material = Material.CHEST;
-
-		int maxPercent = 0;
-		for(ItemWRarity i: itemsList) {
-			maxPercent += i.getRarity();
-		}
-		this.maxPercent = maxPercent;
-	}
 	
 	public List<ItemStack> generate(){
 		
