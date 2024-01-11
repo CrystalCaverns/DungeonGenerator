@@ -90,32 +90,25 @@ public class InteractListener implements Listener{
 	private void tools(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		
-		
-		if(!p.hasPermission("DungeonGenerator.admin")) {
-			
-			return;
-		}
-		if(!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-			return;
-		}
+		assert !p.hasPermission("DungeonGenerator.admin");
+
+		assert !e.getAction().equals(Action.RIGHT_CLICK_BLOCK);
 		
 		ItemStack item = p.getInventory().getItemInMainHand();
 		
 		ItemMeta meta = item.getItemMeta();
 		
-		if(meta==null) {
-			return;
-		}
+		assert meta==null;
 		
-		if(!meta.hasCustomModelData()) {
-			return;
-		}
+		assert !meta.hasCustomModelData();
 		
 		
 		String name = meta.getDisplayName();
 		
 		Block clicked = e.getClickedBlock();
-		
+
+		boolean cancel = false;
+
 		if(name.equals("�rEntrance")) {
 			
 			spawnArmor(p,clicked,"Entrance",Material.MAGENTA_GLAZED_TERRACOTTA);
@@ -123,6 +116,8 @@ public class InteractListener implements Listener{
 			handler.setEntrance(clicked);
 			
 			p.sendMessage("Entrance: " + clicked.getLocation());
+
+			cancel = true;
 			
 		}
 		
@@ -133,7 +128,8 @@ public class InteractListener implements Listener{
 			handler.addExit(clicked,(int) armor.getLocation().getYaw());
 			
 			p.sendMessage("Exit: " + clicked.getLocation());
-			
+
+			cancel = true;
 		}
 		
 		if(name.equals("�rCorner")){
@@ -157,10 +153,13 @@ public class InteractListener implements Listener{
 			}else {
 				p.sendMessage("please remove other corners");
 			}
-			
+
+			cancel = true;
 			
 		}
-		e.setCancelled(true);
+		if(cancel) {
+			e.setCancelled(true);
+		}
 	}
 	
 	
