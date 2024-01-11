@@ -90,17 +90,25 @@ public class InteractListener implements Listener{
 	private void tools(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		
-		assert !p.hasPermission("DungeonGenerator.admin");
+		if(!p.hasPermission("DungeonGenerator.admin")){
+			return;
+		}
 
-		assert !e.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+		if(!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+			return;
+		}
 		
 		ItemStack item = p.getInventory().getItemInMainHand();
 		
 		ItemMeta meta = item.getItemMeta();
 		
-		assert meta==null;
+		if(meta==null){
+			return;
+		}
 		
-		assert !meta.hasCustomModelData();
+		if(!meta.hasCustomModelData()){
+			return;
+		}
 		
 		
 		String name = meta.getDisplayName();
@@ -110,8 +118,8 @@ public class InteractListener implements Listener{
 		boolean cancel = false;
 
 		if(name.equals("�rEntrance")) {
-			
-			spawnArmor(p,clicked,"Entrance",Material.MAGENTA_GLAZED_TERRACOTTA);
+
+            spawnArmor(p,clicked,"Entrance",Material.MAGENTA_GLAZED_TERRACOTTA);
 			
 			handler.setEntrance(clicked);
 			
