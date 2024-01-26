@@ -14,14 +14,11 @@ public class LootTable {
 	final List<ItemWRarity> itemsList;
 	final int maxItems;
 	final int maxPercent;
-	final Material material;
 	
 	public LootTable() {
-		itemsList = DungeonGenerator.invMap.get("floor_1").get("CHEST");
+		itemsList = DungeonGenerator.invMap.get("floor_1").get("DECORATED_POT");
 		
 		maxItems = 10;
-
-		material = Material.CHEST;
 
 		int maxPercent = 0;
 		for(ItemWRarity i: itemsList) {
@@ -31,23 +28,15 @@ public class LootTable {
 
 		
 	}
-	public LootTable(Material m, int maxItems, World world){
+	public LootTable(String name, int maxItems, World world){
 
-		String materialName = "";
-		if (m.name().equals("BARREL")){
-			materialName = "CHEST";
-		}else{
-			materialName = m.name();
-		}
-
-		itemsList = DungeonGenerator.invMap.get(world.getName()).get(materialName);
+		itemsList = DungeonGenerator.invMap.get(world.getName()).get(name);
 
 		if(maxItems>4) {
 			this.maxItems = DunUtils.getRandomValue(maxItems - 3, maxItems);
 		}else{
 			this.maxItems = maxItems;
 		}
-		material = m;
 
 		int maxPercent = 0;
 		for(ItemWRarity i: itemsList) {

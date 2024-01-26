@@ -3,8 +3,8 @@ package caps123987.Handers;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
+import caps123987.DungeonGenerator.DungeonGenerator;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -14,17 +14,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import caps123987.Managers.EasyRoomHandler;
 
-public class InteractListener implements Listener{
+public class KeyToolListener implements Listener{
 	
 	EasyRoomHandler handler;
 	
-	public InteractListener(EasyRoomHandler handler) {
+	public KeyToolListener(EasyRoomHandler handler) {
 		this.handler = handler;
 	}
 	
@@ -33,7 +34,24 @@ public class InteractListener implements Listener{
 		tools(e);
 		
 		key(e);
-		
+	}
+
+	@EventHandler
+	public void onPlayerInteractEntity(PlayerInteractAtEntityEvent e) {
+		nextFloor(e);
+	}
+
+
+	private void nextFloor(PlayerInteractAtEntityEvent e){
+		if(e.getRightClicked().getScoreboardTags().contains("floorTp")) {
+			Player p = e.getPlayer();
+			String wName = p.getLocation().getWorld().getName();
+
+			String fNumber = wName.split("_")[1];
+			int floor = Integer.parseInt(fNumber);
+
+			DungeonGenerator.instance.respawn(p, "floor_" + (floor + 1));
+		}
 	}
 	
 	private void key(PlayerInteractEvent e) {

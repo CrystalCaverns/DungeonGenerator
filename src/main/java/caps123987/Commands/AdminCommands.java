@@ -10,28 +10,23 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import caps123987.DungeonGenerator.DungeonGenerator;
 import caps123987.Generator.Generator;
-import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
 import caps123987.Managers.PartyManager;
 import caps123987.Types.DunMater;
 import caps123987.Types.DunType;
 import caps123987.Types.ItemWRarity;
-import caps123987.Utils.DunUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class AdminCommands implements CommandExecutor{
@@ -60,7 +55,8 @@ public class AdminCommands implements CommandExecutor{
 
 		if(subCommand.equals("respawn")) {
 			Player subPlayer = Bukkit.getPlayer(args[1]);
-			respawn(subPlayer);
+			String subWorld = args[2];
+			instance.respawn(subPlayer, subWorld);
 			return true;
 		}
 
@@ -93,7 +89,7 @@ public class AdminCommands implements CommandExecutor{
 		
 		if(subCommand.equals("addItemToLoot")) {
 			sender.sendMessage("addItemToLoot");
-			createInv(args[1],p,args[2]);
+			createItem(args[1],p,args[2]);
 			return true;
 		}
 		
@@ -154,32 +150,6 @@ public class AdminCommands implements CommandExecutor{
 		
 	}
 	
-	public void respawn(Player p) {
-		
-		boolean isAdmin = partyManager.isPartyAdmin(p);
-		
-		if(!(isAdmin||!partyManager.isInParty(p))) {
-			p.sendMessage("Sorry but you can't be teleported");
-			return;
-		}
-		
-		List<Location> list = DungeonGenerator.instance.floor1Spawns;
-		
-		Location finalLoc = null;
-		
-		if(list.size()==1) {
-			finalLoc = list.get(0);
-		}else {
-			finalLoc = list.get(DunUtils.getRandomValue(0, list.size()-1));
-		}
-		finalLoc = finalLoc.add(0, 1, 0);
-		
-		
-		for(Player player:partyManager.getPlayerList(p)) {
-			player.teleport(finalLoc);
-		}
-	}
-	
 	public void uploadSch(CommandSender sender) {
 		sender.sendMessage("uploadSch");
 		
@@ -217,8 +187,8 @@ public class AdminCommands implements CommandExecutor{
         in.close();
         out.close();        
 	}
-	@SuppressWarnings("unused")
-	public void createInv(String material, Player p, String args) {
+
+	public void createItem(String material, Player p, String args) {
 		
 		ItemStack item = p.getInventory().getItemInMainHand();
 
@@ -229,33 +199,41 @@ public class AdminCommands implements CommandExecutor{
 		List<ItemWRarity> list = null;
 
         switch (material) {
-            case "trappedchest":
-                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("TRAPPED_CHEST");
+            case "rare":
+                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("rare");
                 break;
-            case "pot":
-                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT");
-                break;
+			case "epic":
+				list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("epic");
+				break;
+			case "legendary":
+				list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("legendary");
+				break;
             default:
-                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("CHEST");
+                list = DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT");
                 break;
         }
 		
-		list.add(new ItemWRarity(item,Integer.parseInt(args)));
+		list.add(new ItemWRarity(item.clone(),Integer.parseInt(args)));
 		
 
 
 		switch (material) {
-			case "trappedchest":
-				yaml1.set("trappedChestItems", list);
-				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("TRAPPED_CHEST", list);
+			case "rare":
+				yaml1.set("rare", list);
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("rare", list);
 				break;
-			case "pot":
+			case "epic":
+				yaml1.set("epic", list);
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("epic", list);
+				break;
+			case "legendary":
+				yaml1.set("legendary", list);
+				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("legendary", list);
+				break;
+
+			default:
 				yaml1.set("potItems", list);
 				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("DECORATED_POT", list);
-				break;
-			default:
-				yaml1.set("chestItems", list);
-				DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).replace("CHEST", list);
 				break;
 		}
 

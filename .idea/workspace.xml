@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/InteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/InteractListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/InteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/KeyToolListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +49,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -66,7 +78,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;discord-application&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -128,7 +140,20 @@
       <workItem from="1704576795827" duration="116000" />
       <workItem from="1704993430876" duration="660000" />
       <workItem from="1704995300344" duration="114000" />
-      <workItem from="1704995460361" duration="218000" />
+      <workItem from="1704995460361" duration="377000" />
+      <workItem from="1705598835641" duration="2410000" />
+      <workItem from="1705609598119" duration="3224000" />
+      <workItem from="1705612952262" duration="172000" />
+      <workItem from="1705758381866" duration="2393000" />
+      <workItem from="1705855667998" duration="2828000" />
+      <workItem from="1705863005318" duration="41000" />
+      <workItem from="1705863067669" duration="60000" />
+      <workItem from="1705863141993" duration="26000" />
+      <workItem from="1705863174973" duration="5283000" />
+      <workItem from="1705868506973" duration="2275000" />
+      <workItem from="1705918441759" duration="2134000" />
+      <workItem from="1705921557005" duration="829000" />
+      <workItem from="1706275287452" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="bossroom">
       <option name="closed" value="true" />

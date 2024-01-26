@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -42,16 +43,15 @@ public class ChestManager {
 		}
 	}
 	
-	public Inventory getInventory(Block b, Material m) {
+	public Inventory getInventory(Block b, String lootname, String displayName) {
 		if(!exists(b)) {
-
-			register(b,getRandomInventory(getMaxItems(m),b.getType().name(), m, b.getWorld()));
+			register(b,getRandomInventory(getMaxItems(lootname),displayName, lootname, b.getWorld()));
 		}
 		
 		return chests.get(b);
 	}
 	
-	public Inventory getRandomInventory(int maxItems, String title, Material m, World world) {
+	public Inventory getRandomInventory(int maxItems, String title, String lootname, World world) {
 		//File parent =  plugin.invFile;
 		
 		
@@ -61,9 +61,9 @@ public class ChestManager {
 		//File finalF = files.get(DunUtils.getRandomValue(0, files.size()-1));
 		//FileConfiguration yaml=YamlConfiguration.loadConfiguration(finalF);
 		
-		Inventory inv = Bukkit.createInventory(null, 27,title);
+		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.WHITE+title);
 		
-		LootTable table = new LootTable(m, maxItems, world);
+		LootTable table = new LootTable(lootname, maxItems, world);
 		
 		List<ItemStack> list = table.generate();
              
@@ -101,8 +101,8 @@ public class ChestManager {
 		
 		return files;
 	}
-	public int getMaxItems(Material m){
-		if(m.equals(Material.DECORATED_POT))return 1;
+	public int getMaxItems(String name){
+		if(name.equals("DECORATED_POT"))return 1;
 		return plugin.maxInv;
 	}
 }

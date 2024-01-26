@@ -44,8 +44,33 @@ public class BossRoomManager implements CommandExecutor {
 		}
 
 		String player = args[0];
-		String arg = args[1];
 
+		if(player.equals("set")) {
+			String arg2 = args[1];
+			String arg3 = args[2];
+			int idx = Integer.parseInt(arg2);
+			roomList.set(idx,Boolean.parseBoolean(arg3));
+
+			File roomFile = getRoomFile(idx);
+			FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
+			yaml.set("state",Boolean.parseBoolean(arg3));
+
+			saveFile(roomFile,yaml);
+
+			return true;
+		}
+
+		if(player.equals("list")){
+			sender.sendMessage("Registered rooms:");
+			int idx = 0;
+			for (boolean b : roomList) {
+				sender.sendMessage("  idx: "+idx+" state: "+b);
+				idx++;
+			}
+			return true;
+		}
+
+		String arg = args[1];
 
 		Player p = Bukkit.getPlayer(player);
 		if(arg.equals("tptoroom")){
@@ -57,46 +82,34 @@ public class BossRoomManager implements CommandExecutor {
 				return true;
 			}
 
-			int roomId = findEmpty();
-			Location corner = setUpRoom(roomId);
-
-			File roomFile = getRoomFile(roomId);
-			FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
-			yaml.set("origin",corner);
-			yaml.set("state",true);
-			yaml.set("idx",roomId);
-
-			saveFile(roomFile,yaml);
+			Location corner = findRoom();
 
 			for(Player partyPlayer:partyManager.getPlayerList(p)) {
 				partyPlayer.teleport(corner.clone().add(size/2.0,size/2.0,size/2.0));
 			}
 		}
 
-		if(arg.equals("list")){
-			sender.sendMessage("Registered rooms:");
-			int idx = 0;
-			for (boolean b : roomList) {
-				sender.sendMessage("  idx: "+idx+" state: "+b);
-				idx++;
-			}
-		}
 
-		if(arg.equals("set")) {
-			String arg2 = args[2];
-			String arg3 = args[3];
-			int idx = Integer.parseInt(arg2);
-			roomList.set(idx,Boolean.parseBoolean(arg3));
 
-			File roomFile = getRoomFile(idx);
-			FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
-			yaml.set("state",Boolean.parseBoolean(arg3));
 
-			saveFile(roomFile,yaml);
-		}
 
 		return true;
     }
+
+	public Location findRoom(){
+		int roomId = findEmpty();
+		Location corner = setUpRoom(roomId);
+
+		File roomFile = getRoomFile(roomId);
+		FileConfiguration yaml = YamlConfiguration.loadConfiguration(roomFile);
+		yaml.set("origin",corner);
+		yaml.set("state",true);
+		yaml.set("idx",roomId);
+
+		saveFile(roomFile,yaml);
+
+		return corner;
+	}
 
 	public int findEmpty(){
 		int idx = 0;

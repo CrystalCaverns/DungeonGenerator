@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import caps123987.ChunkGeneration.VoidChunkGenerator;
+import caps123987.Utils.DunUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
@@ -17,6 +18,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -27,7 +29,7 @@ import caps123987.Commands.AdminTabC;
 import caps123987.Handers.ChestHandler;
 import caps123987.Handers.JoinHandler;
 import caps123987.Handers.LeaveListener;
-import caps123987.Handers.InteractListener;
+import caps123987.Handers.KeyToolListener;
 import caps123987.Managers.ChestManager;
 import caps123987.Managers.EasyRoomHandler;
 import caps123987.Managers.PartyManager;
@@ -44,6 +46,7 @@ public class DungeonGenerator extends JavaPlugin{
 	public EasyRoomHandler easyRoomHandler;
 	public PartyManager partyManager;
 	public BossRoomManager bossRoomManager;
+	private ChestHandler chestHandler;
 	
 	public final int maxInv = 20;
 	public int respawnLoot;
@@ -110,10 +113,11 @@ public class DungeonGenerator extends JavaPlugin{
 		chestManager = new ChestManager(instance);
 		easyRoomHandler = new EasyRoomHandler();
 		bossRoomManager = new BossRoomManager(config.getInt("bossRoomSize"),new Location(Bukkit.getWorld("boss_room"),0,0,0),this);
-		
+
+		chestHandler = new ChestHandler(instance);
 		this.getServer().getPluginManager().registerEvents(new JoinHandler(),this);
-		this.getServer().getPluginManager().registerEvents(new ChestHandler(instance),this);
-		this.getServer().getPluginManager().registerEvents(new InteractListener(easyRoomHandler), this);
+		this.getServer().getPluginManager().registerEvents(chestHandler,this);
+		this.getServer().getPluginManager().registerEvents(new KeyToolListener(easyRoomHandler), this);
 		this.getServer().getPluginManager().registerEvents(new LeaveListener(this), this);
 
 		getCommand("DungeonGenerator").setExecutor(new AdminCommands(this));
@@ -165,9 +169,10 @@ public class DungeonGenerator extends JavaPlugin{
 		File file2Spawns = new File(DungeonGenerator.instance.getDataFolder(),"floor_2.yml");
 		File file3Spawns = new File(DungeonGenerator.instance.getDataFolder(),"floor_3.yml");
 
-		loadSpecificSpawns(file1Spawns,floor1Spawns);
-		loadSpecificSpawns(file2Spawns,floor2Spawns);
-		loadSpecificSpawns(file3Spawns,floor3Spawns);
+
+		floor1Spawns = loadSpecificSpawns(file1Spawns);
+		floor2Spawns = loadSpecificSpawns(file2Spawns);
+		floor3Spawns = loadSpecificSpawns(file3Spawns);
 	}
 	
 	public static void saveFile(File file,FileConfiguration yaml) {
@@ -180,14 +185,16 @@ public class DungeonGenerator extends JavaPlugin{
 		return instance;
 	}
 
-	private void loadSpecificSpawns(File file, List<Location> list) {
+	private List<Location> loadSpecificSpawns(File file) {
+
+		List<Location> list = new ArrayList<>();
 
 		if(!file.exists()) {
 			list.add(Bukkit.getWorld("world").getSpawnLocation());
 			try {
 				file.createNewFile();
 			} catch (IOException e) {}
-			return;
+			return list;
 		}
 
 		try {
@@ -197,6 +204,8 @@ public class DungeonGenerator extends JavaPlugin{
 		}catch(Exception e) {
 			list.add(Bukkit.getWorld("world").getSpawnLocation());
 		}
+
+		return list;
 	}
 
 	private void loadSpecificItems(File file, String key) {
@@ -204,20 +213,26 @@ public class DungeonGenerator extends JavaPlugin{
 
 		Map<String, List<ItemWRarity>> map = new HashMap<>();
 
-		if(yaml.contains("chestItems")) {
-			map.put("CHEST",(List<ItemWRarity>) yaml.getList("chestItems"));
+		if(yaml.contains("rare")) {
+			map.put("rare",(List<ItemWRarity>) yaml.getList("rare"));
 		}else {
-			map.put("CHEST", new ArrayList<ItemWRarity>());
-			yaml.set("chestItems", map.get("CHEST"));
+			map.put("rare", new ArrayList<ItemWRarity>());
+			yaml.set("rare", map.get("CHEST"));
 		}
 
-		if(yaml.contains("trappedChestItems")) {
-			map.put("TRAPPED_CHEST",(List<ItemWRarity>) yaml.getList("trappedChestItems"));
+		if(yaml.contains("epic")) {
+			map.put("epic",(List<ItemWRarity>) yaml.getList("epic"));
 		}else {
-			map.put("TRAPPED_CHEST", new ArrayList<ItemWRarity>());
-			yaml.set("trappedChestItems", map.get("TRAPPED_CHEST"));
+			map.put("epic", new ArrayList<ItemWRarity>());
+			yaml.set("epic", map.get("TRAPPED_CHEST"));
 		}
 
+		if(yaml.contains("legendary")) {
+			map.put("legendary",(List<ItemWRarity>) yaml.getList("legendary"));
+		}else {
+			map.put("legendary", new ArrayList<ItemWRarity>());
+			yaml.set("legendary", map.get("TRAPPED_CHEST"));
+		}
 
 		if(yaml.contains("potItems")) {
 			map.put("DECORATED_POT",(List<ItemWRarity>) yaml.getList("potItems"));
@@ -225,12 +240,55 @@ public class DungeonGenerator extends JavaPlugin{
 			map.put("DECORATED_POT",new ArrayList<ItemWRarity>());
 			yaml.set("potItems", map.get("DECORATED_POT"));
 		}
+
 		try {
 			yaml.save(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		invMap.put(key,map);
+	}
+
+	public void respawn(Player p, String worldName) {
+
+		boolean isAdmin = partyManager.isPartyAdmin(p);
+
+		if(!(isAdmin||!partyManager.isInParty(p))) {
+			p.sendMessage("Sorry but you can't be teleported");
+			return;
+		}
+
+		List<Location> list = new ArrayList<>();
+
+		Location finalLoc = null;
+		if(worldName.equals("floor_1")) {
+			list = floor1Spawns;
+		}else if(worldName.equals("floor_2")) {
+			list = floor2Spawns;
+		}else if(worldName.equals("floor_3")) {
+			list = floor3Spawns;
+		}else if(worldName.equals("floor_4")){
+            finalLoc = bossRoomManager.findRoom().clone().add(bossRoomManager.size/2.0,bossRoomManager.size/2.0,bossRoomManager.size/2.0);
+		}
+
+
+		if(finalLoc==null) {
+			if(list.size()==1) {
+				finalLoc = list.get(0);
+			}else {
+				finalLoc = list.get(DunUtils.getRandomValue(0, list.size()-1));
+			}
+			finalLoc = finalLoc.add(0, 1, 0);
+		}
+
+		for(Player player:partyManager.getPlayerList(p)) {
+			player.teleport(finalLoc);
+		}
+	}
+
+	public ChestHandler getChestHandler() {
+		return chestHandler;
 	}
 }
 
