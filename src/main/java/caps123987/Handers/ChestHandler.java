@@ -34,7 +34,7 @@ public class ChestHandler implements Listener{
 	
 	public ChestHandler(DungeonGenerator p) {
 		plugin = p;
-		chestManager = p.chestManager;
+		chestManager = p.getChestManager();
 
 		customModelDataMap.put(334,"rare;\uDBC7\uDCB8\uDBE3\uDC1A rare");
 		customModelDataMap.put(335,"epic;\uDBC7\uDCB8\uDBD3\uDD8B epic");

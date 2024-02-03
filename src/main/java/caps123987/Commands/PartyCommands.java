@@ -19,7 +19,7 @@ public class PartyCommands implements CommandExecutor{
 	
 	public PartyCommands(DungeonGenerator instance) {
 		this.instance = instance;
-		partyManager = instance.partyManager;
+		partyManager = instance.getPartyManager();
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

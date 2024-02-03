@@ -131,7 +131,7 @@ public class Generator {
 					return;
 				}
 
-				instance.bossRoomManager.reset();
+				instance.getBossRoomManager().reset();
 
 				Bukkit.broadcastMessage("size: "+roomList.size());
 				

@@ -37,8 +37,8 @@ public class AdminCommands implements CommandExecutor{
 	
 	public AdminCommands(DungeonGenerator instance) {
 		this.instance = instance;
-		handler = instance.easyRoomHandler;
-		partyManager = instance.partyManager;
+		handler = instance.getEasyRoomHandler();
+		partyManager = instance.getPartyManager();
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -92,32 +92,38 @@ public class AdminCommands implements CommandExecutor{
 			createItem(args[1],p,args[2]);
 			return true;
 		}
-		
+
+		if(subCommand.equals("removeItem")) {
+			removeItems(p,args[1], args[2]);
+			return true;
+		}
+
 		if(subCommand.equals("stopRun")) {
 			sender.sendMessage("stopRun");
-			
+
 			instance.asyncGenID.cancel();
 			Bukkit.getScheduler().cancelTask(instance.asyncGenID.getTaskId());
-			
+
 			return true;
 		}
-		
+
 		if(subCommand.equals("uploadSch")) {
 			uploadSch(sender);
-			
+
 			return true;
 		}
-		
+
 		if(subCommand.equals("creatorTools")) {
 			creatorTools(p);
 			return true;
 		}
-		
+
 		if(subCommand.equals("roomCalculate")) {
 			handler.generate();
 			return true;
 		}
-		
+
+
 		return true;
 	}
 	public void creatorTools(Player p) {
@@ -262,5 +268,53 @@ public class AdminCommands implements CommandExecutor{
 				e.printStackTrace();
 			}
 		*/
+	}
+
+	public void removeItems(Player p, String section, String itemName) {
+
+		File itemsF = new File(DungeonGenerator.getInstance().getDataFolder(),"items/"+p.getLocation().getWorld().getName()+".yml");
+
+		FileConfiguration yaml1=YamlConfiguration.loadConfiguration(itemsF);
+
+		if(section.equals("pot")) {
+			for (ItemWRarity item : DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT")) {
+				if(item.getItem().getType().name().equals(itemName)) {
+					DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT").remove(item);
+					break;
+				}
+			}
+			yaml1.set("potItems", DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("DECORATED_POT"));
+		}
+
+
+		if(section.equals("rare")) {
+			for (ItemWRarity item : DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("rare")) {
+				if(item.getItem().getType().name().equals(itemName)) {
+					DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("rare").remove(item);
+					break;
+				}
+			}
+			yaml1.set("rare", DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("rare"));
+		}
+
+		if(section.equals("epic")) {
+			for (ItemWRarity item : DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("epic")) {
+				if(item.getItem().getType().name().equals(itemName)) {
+					DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("epic").remove(item);
+					break;
+				}
+			}
+			yaml1.set("epic", DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("epic"));
+		}
+
+		if(section.equals("legendary")) {
+			for (ItemWRarity item : DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("legendary")) {
+				if(item.getItem().getType().name().equals(itemName)) {
+					DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("legendary").remove(item);
+					break;
+				}
+			}
+			yaml1.set("legendary", DungeonGenerator.invMap.get(p.getLocation().getWorld().getName()).get("legendary"));
+		}
 	}
 }

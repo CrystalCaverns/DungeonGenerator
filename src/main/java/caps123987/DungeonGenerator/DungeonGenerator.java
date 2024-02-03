@@ -42,10 +42,10 @@ public class DungeonGenerator extends JavaPlugin{
 	public Logger logger;
 	
 	public static DungeonGenerator instance;
-	public ChestManager chestManager;
-	public EasyRoomHandler easyRoomHandler;
-	public PartyManager partyManager;
-	public BossRoomManager bossRoomManager;
+	private ChestManager chestManager;
+	private EasyRoomHandler easyRoomHandler;
+	private PartyManager partyManager;
+	private BossRoomManager bossRoomManager;
 	private ChestHandler chestHandler;
 	
 	public final int maxInv = 20;
@@ -289,6 +289,19 @@ public class DungeonGenerator extends JavaPlugin{
 
 	public ChestHandler getChestHandler() {
 		return chestHandler;
+	}
+
+	public PartyManager getPartyManager() {
+		return partyManager;
+	}
+	public ChestManager getChestManager() {
+		return chestManager;
+	}
+	public EasyRoomHandler getEasyRoomHandler() {
+		return easyRoomHandler;
+	}
+	public BossRoomManager getBossRoomManager() {
+		return bossRoomManager;
 	}
 }
 

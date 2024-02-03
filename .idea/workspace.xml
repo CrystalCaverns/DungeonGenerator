@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/InteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/KeyToolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Managers/ChestManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Utils/LootTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/LeaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/LeaveListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +152,10 @@
       <workItem from="1705918441759" duration="2134000" />
       <workItem from="1705921557005" duration="829000" />
       <workItem from="1706275287452" duration="5000" />
+      <workItem from="1706440014693" duration="1239000" />
+      <workItem from="1706821658515" duration="795000" />
+      <workItem from="1706875904010" duration="4000" />
+      <workItem from="1706957113339" duration="1623000" />
     </task>
     <task id="LOCAL-00001" summary="bossroom">
       <option name="closed" value="true" />

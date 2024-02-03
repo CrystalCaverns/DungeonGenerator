@@ -33,7 +33,7 @@ public class BossRoomManager implements CommandExecutor {
 		this.size = size;
 		this.origin = origin;
 		this.instance = instance;
-		partyManager = instance.partyManager;
+		partyManager = instance.getPartyManager();
 	}
 
 
