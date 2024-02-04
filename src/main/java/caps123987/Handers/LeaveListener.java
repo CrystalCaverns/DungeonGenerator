@@ -16,6 +16,7 @@ public class LeaveListener implements Listener{
 	public LeaveListener(DungeonGenerator instance) {
 		this.instance = instance;
 		partyManager = instance.getPartyManager();
+
 	}
 	
 	@EventHandler

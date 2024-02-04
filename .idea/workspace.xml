@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="bossroom">
+    <list default="true" id="7f00cd12-426f-4fce-933e-2f6f210a76e9" name="Changes" comment="new Commands+">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/BossRoom/BossRoomManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/AdminTabC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Commands/PartyCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/DungeonGenerator/DungeonGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Generator/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/ChestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/caps123987/Handers/LeaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/caps123987/Handers/LeaveListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +148,7 @@
       <workItem from="1706440014693" duration="1239000" />
       <workItem from="1706821658515" duration="795000" />
       <workItem from="1706875904010" duration="4000" />
-      <workItem from="1706957113339" duration="1623000" />
+      <workItem from="1706957113339" duration="2429000" />
     </task>
     <task id="LOCAL-00001" summary="bossroom">
       <option name="closed" value="true" />
@@ -181,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701204612339</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="new Commands+">
+      <option name="closed" value="true" />
+      <created>1706958759633</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706958759633</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +202,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="bossmanager" />
     <MESSAGE value="bossroom" />
-    <option name="LAST_COMMIT_MESSAGE" value="bossroom" />
+    <MESSAGE value="new Commands+" />
+    <option name="LAST_COMMIT_MESSAGE" value="new Commands+" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
